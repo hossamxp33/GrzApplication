@@ -18,11 +18,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codesroots.osamaomar.Grz.R;
 import com.codesroots.osamaomar.Grz.models.entities.Product;
 import com.codesroots.osamaomar.Grz.models.entities.StoreSetting;
+import com.codesroots.osamaomar.Grz.models.helper.AddorRemoveCallbacks;
 import com.codesroots.osamaomar.Grz.models.helper.PreferenceHelper;
+import com.codesroots.osamaomar.Grz.models.usecases.Publicusecase;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.mainfragment.ProductsDetailsViewModel;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.productdetailsfragment.adapters.ImagesAdapterForColor;
@@ -42,12 +45,13 @@ public class ProductDetailsFragment extends Fragment {
     private Group colorscontainer;
     int userid = PreferenceHelper.getUserId();
     ProductSizesAdapter productSizesAdapter;
-    ImageView addToFav;
+    ImageView addToFav,share;
     public StoreSetting setting;
     private ViewPager product_images;
     public boolean freecharg = false;
     ProductsDetailsViewModel productsDetailsViewModel;
     ImagesAdapterForColor imagesAdapterForColor;
+    private Product product;
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -58,9 +62,30 @@ public class ProductDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.product_details_fragment, container, false);
         int productid = getArguments().getInt(PRODUCT_ID, 0);
         findViewsFromXml(view);
+        share.setOnClickListener(v -> Publicusecase.shareTextUrl(getContext(),"http://grzexpress.com/ar/products/details/"+productid));
         productsDetailsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductsDetailsViewModel.class);
-        productsDetailsViewModel.getProductDetailsData(productid, 1);// TODO: 23/04/2019
+        productsDetailsViewModel.getProductDetailsData(productid, userid);
         productsDetailsViewModel.productMutableLiveData.observe(this, this::setProductDetailsToViews);
+
+        addtocart.setOnClickListener(v -> {
+//            if (userid>0) {
+//                if (PreferenceHelper.retriveCartItemsValue() != null) {
+//                    if (!PreferenceHelper.retriveCartItemsValue().contains(String.valueOf(product.getProductid()))) {
+//                        PreferenceHelper.addItemtoCart(product.getProductid());
+//                      //  ((AddorRemoveCallbacks) getActivity()).onAddProduct();
+//                        Toast.makeText(getActivity(), getActivity().getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+//                    } else
+//                        Toast.makeText(getActivity(), getActivity().getText(R.string.aleady_exists), Toast.LENGTH_SHORT).show();
+//                } else {
+//                    PreferenceHelper.addItemtoCart(product.getProductid());
+//                  //  ((AddorRemoveCallbacks) getActivity()).onAddProduct();
+//                    Toast.makeText(getActivity(), getActivity().getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            else
+//                Toast.makeText(getActivity(), getActivity().getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
+
+        });
         return view;
     }
 
@@ -115,6 +140,7 @@ public class ProductDetailsFragment extends Fragment {
         charege = view.findViewById(R.id.charge);
         colorscontainer = view.findViewById(R.id.colorscontainer);
         images_count = view.findViewById(R.id.images_count);
+        share = view.findViewById(R.id.share);
     }
 
     private MainViewModelFactory getViewModelFactory() {

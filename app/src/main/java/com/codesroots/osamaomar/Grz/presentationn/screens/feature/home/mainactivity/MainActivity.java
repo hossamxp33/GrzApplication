@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity
         initialize();
 
         search.setOnClickListener(v -> {
-            shareTextUrl();
-           // performSearch();
+            // shareTextUrl();
+            performSearch();
         });
 
         searchName.setOnEditorActionListener((v, actionId, event) -> {
@@ -135,14 +135,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void shareTextUrl() {
-        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-        share.setType("text/plain");
-        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        // Add data to the intent, the receiving app will decide
-        // what to do with it.
-        share.putExtra(Intent.EXTRA_SUBJECT, "Title Of The Post");
-        share.putExtra(Intent.EXTRA_TEXT, "https://www.amazon.ae/MXQ-4K-Android-RK3229-Quad-AirplaySmart/dp/B07NF1N27J/ref=lp_12303800031_1_2?s=electronics&ie=UTF8&qid=1556863809&sr=1-2");
-        startActivity(Intent.createChooser(share, "Share link!"));
-    }
+
 }

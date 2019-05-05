@@ -15,10 +15,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.codesroots.osamaomar.Grz.R;
 import com.codesroots.osamaomar.Grz.models.entities.Product;
+import com.codesroots.osamaomar.Grz.models.helper.AddorRemoveCallbacks;
 import com.codesroots.osamaomar.Grz.models.helper.AddorRemoveFav;
+import com.codesroots.osamaomar.Grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.productfragment.ProductsFragment;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.rate.RateActivity;
@@ -34,7 +38,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     private List<Product> productsbysubcats;
     boolean[] favorite;
     AddorRemoveFav productsFragment;
-    int userid =1;// PreferenceHelper.getUserId();
+    int userid = PreferenceHelper.getUserId();
     Fragment fragment = new ProductDetailsFragment();
     Bundle bundle = new Bundle();
 
@@ -119,6 +123,26 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                 }
             } else
                 Snackbar.make(v, context.getText(R.string.loginfirst), Snackbar.LENGTH_LONG).show();
+        });
+
+        holder.add_to_cart.setOnClickListener(v -> {
+//            if (userid>0) {
+//                if (PreferenceHelper.retriveCartItemsValue() != null) {
+//                    if (!PreferenceHelper.retriveCartItemsValue().contains(String.valueOf(productsbysubcats.get(position).getProductid()))) {
+//                        PreferenceHelper.addItemtoCart(productsbysubcats.get(position).getProductid());
+//                        //((AddorRemoveCallbacks) context).onAddProduct();
+//                        Toast.makeText(context, context.getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+//                    } else
+//                        Toast.makeText(context,context.getText(R.string.aleady_exists), Toast.LENGTH_SHORT).show();
+//                } else {
+//                    PreferenceHelper.addItemtoCart(productsbysubcats.get(position).getProductid());
+//                 //   ((AddorRemoveCallbacks) context).onAddProduct();
+//                    Toast.makeText(context, context.getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            else
+//                Toast.makeText(context, context.getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
+
         });
 
     }

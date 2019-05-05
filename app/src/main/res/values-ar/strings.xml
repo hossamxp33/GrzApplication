@@ -127,5 +127,6 @@
     <string name="mobiles">Mobiles</string>
     <string name="cloth">Cloth</string>
     <string name="currency">pound</string>
+    <string name="erroroccure">حدث خطأ حاول مرة أخري</string>
 
 </resources>

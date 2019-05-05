@@ -92,6 +92,7 @@ public class productsUseCase {
     public void getOffersData(CompositeDisposable mCompositeDisposable,
                               ProductAndCategries productAndCategries, MutableLiveData<List<Product>> data,
                               MutableLiveData<String> errormessag) {
+
         mCompositeDisposable.add(
                 productAndCategries.retrieveOffer()
                         .subscribeOn(Schedulers.io())

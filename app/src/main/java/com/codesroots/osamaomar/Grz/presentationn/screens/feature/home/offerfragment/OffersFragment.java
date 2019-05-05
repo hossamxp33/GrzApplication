@@ -51,7 +51,7 @@ public class OffersFragment extends Fragment {
         mViewModel.errormessage.observe(this, throwable ->
         {
             progress.setVisibility(View.GONE);
-            Toast.makeText(getActivity(), throwable, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getText(R.string.erroroccure), Toast.LENGTH_SHORT).show();
         });
 
         return view;

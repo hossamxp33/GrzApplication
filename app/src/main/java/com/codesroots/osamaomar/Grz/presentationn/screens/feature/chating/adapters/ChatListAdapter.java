@@ -19,28 +19,26 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.codesroots.osamaomar.Grz.R;
+import com.codesroots.osamaomar.Grz.models.entities.chatmessages;
 import com.codesroots.osamaomar.Grz.models.helper.PreferenceHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.CustomView> {
 
 
     private Context context;
-  //  private List<chatmessages.DataBean> allMessage;
-    PreferenceHelper preferenceHelper;
+     private List<chatmessages.DataBean> allMessage;
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
     Integer companyId;
 
     public ChatListAdapter(FragmentActivity activity) {
         this.context =  activity;
-        preferenceHelper =new PreferenceHelper(context);
-        SharedPreferences prefs = context.getSharedPreferences("My_Pref", Context.MODE_PRIVATE);
-        if (prefs.getString("userId", "").matches("-?\\d+"))
-            companyId =Integer.valueOf(prefs.getString("userId", ""));
     }
 
 
@@ -48,29 +46,34 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Custom
     public ChatListAdapter.CustomView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view;
 
-//            if (viewType != 1)
-//                view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.recycler_item_chat_send, parent, false);
-//
-//            else
-//                view = LayoutInflater.from(parent.getContext())
-//                        .inflate(R.layout.recycler_item_chat_recievied, parent, false);
+            if (viewType != 1)
+                view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recycler_item_chat_send, parent, false);
+            else
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.recycler_item_chat_recievied, parent, false);
 
-
-        return new ChatListAdapter.CustomView(null);
+        return new ChatListAdapter.CustomView(view);
 
     }
 
 
     @Override
     public int getItemViewType(int position) {
-//
+
 //        if (allMessage.get(position).getFromm()==companyId)
 //            return VIEW_TYPE_MESSAGE_SENT;
 //        else
 //            return  VIEW_TYPE_MESSAGE_RECEIVED;
 
-        return 0;
+        if (position==0)
+            return VIEW_TYPE_MESSAGE_SENT;
+        else if (position == 1)
+            return  VIEW_TYPE_MESSAGE_RECEIVED;
+        else if (position == 2)
+            return  VIEW_TYPE_MESSAGE_SENT;
+        else
+            return  VIEW_TYPE_MESSAGE_SENT;
     }
 
     @Override
@@ -125,25 +128,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Custom
 //            itemImage=mView.findViewById(R.id.image);
 //            cardwithmessage=mView.findViewById(R.id.cardmessage);
 //            cardwithimage=mView.findViewById(R.id.cardforimage);
-
         }
     }
 
-    private String  getTime(String date)
-    {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
-        try {
-            Date dateObj= sdf.parse(date);
-            String timestamp = String.valueOf(dateObj.getTime());//  //Example -> in ms
-            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm aa");
-            String dateString = formatter.format(new Date(Long.parseLong(timestamp)));
-            return dateString;
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     // Shows image  in full screen using  dialog
     public static void showImage(Context context , Uri uri) {
@@ -157,7 +144,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Custom
                 //nothing;
             }
         });
-
         ImageView imageView = new ImageView(context);
         Glide.with(context)
                 .load(uri) // Uri of the picture
@@ -166,6 +152,5 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Custom
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         dialog.show();
-
 }
 }

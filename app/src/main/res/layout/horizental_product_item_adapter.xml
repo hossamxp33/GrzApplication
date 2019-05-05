@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@color/white"
-
+    android:background="@drawable/linear_background"
     android:orientation="horizontal">
 
     <android.support.constraint.Guideline
@@ -49,9 +48,11 @@
     <ImageView
         android:id="@+id/item_img"
         android:layout_width="120dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="15dp"
         android:padding="5dp"
         android:src="@drawable/product"
         app:layout_constraintStart_toStartOf="parent" />
@@ -82,7 +83,7 @@
         android:layout_marginTop="10dp"
         android:isIndicator="true"
         android:theme="@style/RatingBar"
-        app:layout_constraintStart_toEndOf="@id/item_img"
+        app:layout_constraintStart_toEndOf="@id/item_price"
         app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
     <TextView
@@ -103,13 +104,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:maxLines="2"
-        android:text="500ريال"
+        android:text="500ر.ع"
         android:textColor="@color/black"
         android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent "
-        app:layout_constraintStart_toEndOf="@id/quentity"
+        app:layout_constraintStart_toEndOf="@id/item_img"
         app:layout_constraintTop_toTopOf="@+id/rates"
         app:layout_constraintWidth_percent="0.3" />
 
@@ -120,6 +120,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:text="متوفر 5 قطع "
         android:textColor="@color/colorPrimary"
@@ -135,6 +136,7 @@
         android:layout_width="30dp"
         android:layout_height="25dp"
         android:layout_margin="8dp"
+        android:visibility="gone"
         android:src="@drawable/like"
         android:background="@color/light_gray"
         app:layout_constraintTop_toTopOf="@+id/add_to_cart"
@@ -145,17 +147,15 @@
         android:id="@+id/add_to_cart"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/linear_background_for_addtocart"
         android:gravity="center"
         android:text="@string/addtocart"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/item_img"
         app:layout_constraintEnd_toStartOf="@id/favorite"
-        app:layout_constraintTop_toBottomOf="@+id/quentity"
         app:layout_constraintWidth_percent="0.25" />
 
 

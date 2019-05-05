@@ -136,4 +136,7 @@
     <string name="filter">تصفية</string>
     <string name="byprice">بالسعر</string>
     <string name="byspilling">بالهجائي</string>
+    <string name="erroroccure">error occure</string>
+    <string name="deliverd">تم الاستلام</string>
+
 </resources>
