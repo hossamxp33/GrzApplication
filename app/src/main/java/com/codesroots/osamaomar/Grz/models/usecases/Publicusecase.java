@@ -14,15 +14,14 @@ import java.util.Date;
 public class Publicusecase {
 
 
-    public  static  void makeToas(Context context,String message)
-    {
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    public static void makeToas(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 
-    public static void makeSnakBare(View view,String message)
-    {
-        Snackbar.make(view,message,Snackbar.LENGTH_SHORT).show();
+    public static void makeSnakBare(View view, String message) {
+        if (view != null)
+            Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
     }
 
 
@@ -40,23 +39,21 @@ public class Publicusecase {
     }
 
 
-    public static String  getTime(String date)
-    {
+    public static String getTime(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
         try {
-            Date dateObj= sdf.parse(date);
+            Date dateObj = sdf.parse(date);
             String timestamp = String.valueOf(dateObj.getTime());//  //Example -> in ms
             SimpleDateFormat formatter = new SimpleDateFormat("hh:mm aa");
             String dateString = formatter.format(new Date(Long.parseLong(timestamp)));
             return dateString;
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static void shareTextUrl(Context context,String link) {
+    public static void shareTextUrl(Context context, String link) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);

@@ -22,31 +22,56 @@ public class ProductDetails {
          * name_en : Marine Collagen
          * description : الكولاجين البحري
          * description_en : Marine Collagen
-         * productsizes : [{"id":111,"product_id":74,"start_price":"12","amount":10,"size":"60 س"}]
-         * total_rating : [{"product_id":74,"stars":27,"count":7}]
-         * productphotos : [{"product_id":74,"id":44,"photo":"http://shopgate.codesroots.com/library/attachment/1555320503900203421.jpg"}]
-         * offers : [{"id":84,"percentage":"18","product_id":74}]
+         * productsizes : [{"id":111,"id":74,"start_price":"12","amount":10,"size":"60 س"}]
+         * total_rating : [{"id":74,"stars":27,"count":7}]
+         * productphotos : [{"id":74,"id":44,"photo":"http://shopgate.codesroots.com/library/attachment/1555320503900203421.jpg"}]
+         * offers : [{"id":84,"percentage":"18","id":74}]
          * favourites : []
          */
 
-        private int id;
+        private int product_id;
         private String name;
         private String name_en;
         private String description;
         private String description_en;
-        private List<ProductsizesBean> productsizes;
-        private List<ColorBean> ColorBean;
+        private String currentPrice;
+        private List<ProductsizesBean> product_sizes;
+        private List<ColorBean> product_colors;
         private List<TotalRatingBean> total_rating;
         private List<ProductphotosBean> productphotos;
         private List<OffersBean> offers;
         private List<FavouritesBean> favourites;
 
+        public List<ProductsizesBean> getProduct_sizes() {
+            return product_sizes;
+        }
+
+        public void setProduct_sizes(List<ProductsizesBean> product_sizes) {
+            this.product_sizes = product_sizes;
+        }
+
+        public List<ColorBean> getProduct_colors() {
+            return product_colors;
+        }
+
+        public void setProduct_colors(List<ColorBean> product_colors) {
+            this.product_colors = product_colors;
+        }
+
+        public String getCurrentPrice() {
+            return currentPrice;
+        }
+
+        public void setCurrentPrice(String currentPrice) {
+            this.currentPrice = currentPrice;
+        }
+
         public int getId() {
-            return id;
+            return product_id;
         }
 
         public void setId(int id) {
-            this.id = id;
+            this.product_id = id;
         }
 
         public String getName() {
@@ -82,11 +107,11 @@ public class ProductDetails {
         }
 
         public List<ProductsizesBean> getProductsizes() {
-            return productsizes;
+            return product_sizes;
         }
 
         public void setProductsizes(List<ProductsizesBean> productsizes) {
-            this.productsizes = productsizes;
+            this.product_sizes = productsizes;
         }
 
         public List<TotalRatingBean> getTotal_rating() {
@@ -122,26 +147,31 @@ public class ProductDetails {
         }
 
         public static class ProductsizesBean {
+
             /**
-             * id : 111
-             * product_id : 74
-             * start_price : 12
-             * amount : 10
-             * size : 60 س
+             * uid : 1
+             * product_id : 1
+             * size_title : ٣٠ ملي
+             * status : 0
+             * log_user : null
+             * created_at : 2019-05-05T22:45:06+0000
+             * updated_at : 2019-05-05T22:45:06+0000
              */
 
-            private int id;
+            private int uid;
             private int product_id;
-            private String start_price;
-            private int amount;
-            private String size;
+            private String size_title;
+            private int status;
+            private String log_user;
+            private String created_at;
+            private String updated_at;
 
-            public int getId() {
-                return id;
+            public int getUid() {
+                return uid;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setUid(int uid) {
+                this.uid = uid;
             }
 
             public int getProduct_id() {
@@ -152,34 +182,50 @@ public class ProductDetails {
                 this.product_id = product_id;
             }
 
-            public String getStart_price() {
-                return start_price;
+            public String getSize_title() {
+                return size_title;
             }
 
-            public void setStart_price(String start_price) {
-                this.start_price = start_price;
+            public void setSize_title(String size_title) {
+                this.size_title = size_title;
             }
 
-            public int getAmount() {
-                return amount;
+            public int getStatus() {
+                return status;
             }
 
-            public void setAmount(int amount) {
-                this.amount = amount;
+            public void setStatus(int status) {
+                this.status = status;
             }
 
-            public String getSize() {
-                return size;
+            public Object getLog_user() {
+                return log_user;
             }
 
-            public void setSize(String size) {
-                this.size = size;
+            public void setLog_user(String log_user) {
+                this.log_user = log_user;
+            }
+
+            public String getCreated_at() {
+                return created_at;
+            }
+
+            public void setCreated_at(String created_at) {
+                this.created_at = created_at;
+            }
+
+            public String getUpdated_at() {
+                return updated_at;
+            }
+
+            public void setUpdated_at(String updated_at) {
+                this.updated_at = updated_at;
             }
         }
 
         public static class TotalRatingBean {
             /**
-             * product_id : 74
+             * id : 74
              * stars : 27
              * count : 7
              */
@@ -215,7 +261,7 @@ public class ProductDetails {
 
         public static class ProductphotosBean {
             /**
-             * product_id : 74
+             * id : 74
              * id : 44
              * photo : http://shopgate.codesroots.com/library/attachment/1555320503900203421.jpg
              */
@@ -250,22 +296,34 @@ public class ProductDetails {
         }
 
         public static class ColorBean {
+
+
             /**
-             * product_id : 31
-             * id : 1
-             * user_id : 2
+             * uid : 1
+             * product_id : 1
+             * color_id : 1
+             * status : 0
+             * log_user : 0
+             * created_at : 2019-05-07T13:25:05+0000
+             * updated_at : 2019-05-07T13:25:05+0000
+             * color : {"name":"احمر"}
              */
 
+            private int uid;
             private int product_id;
-            private int id;
-            private String colorhex;
+            private int color_id;
+            private int status;
+            private String log_user;
+            private String created_at;
+            private String updated_at;
+            private ColorData color;
 
-            public String getColorhex() {
-                return colorhex;
+            public int getUid() {
+                return uid;
             }
 
-            public void setColorhex(String colorhex) {
-                this.colorhex = colorhex;
+            public void setUid(int uid) {
+                this.uid = uid;
             }
 
             public int getProduct_id() {
@@ -276,19 +334,76 @@ public class ProductDetails {
                 this.product_id = product_id;
             }
 
-            public int getId() {
-                return id;
+            public int getColor_id() {
+                return color_id;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setColor_id(int color_id) {
+                this.color_id = color_id;
             }
 
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            public String getLog_user() {
+                return log_user;
+            }
+
+            public void setLog_user(String log_user) {
+                this.log_user = log_user;
+            }
+
+            public String getCreated_at() {
+                return created_at;
+            }
+
+            public void setCreated_at(String created_at) {
+                this.created_at = created_at;
+            }
+
+            public String getUpdated_at() {
+                return updated_at;
+            }
+
+            public void setUpdated_at(String updated_at) {
+                this.updated_at = updated_at;
+            }
+
+            public ColorData getColor() {
+                return color;
+            }
+
+            public void setColor(ColorData color) {
+                this.color = color;
+            }
+
+            public static class ColorData {
+                /**
+                 * name : احمر
+                 */
+
+                private String name;
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+            }
         }
+
+
 
         public static class FavouritesBean {
             /**
-             * product_id : 31
+             * id : 31
              * id : 1
              * user_id : 2
              */
@@ -326,7 +441,7 @@ public class ProductDetails {
             /**
              * id : 84
              * percentage : 18
-             * product_id : 74
+             * id : 74
              */
 
             private int id;

@@ -64,15 +64,8 @@ public class MainActivity extends AppCompatActivity
             return false;
         });
 
-        cartbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new CartFragment()).addToBackStack(null).commit();
-
-            }
-        });
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new MainFragment()).addToBackStack(null).commit();
-
+        cartbtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new CartFragment()).addToBackStack(null).commit());
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new MainFragment()).commit();
     }
 
     private void initialize() {

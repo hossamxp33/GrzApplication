@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.codesroots.osamaomar.Grz.datalayer.repositries.ProductAndCategries;
 import com.codesroots.osamaomar.Grz.models.entities.AddToFavModel;
-import com.codesroots.osamaomar.Grz.models.entities.CartItems;
 import com.codesroots.osamaomar.Grz.models.entities.DefaultAdd;
 import com.codesroots.osamaomar.Grz.models.entities.MainView;
 import com.codesroots.osamaomar.Grz.models.entities.ProductDetails;
@@ -48,9 +47,9 @@ public class productsUseCase {
     @SuppressLint("CheckResult")
     public void retrieveProductsData(CompositeDisposable mCompositeDisposable,
                                      ProductAndCategries productAndCategries, MutableLiveData<List<Product>> data,
-                                     MutableLiveData<String> errormessage, int catid, int type, int userid, List<Product> resultData) {
+                                     MutableLiveData<String> errormessage, int catid, List<Product> resultData) {
 
-        productAndCategries.retrieveProductsData(catid, type, userid).subscribeOn(Schedulers.io())
+        productAndCategries.retrieveProductsData(catid).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(mainView ->
                 this.postProducsData(mainView, data, resultData), throwable -> postError(throwable, errormessage));
     }
@@ -59,11 +58,12 @@ public class productsUseCase {
     @SuppressLint("CheckResult")
     public void retrieveSearchProductsData(CompositeDisposable mCompositeDisposable,
                                            ProductAndCategries productAndCategries, MutableLiveData<List<Product>> data,
-                                           MutableLiveData<String> errormessage, String searchkey, String type, int userid, List<Product> resultData) {
+                                           MutableLiveData<String> errormessage, String searchkey, String type, List<Product> resultData) {
 
-        productAndCategries.retrieveSearchProductsData(searchkey, type, userid).subscribeOn(Schedulers.io())
+        productAndCategries.retrieveSearchProductsData(searchkey, type).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(mainView ->
-                this.postProducsData(mainView, data, resultData), throwable -> postError(throwable, errormessage));
+                this.postProducsData(mainView, data, resultData), throwable ->
+                postError(throwable, errormessage));
     }
 
     private void postProducsData(Products products, MutableLiveData<List<Product>> data, List<Product> resultData) {
@@ -72,16 +72,10 @@ public class productsUseCase {
 
     private void postDataResponse(MainView mainViewData, MutableLiveData<mainData> data) {
 
-        List<ProductDetails.product> productsbyrate = new ArrayList<>();
-        for (int i = 0; i < mainViewData.getProductsbyrate().size(); i++) {
-            if (mainViewData.getProductsbyrate().get(i).getProduct() != null)
-                productsbyrate.add((mainViewData.getProductsbyrate().get(i).getProduct()));
-        }
-
         mainData mainData = new mainData();
         mainData.setSlider(mainViewData.getSliders());
         mainData.setCategories(mainViewData.getCategory());
-        mainData.setProducts(reshapProducts(productsbyrate));
+        mainData.setProducts(reshapProducts(mainViewData.getProductsbyrate()));
         data.postValue(mainData);
     }
 
@@ -117,12 +111,12 @@ public class productsUseCase {
         for (int i = 0; i < productsbyrate.size(); i++) {
             Product product = new Product();
             product.setProductid(productsbyrate.get(i).getId());
-            if (productsbyrate.get(i).getProductsizes() != null) {
-                if (productsbyrate.get(i).getProductsizes().size() > 0) {
-                    product.setPrice(productsbyrate.get(i).getProductsizes().get(0).getStart_price());
-                    product.setSizes(productsbyrate.get(i).getProductsizes());
-                }
-            }
+            product.setPrice(productsbyrate.get(i).getCurrentPrice());
+            product.setSizes(productsbyrate.get(i).getProductsizes());
+            product.setColores(productsbyrate.get(i).getProduct_colors()
+
+
+            );
 
             product.setName(productsbyrate.get(i).getName());
             if (productsbyrate.get(i).getTotal_rating() != null) {
@@ -151,8 +145,8 @@ public class productsUseCase {
 
             if (productsbyrate.get(i).getOffers() != null) {
                 if (productsbyrate.get(i).getOffers().size() > 0) {
-                    product.setAfteroffer(Float.valueOf(productsbyrate.get(i).getProductsizes().get(0).getStart_price()) -
-                            Float.valueOf(productsbyrate.get(i).getProductsizes().get(0).getStart_price()) *
+                    product.setAfteroffer(Float.valueOf(productsbyrate.get(i).getCurrentPrice()) -
+                            Float.valueOf(productsbyrate.get(i).getCurrentPrice()) *
                                     Integer.valueOf(productsbyrate.get(i).getOffers().get(0).getPercentage()) / 100 + "");
                     product.setDiscountpercentage(Integer.valueOf(productsbyrate.get(i).getOffers().get(0).getPercentage()));
                 }

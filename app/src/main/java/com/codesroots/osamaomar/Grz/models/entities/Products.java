@@ -8,14 +8,14 @@ import java.util.List;
 public class Products {
 
 
-    private List<ProductDetails.product> productsbycategory;
+    private List<ProductDetails.product> data;
 
     public List<ProductDetails.product> getProductsbycategory() {
-        return productsbycategory;
+        return data;
     }
 
     public void setProductsbycategory(List<ProductDetails.product> productsbycategory) {
-        this.productsbycategory = productsbycategory;
+        this.data = productsbycategory;
     }
 
 

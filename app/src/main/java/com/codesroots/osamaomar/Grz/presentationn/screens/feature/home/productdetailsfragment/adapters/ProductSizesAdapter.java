@@ -48,8 +48,8 @@ public class ProductSizesAdapter extends RecyclerView.Adapter<ProductSizesAdapte
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        holder.text.setText(productsizes.get(position).getSize());
-        fragment.amount.setText(context.getText(R.string.remendier) + " " + String.valueOf(productsizes.get(mSelectedItem).getAmount()) + " " + context.getText(R.string.num));
+        holder.text.setText(productsizes.get(position).getSize_title());
+    //    fragment.amount.setText(context.getText(R.string.remendier) + " " + String.valueOf(productsizes.get(mSelectedItem).getAmount()) + " " + context.getText(R.string.num));
 
         if (position == mSelectedItem)
             holder.text.setBackgroundResource(R.drawable.linear_background_for_selected_size);
@@ -59,7 +59,10 @@ public class ProductSizesAdapter extends RecyclerView.Adapter<ProductSizesAdapte
 
     @Override
     public int getItemCount() {
+        if (productsizes!=null)
         return productsizes.size();
+        else
+            return 0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,33 +78,6 @@ public class ProductSizesAdapter extends RecyclerView.Adapter<ProductSizesAdapte
             @SuppressLint("SetTextI18n") View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
                 notifyDataSetChanged();
-                if (offer > 0) {
-                    //hasOffer = true;
-                    float offerPercentage = Float.valueOf(productsizes.get(mSelectedItem).getStart_price()) * offer / 100;
-                    priceafteroffer = Float.valueOf(productsizes.get(mSelectedItem).getStart_price()) - offerPercentage;
-                    if (PreferenceHelper.getCurrency()!=null)
-                        fragment.price.setText(String.valueOf(priceafteroffer*PreferenceHelper.getCurrencyValue()) + context.getText(R.string.realcoin));
-                    else
-                    fragment.price.setText(String.valueOf(priceafteroffer) + context.getText(R.string.realcoin));
-
-                    if (offerPercentage < fragment.setting.getData().get(0).getShippingPrice()) {
-                        fragment.charege.setText(R.string.charge_rules);
-                        fragment.freecharg = false;  //// to set not free charge
-                    }
-                    else
-                        fragment.charege.setText(R.string.free_charge);
-                } else {
-                    fragment.price.setText(productsizes.get(mSelectedItem).getStart_price() + context.getText(R.string.realcoin));
-                    if (Float.valueOf(productsizes.get(mSelectedItem).getStart_price()) < fragment.setting.getData().get(0).getShippingPrice()) {
-                        fragment.charege.setText(R.string.charge_rules);
-                        fragment.freecharg = false;
-                    }
-                    else
-                        fragment.charege.setText(R.string.free_charge);
-                }
-
-                fragment.amount.setText(context.getText(R.string.remendier) + " " + String.valueOf(productsizes.get(mSelectedItem).getAmount()) +
-                        " " + context.getText(R.string.num));
             };
             itemView.setOnClickListener(clickListener);
         }

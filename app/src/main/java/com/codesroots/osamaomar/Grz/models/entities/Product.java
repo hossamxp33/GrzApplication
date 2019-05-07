@@ -9,7 +9,7 @@ public class Product {
     private float rate, offerpercentage;
     private int ratecount, productid, amount, favid, discountpercentage;
     private List<ProductDetails.product.ProductphotosBean> photos = new ArrayList<>();
-    private List<ProductDetails.product.ProductsizesBean> sizes = new ArrayList<>();
+    private List<ProductDetails.product.ProductsizesBean> product_sizes = new ArrayList<>();
     private List<ProductDetails.product.ColorBean> colores = new ArrayList<>();
 
     private boolean freecharge;
@@ -67,11 +67,11 @@ public class Product {
     }
 
     public List<ProductDetails.product.ProductsizesBean> getSizes() {
-        return sizes;
+        return product_sizes;
     }
 
     public void setSizes(List<ProductDetails.product.ProductsizesBean> sizes) {
-        this.sizes = sizes;
+        this.product_sizes = sizes;
     }
 
     public List<ProductDetails.product.ProductphotosBean> getPhotos() {

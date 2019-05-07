@@ -5,7 +5,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="google_maps_key">AIzaSyD8z2lWzm896P2g8VhaBfrVam0JL1BaiW0</string>
-    <string name="more_sale">الأكثر مبيعا في العناية بالشعر</string>
+    <string name="more_sale">More Sales</string>
 
     <string name="app_name">Grz</string>
     <string name="action_settings">Settings</string>
@@ -126,17 +126,17 @@
     <string name="mobiles">Mobiles</string>
     <string name="cloth">Cloth</string>
     <string name="currency">pound</string>
-    <string name="product_sizes">أحجام المنتج</string>
-    <string name="product_colors">ألوان المنتج</string>
-    <string name="sale_now">الشراء الان</string>
-    <string name="contact">تواصل مع الادارة</string>
-    <string name="chat">المحادثة</string>
-    <string name="chatlist">قائمة الدردشة</string>
-    <string name="deliveryaddress">أختر مكان التوصيل</string>
-    <string name="filter">تصفية</string>
-    <string name="byprice">بالسعر</string>
-    <string name="byspilling">بالهجائي</string>
-    <string name="erroroccure">error occure</string>
-    <string name="deliverd">تم الاستلام</string>
 
+    <string name="erroroccure"> Error Occure</string>
+    <string name="product_sizes">Product sizes</string>
+    <string name="product_colors">Product colores</string>
+    <string name="sale_now">sale now</string>
+    <string name="contact">Contact us</string>
+    <string name="chat">Chating</string>
+    <string name="chatlist">"Chat list "</string>
+    <string name="deliveryaddress">choice delivery place</string>
+    <string name="filter">filter</string>
+    <string name="byprice">by price</string>
+    <string name="byspilling">by name</string>
+    <string name="deliverd">deliver</string>
 </resources>

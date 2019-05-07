@@ -31,16 +31,15 @@ import retrofit2.http.Path;
 
 public interface ServerGateway {
 
-    @GET("Productsizes/mainpage.json")
+    @GET("Products/mainpage.json")
     Observable<MainView> getMainViewData();
 
     @GET("Categories/allcategories.json")
     Observable<Sidemenu> getSideMenuData();
 
-    @GET("Productsizes/productdetails/{product_id}/{user_id}.json")
+    @GET("Products/productdetails/{product_id}.json")
     Observable<ProductDetails> getProductDetails(
-            @Path("product_id") int product_id,
-            @Path("user_id") int user_id
+            @Path("product_id") int product_id
     );
 
 
@@ -51,11 +50,9 @@ public interface ServerGateway {
     );
 
 
-    @GET("Productsizes/getallproducts/{subcat_id}/{type}/{user_id}.json")
+    @GET("Products/getproductsbycatid/{cat_id}.json")
     Observable<Products> getProducts(
-            @Path("subcat_id") int cat_id,
-            @Path("type") int type,
-            @Path("user_id") int user_id
+            @Path("cat_id") int cat_id
     );
 
 
@@ -128,8 +125,7 @@ public interface ServerGateway {
     @POST("productsUseCase/searchbyname/{type}/{userid}.json")
     Observable<Products> getSearchResult(
             @Field("name") String  name,
-            @Path("type") String type,
-            @Path("userid") int userid
+            @Path("type") String type
     );
 
     ////////////// get currency

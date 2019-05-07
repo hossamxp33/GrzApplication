@@ -34,13 +34,11 @@ class ProductDetailsViewModel extends ViewModel {
         serverGateway = serverGateway1;
         product_id = id;
          userid = user_id;
-
     }
 
     public void getData() {
         getObservable().subscribeWith(getObserver());
     }
-
 
     public void getSettingData() {
         mCompositeDisposable.add(
@@ -59,12 +57,10 @@ class ProductDetailsViewModel extends ViewModel {
     private void postError(Throwable throwable) {
         throwableMutableLiveData.postValue(throwable);
     }
-
     public  void AddToFav ()
     {
         getObservableToFavObservable().subscribeWith(getObserverAddFav());
     }
-
     public  void DeleteFav (int favid)
     {
         getObservableToDeleteFav(favid).subscribeWith(getObserverDeletFav());
@@ -73,7 +69,7 @@ class ProductDetailsViewModel extends ViewModel {
     ////////////// getData
     @SuppressLint("CheckResult")
     private Observable<ProductDetails> getObservable() {
-        Observable<ProductDetails> photographersData = serverGateway.getProductDetails(product_id,userid);
+        Observable<ProductDetails> photographersData = serverGateway.getProductDetails(product_id);
         photographersData.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         return photographersData;

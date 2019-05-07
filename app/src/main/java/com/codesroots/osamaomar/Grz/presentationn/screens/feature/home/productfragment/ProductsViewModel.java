@@ -41,15 +41,16 @@ public class ProductsViewModel extends ViewModel {
         productsUseCase = useCase;
     }
 
-    public void getData (int id, int user_id,int type1)
+    public void getData (int id)
     {
         productsUseCase.retrieveProductsData(mCompositeDisposable,productAndCategries,productsMutableLiveData,
-                errorMessage,id,type1,user_id,resultData);
+                errorMessage,id,resultData);
     }
 
-    public void getSearchProductData ( int user_id,String type1,String key)
+    public void getSearchProductData (String type1,String key)
     {
-        productsUseCase.retrieveSearchProductsData(mCompositeDisposable,productAndCategries,productsMutableLiveData,errorMessage,key,type1,user_id,resultData);
+        productsUseCase.retrieveSearchProductsData
+                (mCompositeDisposable,productAndCategries,productsMutableLiveData,errorMessage,key,type1,resultData);
     }
 
 

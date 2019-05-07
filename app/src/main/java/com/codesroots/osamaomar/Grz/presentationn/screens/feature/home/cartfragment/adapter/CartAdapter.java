@@ -88,27 +88,27 @@ public class CartAdapter extends AllProductsAdapter {
 //            {
 //                if (PreferenceHelper.getCurrencyValue()>0)
 //                    holder.price.setText(getPriceAfterDiscount(dataBeans.get(position).getProduct().getOffers().get(0).getPercentage(),
-//                            dataBeans.get(position).getStart_price() )*PreferenceHelper.getCurrencyValue()+" "+PreferenceHelper.getCurrency());
+//                            dataBeans.get(position).getCurrentPrice() )*PreferenceHelper.getCurrencyValue()+" "+PreferenceHelper.getCurrency());
 //                else
 //                    holder.price.setText(getPriceAfterDiscount(dataBeans.get(position).getProduct().getOffers().get(0).getPercentage(),
-//                            dataBeans.get(position).getStart_price() )  + " " + context.getText(R.string.realcoin));
+//                            dataBeans.get(position).getCurrentPrice() )  + " " + context.getText(R.string.realcoin));
 //
-//              //  holder.price.setText(dataBeans.get(position).getStart_price() + " " + context.getText(R.string.realcoin));
+//              //  holder.price.setText(dataBeans.get(position).getCurrentPrice() + " " + context.getText(R.string.realcoin));
 //                products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString())*
-//                        getPriceAfterDiscount(dataBeans.get(position).getProduct().getOffers().get(0).getPercentage(),dataBeans.get(position).getStart_price())));
+//                        getPriceAfterDiscount(dataBeans.get(position).getProduct().getOffers().get(0).getPercentage(),dataBeans.get(position).getCurrentPrice())));
 //                products.get(position).setNotice("خصم بسبب العرض رقم "+dataBeans.get(position).getProduct().getOffers().get(0).getId());
 //
 //
 //            }
 //            else {
 //                products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-//                        Float.valueOf(dataBeans.get(position).getStart_price())));
+//                        Float.valueOf(dataBeans.get(position).getCurrentPrice())));
 //
 //                if (PreferenceHelper.getCurrencyValue()>0)
-//                    holder.price.setText(Float.valueOf(dataBeans.get(position).getStart_price())*PreferenceHelper.getCurrencyValue()+" "+PreferenceHelper.getCurrency());
+//                    holder.price.setText(Float.valueOf(dataBeans.get(position).getCurrentPrice())*PreferenceHelper.getCurrencyValue()+" "+PreferenceHelper.getCurrency());
 //
 //                else
-//                    holder.price.setText(dataBeans.get(position).getStart_price() + " " + context.getText(R.string.realcoin));
+//                    holder.price.setText(dataBeans.get(position).getCurrentPrice() + " " + context.getText(R.string.realcoin));
 //
 //
 //            }
@@ -147,12 +147,12 @@ public class CartAdapter extends AllProductsAdapter {
 //                        if (dataBeans.get(position).getProduct().getOffers().size()>0)
 //                        {
 //                            products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString())*
-//                                    getPriceAfterDiscount(dataBeans.get(position).getProduct().getOffers().get(0).getPercentage(),dataBeans.get(position).getStart_price())));
+//                                    getPriceAfterDiscount(dataBeans.get(position).getProduct().getOffers().get(0).getPercentage(),dataBeans.get(position).getCurrentPrice())));
 //                            products.get(position).setNotice("خصم بسبب العرض رقم "+dataBeans.get(position).getProduct().getOffers().get(0).getId());
 //                        }
 //                        else
 //                            products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString())*
-//                                    Float.valueOf(dataBeans.get(position).getStart_price())));
+//                                    Float.valueOf(dataBeans.get(position).getCurrentPrice())));
 //
 //                    }
 //                    else
@@ -168,12 +168,12 @@ public class CartAdapter extends AllProductsAdapter {
 //                if (dataBeans.get(position).getProduct().getOffers().size()>0)
 //                {
 //                    products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString())*
-//                            getPriceAfterDiscount(dataBeans.get(position).getProduct().getOffers().get(0).getPercentage(),dataBeans.get(position).getStart_price())));
+//                            getPriceAfterDiscount(dataBeans.get(position).getProduct().getOffers().get(0).getPercentage(),dataBeans.get(position).getCurrentPrice())));
 //                    products.get(position).setNotice("خصم بسبب العرض رقم "+dataBeans.get(position).getProduct().getOffers().get(0).getId());
 //                }
 //                else
 //                products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString())*
-//                        Float.valueOf(dataBeans.get(position).getStart_price())));
+//                        Float.valueOf(dataBeans.get(position).getCurrentPrice())));
 //            }
 //        });
 //    }

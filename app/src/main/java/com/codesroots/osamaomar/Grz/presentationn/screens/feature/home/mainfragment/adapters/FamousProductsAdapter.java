@@ -47,7 +47,7 @@ public class FamousProductsAdapter extends RecyclerView.Adapter<FamousProductsAd
         holder.name.setText(famousProduct.get(position).getName());
         Glide.with(context.getApplicationContext()).load(famousProduct.get(position).getPhoto()).into(holder.item_img);
         holder.ratingBar.setRating(famousProduct.get(position).getRate());
-        holder.price.setText(famousProduct.get(position).getPrice() + " " + context.getText(R.string.realcoin));
+        holder.price.setText(famousProduct.get(position).getPrice() + " " + context.getText(R.string.coin));
         holder.ratecount.setText("("+String.valueOf(famousProduct.get(position).getRatecount())+")");
 
         holder.mView.setOnClickListener(v ->

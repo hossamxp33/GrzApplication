@@ -30,6 +30,7 @@ import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.productfr
 
 import java.util.List;
 
+import static com.codesroots.osamaomar.Grz.models.entities.names.CAT_ID;
 import static com.codesroots.osamaomar.Grz.models.entities.names.CAT_TYPE;
 import static com.codesroots.osamaomar.Grz.models.entities.names.SUBCATES_NAME;
 import static com.codesroots.osamaomar.Grz.models.entities.names.SUB_CAT_ID;
@@ -41,10 +42,10 @@ public class ProductsFragment extends Fragment implements AddorRemoveFav {
     ConstraintLayout filter_option;
     ImageView changeSpane, filter;
     boolean RecycleIsHorizental = true;
-    int subCategry, userID, type;
+    int CategryId;
     private List<Product> productsData;
     private FrameLayout progress;
-    private TextView notfound, subcates_name, spillingfilter, pricefilter;
+    private TextView notfound, cates_name, spillingfilter, pricefilter;
     private AllProductsAdapter AllProductsAdapter;
     private String title, name;
 
@@ -54,16 +55,13 @@ public class ProductsFragment extends Fragment implements AddorRemoveFav {
 
         View view = inflater.inflate(R.layout.products_fragment, container, false);
         initialize(view);
-        //userID = PreferenceHelper.getUserId();
-        userID = 1;
-
         mViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductsViewModel.class);
-        mViewModel.getData(subCategry, userID, type);
+        mViewModel.getData(CategryId);
         name = getArguments().getString("name");
         if (name != null)
-            mViewModel.getSearchProductData(userID, "ar", name);
+            mViewModel.getSearchProductData("ar", name);
         else
-            mViewModel.getData(subCategry, userID, type);
+            mViewModel.getData(CategryId);
 
 
         mViewModel.productsMutableLiveData.observe(this, products ->
@@ -112,19 +110,12 @@ public class ProductsFragment extends Fragment implements AddorRemoveFav {
         spillingfilter = view.findViewById(R.id.spilingfilter);
         pricefilter = view.findViewById(R.id.pricefilter);
         notfound = view.findViewById(R.id.product_notfound);
-        subcates_name = view.findViewById(R.id.subcates_name);
-        subCategry = getArguments().getInt(SUB_CAT_ID, 0);
-        type = getArguments().getInt(CAT_TYPE, 0);
+        cates_name = view.findViewById(R.id.cates_name);
         title = getArguments().getString(SUBCATES_NAME);
-
-        String[] name_of_bookmarks = getResources().getStringArray(R.array.filters);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), R.layout.simple_list_item, name_of_bookmarks);
-        //  filter_option.setAdapter(arrayAdapter);
-        //    filter_option.setOnItemClickListener((parent, view1, position, id) -> {});
-
+        cates_name.setText(title);
+        CategryId = getArguments().getInt(CAT_ID, 0);
         changeSpane.setOnClickListener(onClickListener);
         filter.setOnClickListener(onFilterClickListener);
-        //   filter_option.setOnItemClickListener(AdapterView);
     }
 
 

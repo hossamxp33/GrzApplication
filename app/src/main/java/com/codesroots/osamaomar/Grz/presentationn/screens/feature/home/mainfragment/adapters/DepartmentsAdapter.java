@@ -25,15 +25,15 @@ import static com.codesroots.osamaomar.Grz.models.entities.names.CAT_NAME;
 import static com.codesroots.osamaomar.Grz.models.entities.names.CAT_TYPE;
 import static com.codesroots.osamaomar.Grz.models.entities.names.SUB_CAT_ID;
 
-public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.ViewHolder>  {
+public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.ViewHolder> {
 
     private Context context;
     private List<MainView.CategoryBean> categories;
-    public  DepartmentsAdapter(Context mcontext, List<MainView.CategoryBean> categories1) {
+
+    public DepartmentsAdapter(Context mcontext, List<MainView.CategoryBean> categories1) {
         context = mcontext;
         categories = categories1;
     }
-
 
     @NonNull
     @Override
@@ -44,30 +44,30 @@ public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder,final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-
-        Glide.with(context).load(categories.get(position).getPhoto()).dontAnimate().placeholder(R.drawable.dept1).into(holder.Image);
+        Glide.with(context).load(categories.get(position).getPhoto()).dontAnimate().
+                placeholder(R.drawable.dept1).into(holder.Image);
         holder.name.setText(categories.get(position).getName());
 
-        Bundle bundle = new Bundle();
-        bundle.putInt(CAT_ID,categories.get(position).getId());
-        bundle.putString(CAT_NAME,categories.get(position).getName());
-        Fragment sucCates_fragment = new SubcategryFragment();
-        Fragment product_fragment = new ProductsFragment();
-        sucCates_fragment.setArguments(bundle);
-        product_fragment.setArguments(bundle);
 
 //        if (categories.get(position).getSubcats().size()>0)
 //        holder.mView.setOnClickListener(v -> ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
 //                replace(R.id.fragment, sucCates_fragment).addToBackStack(null).commit());
 //        else
 //        {
-            bundle.putInt(CAT_TYPE,0);
-            bundle.putInt(SUB_CAT_ID,categories.get(position).getId());
-            holder.mView.setOnClickListener(v -> ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment, product_fragment).addToBackStack(null).commit());
-     //   }
+        holder.mView.setOnClickListener(v ->
+        {
+            Bundle bundle = new Bundle();
+            bundle.putInt(CAT_ID, categories.get(position).getCategory_id());
+            bundle.putString(CAT_NAME, categories.get(position).getName());
+            Fragment product_fragment = new ProductsFragment();
+            product_fragment.setArguments(bundle);
+            ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment, product_fragment).addToBackStack(null).commit();
+        });
+
+        //   }
     }
 
     @Override

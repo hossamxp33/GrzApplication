@@ -5,11 +5,8 @@ import android.arch.lifecycle.ViewModel;
 import com.codesroots.osamaomar.Grz.datalayer.repositries.ProductAndCategries;
 import com.codesroots.osamaomar.Grz.models.entities.Product;
 import com.codesroots.osamaomar.Grz.models.entities.mainData;
-import com.codesroots.osamaomar.Grz.models.entities.offers;
 import com.codesroots.osamaomar.Grz.models.usecases.productsUseCase;
-
 import java.util.List;
-
 import io.reactivex.disposables.CompositeDisposable;
 
 
@@ -38,7 +35,6 @@ public class ProductsDetailsViewModel extends ViewModel {
     }
 
 
-
     public void getProductDetailsData(int productid,int userid) {
         productsUseCase.retrieveProductDetailsData(mCompositeDisposable,productAndCategriesrepositry,productMutableLiveData,errormessage,productid,userid);
     }
@@ -48,9 +44,6 @@ public class ProductsDetailsViewModel extends ViewModel {
         super.onCleared();
         mCompositeDisposable.clear();
     }
-
-
-
 
 //          addtocart.setOnClickListener(v -> {
 //        if (userid > 0) {

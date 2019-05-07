@@ -6,17 +6,8 @@ public class MainView {
 
     private List<SlidersBean> sliders;
     private List<CategoryBean> category;
-    private List<ProductsbyrateBean> productsbyrate;
-    private List<SubcatsBeanX> subcats;
-    private CurrencyBean currency;
+    private List<ProductDetails.product> productsbyrate;
 
-    public CurrencyBean getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(CurrencyBean currency) {
-        this.currency = currency;
-    }
 
     public List<SlidersBean> getSliders() {
         return sliders;
@@ -34,20 +25,12 @@ public class MainView {
         this.category = category;
     }
 
-    public List<ProductsbyrateBean> getProductsbyrate() {
+    public List<ProductDetails.product> getProductsbyrate() {
         return productsbyrate;
     }
 
-    public void setProductsbyrate(List<ProductsbyrateBean> productsbyrate) {
+    public void setProductsbyrate(List<ProductDetails.product> productsbyrate) {
         this.productsbyrate = productsbyrate;
-    }
-
-    public List<SubcatsBeanX> getSubcats() {
-        return subcats;
-    }
-
-    public void setSubcats(List<SubcatsBeanX> subcats) {
-        this.subcats = subcats;
     }
 
     public static class CurrencyBean {
@@ -112,8 +95,6 @@ public class MainView {
          */
 
         private String photo;
-        private int product_id;
-        private int id;
         public String getPhoto() {
             return photo;
         }
@@ -134,16 +115,14 @@ public class MainView {
 
         private int id;
         private String name;
-        private String name_en;
         private String photo;
-        private List<SubcatsBean> subcats;
 
-        public int getId() {
+        public int getCategory_id() {
             return id;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setCategory_id(int category_id) {
+            this.id = category_id;
         }
 
         public String getName() {
@@ -154,13 +133,6 @@ public class MainView {
             this.name = name;
         }
 
-        public String getName_en() {
-            return name_en;
-        }
-
-        public void setName_en(String name_en) {
-            this.name_en = name_en;
-        }
 
         public String getPhoto() {
             return photo;
@@ -169,87 +141,13 @@ public class MainView {
         public void setPhoto(String photo) {
             this.photo = photo;
         }
-
-        public List<SubcatsBean> getSubcats() {
-            return subcats;
-        }
-
-        public void setSubcats(List<SubcatsBean> subcats) {
-            this.subcats = subcats;
-        }
-
-        public static class SubcatsBean {
-            /**
-             * id : 1
-             * name : كيرلي
-             * name_en : food
-             * category_id : 2
-             * photo : http://shopgate.codesroots.com/library/attachment/subcat8.png
-             * icon : http://shopgate.codesroots.com/library/attachment/seshwar.jpg
-             */
-
-            private int id;
-            private String name;
-            private String name_en;
-            private int category_id;
-            private String photo;
-            private String icon;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getName_en() {
-                return name_en;
-            }
-
-            public void setName_en(String name_en) {
-                this.name_en = name_en;
-            }
-
-            public int getCategory_id() {
-                return category_id;
-            }
-
-            public void setCategory_id(int category_id) {
-                this.category_id = category_id;
-            }
-
-            public String getPhoto() {
-                return photo;
-            }
-
-            public void setPhoto(String photo) {
-                this.photo = photo;
-            }
-
-            public String getIcon() {
-                return icon;
-            }
-
-            public void setIcon(String icon) {
-                this.icon = icon;
-            }
-        }
     }
 
     public static class ProductsbyrateBean {
         /**
          * total_result : 4
          * id : 3
-         * start_price : 300
+         * currentPrice : 300
          * product_id : 31
          * size : 100
          * created : 2019-02-19T07:04:34+0000
@@ -263,7 +161,7 @@ public class MainView {
 
         private int total_result;
         private int id;
-        private String start_price;
+        private String currentPrice;
         private int product_id;
         private String size;
         private String created;
@@ -289,12 +187,12 @@ public class MainView {
             this.id = id;
         }
 
-        public String getStart_price() {
-            return start_price;
+        public String getCurrentPrice() {
+            return currentPrice;
         }
 
-        public void setStart_price(String start_price) {
-            this.start_price = start_price;
+        public void setCurrentPrice(String currentPrice) {
+            this.currentPrice = currentPrice;
         }
 
         public int getProduct_id() {

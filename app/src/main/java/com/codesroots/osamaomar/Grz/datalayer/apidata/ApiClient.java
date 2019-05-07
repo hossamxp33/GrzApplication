@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://shopgate.codesroots.com/api/";
+    private static final String BASE_URL = "http://grz.codesroots.com/api/";
     private static final int TIMEOUT = 30;
     private static Retrofit retrofit = null;
 

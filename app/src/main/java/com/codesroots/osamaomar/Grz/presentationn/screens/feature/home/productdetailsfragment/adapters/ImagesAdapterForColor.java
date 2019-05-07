@@ -10,20 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.codesroots.osamaomar.Grz.R;
 import com.codesroots.osamaomar.Grz.models.entities.ProductDetails;
+
 import java.util.List;
 
 
-public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterForColor.ViewHolder>  {
+public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterForColor.ViewHolder> {
 
     private Context context;
     private int pos;
     public int mSelectedItem = 0;
     List<ProductDetails.product.ColorBean> colors;
+
     public ImagesAdapterForColor(Context context, List<ProductDetails.product.ColorBean> productcolors) {
         this.context = context;
-        colors=productcolors;
+        colors = productcolors;
     }
 
     @Override
@@ -36,17 +39,15 @@ public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterFor
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        try {
-            GradientDrawable drawable = (GradientDrawable)holder.color.getBackground();
-            drawable.setColor(Color.parseColor(colors.get(position).getColorhex()));
 
+        holder.color.setText(colors.get(position).getColor().getName());
+        try {
             if (position == mSelectedItem)
                 holder.linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.linear_background_choice_color));
             else
                 holder.linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+        } catch (Exception e) {
         }
-      catch (Exception e)
-      {}
     }
 
 
@@ -66,10 +67,10 @@ public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterFor
 
             super(view);
             mView = view;
-            color =  itemView.findViewById(R.id.textcolor);
-            linearLayout =  itemView.findViewById(R.id.colorborder);
+            color = itemView.findViewById(R.id.textcolor);
+            linearLayout = itemView.findViewById(R.id.colorborder);
 
-            View.OnClickListener clickListener  = v -> {
+            View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
                 notifyDataSetChanged();
             };

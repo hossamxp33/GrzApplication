@@ -108,7 +108,7 @@ public class ProductDetailsFragment extends Fragment {
             public void onPageScrollStateChanged(int i) {
             }
         });
-        price.setText(product.getPrice());
+        price.setText(product.getPrice()+getString(R.string.realcoin));
         ratecount.setText("(" + product.getRatecount() + ")");
         ratingBar.setRating(product.getRate());
         description.setText(product.getDescription());
