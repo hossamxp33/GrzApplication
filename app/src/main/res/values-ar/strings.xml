@@ -114,8 +114,6 @@
     <string name="orderfound">لا يوجد طلبات خاصة بك</string>
     <string name="youlogout">تم تسجيل خروجك</string>
     <string name="product_name">اسم المنتج</string>
-
-
     <string name="popular_products">Popular products</string>
     <string name="error">Error</string>
     <string name="frame_load_failed">Failed to load, Please try again later or contact us if this error continue</string>
