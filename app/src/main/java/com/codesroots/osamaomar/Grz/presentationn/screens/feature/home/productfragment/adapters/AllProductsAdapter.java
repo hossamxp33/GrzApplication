@@ -76,7 +76,8 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
 
         if (productsbysubcats.get(position).getPhotos().size() > 0)
             Glide.with(context.getApplicationContext())
-                    .load(productsbysubcats.get(position).getPhotos().get(0).getPhoto()).placeholder(R.drawable.product).dontAnimate()
+                    .load(productsbysubcats.get(position).getPhotos().get(0).getPhoto()).
+                    placeholder(R.drawable.product).dontAnimate()
                     .into(holder.Image);
 
         holder.name.setText(productsbysubcats.get(position).getName());
@@ -126,23 +127,22 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
         });
 
         holder.add_to_cart.setOnClickListener(v -> {
-//            if (userid>0) {
-//                if (PreferenceHelper.retriveCartItemsValue() != null) {
-//                    if (!PreferenceHelper.retriveCartItemsValue().contains(String.valueOf(productsbysubcats.get(position).getProductid()))) {
-//                        PreferenceHelper.addItemtoCart(productsbysubcats.get(position).getProductid());
-//                        //((AddorRemoveCallbacks) context).onAddProduct();
-//                        Toast.makeText(context, context.getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
-//                    } else
-//                        Toast.makeText(context,context.getText(R.string.aleady_exists), Toast.LENGTH_SHORT).show();
-//                } else {
-//                    PreferenceHelper.addItemtoCart(productsbysubcats.get(position).getProductid());
-//                 //   ((AddorRemoveCallbacks) context).onAddProduct();
-//                    Toast.makeText(context, context.getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//            else
-//                Toast.makeText(context, context.getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
-
+            if (userid>0) {
+                if (PreferenceHelper.retriveCartItemsValue() != null) {
+                    if (!PreferenceHelper.retriveCartItemsValue().contains(String.valueOf(productsbysubcats.get(position).getProductid()))) {
+                        PreferenceHelper.addItemtoCart(productsbysubcats.get(position).getProductid());
+                        ((AddorRemoveCallbacks) context).onAddProduct();
+                        Toast.makeText(context, context.getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(context,context.getText(R.string.aleady_exists), Toast.LENGTH_SHORT).show();
+                } else {
+                    PreferenceHelper.addItemtoCart(productsbysubcats.get(position).getProductid());
+                    ((AddorRemoveCallbacks) context).onAddProduct();
+                    Toast.makeText(context, context.getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+                }
+            }
+            else
+                Toast.makeText(context, context.getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
         });
 
     }

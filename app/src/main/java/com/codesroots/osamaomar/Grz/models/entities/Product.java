@@ -5,14 +5,22 @@ import java.util.List;
 
 public class Product {
 
-    private String name, photo, description, price, afteroffer;
-    private float rate, offerpercentage;
-    private int ratecount, productid, amount, favid, discountpercentage;
+    private String name, photo, description, price;
+    private float rate, offerpercentage,afteroffer;
+    private int ratecount, productid, amount, favid, discountpercentage,offerid;
     private List<ProductDetails.product.ProductphotosBean> photos = new ArrayList<>();
     private List<ProductDetails.product.ProductsizesBean> product_sizes = new ArrayList<>();
     private List<ProductDetails.product.ColorBean> colores = new ArrayList<>();
 
     private boolean freecharge;
+
+    public int getOfferid() {
+        return offerid;
+    }
+
+    public void setOfferid(int offerid) {
+        this.offerid = offerid;
+    }
 
     public int getDiscountpercentage() {
         return discountpercentage;
@@ -126,11 +134,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getAfteroffer() {
+    public float getAfteroffer() {
         return afteroffer;
     }
 
-    public void setAfteroffer(String afteroffer) {
+    public void setAfteroffer(float afteroffer) {
         this.afteroffer = afteroffer;
     }
 

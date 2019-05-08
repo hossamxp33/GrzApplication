@@ -56,35 +56,38 @@ public class ProductDetailsFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.product_details_fragment, container, false);
         int productid = getArguments().getInt(PRODUCT_ID, 0);
         findViewsFromXml(view);
         share.setOnClickListener(v -> Publicusecase.shareTextUrl(getContext(),"http://grzexpress.com/ar/products/details/"+productid));
         productsDetailsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductsDetailsViewModel.class);
-        productsDetailsViewModel.getProductDetailsData(productid, userid);
+        productsDetailsViewModel.getProductDetailsData(productid);
+
+        productsDetailsViewModel.errormessage.observe(this,s ->
+                Toast.makeText(getActivity(),getText(R.string.error_in_data),Toast.LENGTH_SHORT).show()
+                );
+
         productsDetailsViewModel.productMutableLiveData.observe(this, this::setProductDetailsToViews);
 
         addtocart.setOnClickListener(v -> {
-//            if (userid>0) {
-//                if (PreferenceHelper.retriveCartItemsValue() != null) {
-//                    if (!PreferenceHelper.retriveCartItemsValue().contains(String.valueOf(product.getProductid()))) {
-//                        PreferenceHelper.addItemtoCart(product.getProductid());
-//                      //  ((AddorRemoveCallbacks) getActivity()).onAddProduct();
-//                        Toast.makeText(getActivity(), getActivity().getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
-//                    } else
-//                        Toast.makeText(getActivity(), getActivity().getText(R.string.aleady_exists), Toast.LENGTH_SHORT).show();
-//                } else {
-//                    PreferenceHelper.addItemtoCart(product.getProductid());
-//                  //  ((AddorRemoveCallbacks) getActivity()).onAddProduct();
-//                    Toast.makeText(getActivity(), getActivity().getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//            else
-//                Toast.makeText(getActivity(), getActivity().getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
-
+            if (userid>0) {
+                if (PreferenceHelper.retriveCartItemsValue() != null) {
+                    if (!PreferenceHelper.retriveCartItemsValue().contains(String.valueOf(product.getProductid()))) {
+                        PreferenceHelper.addItemtoCart(product.getProductid());
+                        ((AddorRemoveCallbacks) getActivity()).onAddProduct();
+                        Toast.makeText(getActivity(), getActivity().getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(getActivity(), getActivity().getText(R.string.aleady_exists), Toast.LENGTH_SHORT).show();
+                } else {
+                    PreferenceHelper.addItemtoCart(product.getProductid());
+                   ((AddorRemoveCallbacks) getActivity()).onAddProduct();
+                    Toast.makeText(getActivity(), getActivity().getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+                }
+            }
+            else
+                Toast.makeText(getActivity(), getActivity().getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
         });
         return view;
     }
@@ -98,12 +101,10 @@ public class ProductDetailsFragment extends Fragment {
             public void onPageScrolled(int i, float v, int i1) {
                 Log.d("dd",i1+"");
             }
-
             @Override
             public void onPageSelected(int i) {
                 images_count.setText(i + 1 + "/" + product.getPhotos().size());
             }
-
             @Override
             public void onPageScrollStateChanged(int i) {
             }

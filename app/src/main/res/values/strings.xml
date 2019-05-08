@@ -139,4 +139,5 @@
     <string name="byprice">by price</string>
     <string name="byspilling">by name</string>
     <string name="deliverd">deliver</string>
+    <string name="noaddressfound">لا يوجد عناوين لديك</string>
 </resources>

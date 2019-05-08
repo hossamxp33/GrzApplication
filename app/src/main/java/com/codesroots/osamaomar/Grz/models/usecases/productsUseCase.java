@@ -36,9 +36,9 @@ public class productsUseCase {
     @SuppressLint("CheckResult")
     public void retrieveProductDetailsData(CompositeDisposable mCompositeDisposable,
                                            ProductAndCategries productAndCategries, MutableLiveData<Product> data,
-                                           MutableLiveData<String> errormessage, int productid, int userid) {
+                                           MutableLiveData<String> errormessage, int productid) {
 
-        productAndCategries.retrieveDetailsObservable(productid, userid).subscribeOn(Schedulers.io())
+        productAndCategries.retrieveDetailsObservable(productid).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(mainView ->
                 this.postProductDetailsData(mainView, data), throwable -> postError(throwable, errormessage));
     }
@@ -111,11 +111,10 @@ public class productsUseCase {
         for (int i = 0; i < productsbyrate.size(); i++) {
             Product product = new Product();
             product.setProductid(productsbyrate.get(i).getId());
+            product.setAmount(productsbyrate.get(i).getAmount());
             product.setPrice(productsbyrate.get(i).getCurrentPrice());
             product.setSizes(productsbyrate.get(i).getProductsizes());
             product.setColores(productsbyrate.get(i).getProduct_colors()
-
-
             );
 
             product.setName(productsbyrate.get(i).getName());
@@ -140,14 +139,16 @@ public class productsUseCase {
                 if (productsbyrate.get(i).getFavourites().size() > 0) {
                     product.setFavoret(true);
                     product.setFavid(productsbyrate.get(i).getFavourites().get(0).getId());
+                    product.setOfferpercentage(Float.valueOf(productsbyrate.get(i).getOffers().get(0).getPercentage()));
                 }
             }
 
             if (productsbyrate.get(i).getOffers() != null) {
                 if (productsbyrate.get(i).getOffers().size() > 0) {
+                    product.setOfferid(productsbyrate.get(i).getId());
                     product.setAfteroffer(Float.valueOf(productsbyrate.get(i).getCurrentPrice()) -
                             Float.valueOf(productsbyrate.get(i).getCurrentPrice()) *
-                                    Integer.valueOf(productsbyrate.get(i).getOffers().get(0).getPercentage()) / 100 + "");
+                                    Integer.valueOf(productsbyrate.get(i).getOffers().get(0).getPercentage()) / 100);
                     product.setDiscountpercentage(Integer.valueOf(productsbyrate.get(i).getOffers().get(0).getPercentage()));
                 }
             }

@@ -4,6 +4,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import com.codesroots.osamaomar.Grz.datalayer.apidata.ServerGateway;
 import com.codesroots.osamaomar.Grz.models.entities.CartItems;
+import com.codesroots.osamaomar.Grz.models.entities.Product;
+import com.codesroots.osamaomar.Grz.models.usecases.productsUseCase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +17,13 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CartViewModel extends ViewModel {
 
-    public MutableLiveData<List<CartItems.DataBean>> cartItemsMutableLiveData = new MutableLiveData<java.util.List<CartItems.DataBean>>();
+    public MutableLiveData<List<Product>> cartItemsMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<Throwable> throwableMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<Boolean> noItemsFound = new MutableLiveData<>();
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private ServerGateway serverGateway;
     private ArrayList<Integer> product_ids;
+    private productsUseCase productsUseCase = new productsUseCase();
 
     public CartViewModel(ServerGateway serverGateway1,ArrayList<Integer> ids) {
         serverGateway = serverGateway1;
@@ -38,7 +42,6 @@ public class CartViewModel extends ViewModel {
             else
             noItemsFound.postValue(true);
         }
-
     }
 
     private void getCartProducts(){
@@ -52,7 +55,7 @@ public class CartViewModel extends ViewModel {
 
 
     private void postDataResponse(CartItems cartItems) {
-        cartItemsMutableLiveData.postValue(cartItems.getData());
+        cartItemsMutableLiveData.postValue(productsUseCase.reshapProducts(cartItems.getData()));
     }
 
 

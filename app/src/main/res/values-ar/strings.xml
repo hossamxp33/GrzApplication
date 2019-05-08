@@ -104,6 +104,7 @@
         <item>الاقل سعرا</item>
         <item>الاكثر سعرا</item>
     </string-array>
+
     <string name="passworsnotmatch">كلمتا المرور غير متطابقتان</string>
     <string name="register">تسجيل</string>
     <string name="registersuccess">تم التسجيل بنجاح</string>
@@ -127,7 +128,6 @@
     <string name="mobiles">Mobiles</string>
     <string name="cloth">Cloth</string>
     <string name="currency">pound</string>
-
     <string name="product_sizes">أحجام المنتج</string>
     <string name="product_colors">ألوان المنتج</string>
     <string name="sale_now">الشراء الان</string>

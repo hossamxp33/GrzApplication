@@ -12,11 +12,13 @@ import com.codesroots.osamaomar.Grz.models.usecases.SubcatesWithProductsUseCase;
 import com.codesroots.osamaomar.Grz.models.usecases.productsUseCase;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.productfragment.ProductsViewModel;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.subcategryfragment.SubCatesViewModel;
+import com.codesroots.osamaomar.Grz.presentationn.screens.feature.userlocations.UserLocationsViewModel;
 
 public class MainViewModelFactory implements ViewModelProvider.Factory {
 
 
     private Application application;
+
     public MainViewModelFactory(Application application1) {
         application = application1;
 
@@ -26,18 +28,15 @@ public class MainViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-         if (modelClass == ProductsDetailsViewModel.class)
-        {
-            return (T) new ProductsDetailsViewModel(getRepopsitry(),getUseCase());
+        if (modelClass == ProductsDetailsViewModel.class) {
+            return (T) new ProductsDetailsViewModel(getRepopsitry(), getUseCase());
+        } else if (modelClass == SubCatesViewModel.class) {
+            return (T) new SubCatesViewModel(getRepopsitry(), getProductUseCase());
+        } else if (modelClass == ProductsViewModel.class) {
+            return (T) new ProductsViewModel(getRepopsitry(), getUseCase());
+        } else if (modelClass == UserLocationsViewModel.class) {
+            return (T) new UserLocationsViewModel(getApiService());
         }
-        else if (modelClass== SubCatesViewModel.class)
-         {
-             return (T) new SubCatesViewModel(getRepopsitry(),getProductUseCase());
-         }
-         else if (modelClass== ProductsViewModel.class)
-         {
-             return (T) new ProductsViewModel(getRepopsitry(),getUseCase());
-         }
         throw new IllegalArgumentException("Invalid view model class type");
     }
 

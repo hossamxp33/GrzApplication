@@ -11,24 +11,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codesroots.osamaomar.Grz.R;
 import com.codesroots.osamaomar.Grz.models.entities.OrderModel;
+import com.codesroots.osamaomar.Grz.models.entities.UserLocations;
+import com.codesroots.osamaomar.Grz.models.helper.Locationclick;
+import com.codesroots.osamaomar.Grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.getuserlocation.GetUserLocationActivity;
+import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.userlocations.adapter.LocationsAdapter;
 
 import static com.codesroots.osamaomar.Grz.models.entities.names.ORDER;
 
-public class UserLocationsFragment extends Fragment {
+public class UserLocationsFragment extends Fragment implements Locationclick {
 
     private UserLocationsViewModel mViewModel;
     private RecyclerView locations;
     private ImageView addLocation;
-    public static UserLocationsFragment newInstance() {
-        return new UserLocationsFragment();
-    }
     OrderModel orderModel;
-
+    LocationsAdapter locationsAdapter;
+    TextView notfound;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -36,21 +40,39 @@ public class UserLocationsFragment extends Fragment {
 
         locations = view.findViewById(R.id.oldplaces);
         addLocation = view.findViewById(R.id.addlocation);
+        notfound = view.findViewById(R.id.notfond);
         orderModel = (OrderModel) getArguments().getSerializable(ORDER);
 
+        mViewModel = ViewModelProviders.of(this,getViewModelFactory()).get(UserLocationsViewModel.class);
+        mViewModel.retrieveUserLocations(PreferenceHelper.getUserId());
+        mViewModel.locations.observe(this,dataBeans ->
+                {
+                    if (dataBeans.size()>0) {
+                        locationsAdapter = new LocationsAdapter(getContext(), dataBeans, this);
+                        locations.setAdapter(locationsAdapter);
+                    }
+                    else
+                        notfound.setVisibility(View.VISIBLE);
+                });
+
+        mViewModel.error.observe(this,throwable ->
+                Toast.makeText(getActivity(),getText(R.string.error_in_data),Toast.LENGTH_SHORT).show()
+                );
         addLocation.setOnClickListener(v -> {
             Intent  intent = new Intent(getActivity(), GetUserLocationActivity.class);
             getActivity().startActivityForResult(intent,115);
         });
 
-        locations.setAdapter(new LocationsAdapter(getContext()));
-
         return view;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
+    private MainViewModelFactory getViewModelFactory() {
+        return new MainViewModelFactory(this.getActivity().getApplication());
+    }
+
+    @Override
+    public void onlocationchoicw(UserLocations.DataBean location) {
+        Toast.makeText(getActivity(),"saasd",Toast.LENGTH_SHORT).show();
     }
 }

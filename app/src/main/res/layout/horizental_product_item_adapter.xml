@@ -51,10 +51,10 @@
         android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="15dp"
         android:padding="5dp"
         android:src="@drawable/product"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -62,10 +62,10 @@
         android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="2"
-        android:layout_marginTop="10dp"
         android:text="فازلين بترولم للعناية بالشعر وتغذبته"
         android:textColor="@color/black"
         android:textSize="14dp"
@@ -90,11 +90,11 @@
         android:id="@+id/rate_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="(0)"
-        android:layout_marginTop="10dp"
-        android:textSize="12sp"
         android:textColor="@color/black"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/rates"
         app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
@@ -114,17 +114,17 @@
         app:layout_constraintWidth_percent="0.3" />
 
 
+
     <TextView
         android:id="@+id/quentity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:visibility="gone"
         android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:maxLines="2"
         android:text="متوفر 5 قطع "
         android:textColor="@color/colorPrimary"
-        android:gravity="start|center_vertical"
         android:textSize="14dp"
         app:layout_constraintStart_toEndOf="@id/item_img"
         app:layout_constraintTop_toBottomOf="@+id/rates"
@@ -136,19 +136,19 @@
         android:layout_width="30dp"
         android:layout_height="25dp"
         android:layout_margin="8dp"
-        android:visibility="gone"
-        android:src="@drawable/like"
         android:background="@color/light_gray"
-        app:layout_constraintTop_toTopOf="@+id/add_to_cart"
+        android:src="@drawable/like"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/add_to_cart"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/add_to_cart" />
 
     <TextView
         android:id="@+id/add_to_cart"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/linear_background_for_addtocart"
         android:gravity="center"
         android:text="@string/addtocart"

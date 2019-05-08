@@ -15,12 +15,9 @@ import android.widget.TextView;
 
 import com.codesroots.osamaomar.Grz.R;
 import com.codesroots.osamaomar.Grz.models.entities.Product;
-import com.codesroots.osamaomar.Grz.models.entities.SubCategriesWithProducts;
 import com.codesroots.osamaomar.Grz.models.helper.AddorRemoveFav;
 import com.codesroots.osamaomar.Grz.models.helper.PreferenceHelper;
-import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.mainactivity.MainActivity;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
-import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.productfragment.ProductsViewModelFactory;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.subcategryfragment.adapters.MoreSalesProductsAdapter;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.subcategryfragment.adapters.SubCatsAdapter;
 
@@ -77,7 +74,6 @@ public class SubcategryFragment extends Fragment implements AddorRemoveFav {
 
     private MainViewModelFactory getViewModelFactory() {
         return new MainViewModelFactory(this.getActivity().getApplication());
-
     }
 
     @Override

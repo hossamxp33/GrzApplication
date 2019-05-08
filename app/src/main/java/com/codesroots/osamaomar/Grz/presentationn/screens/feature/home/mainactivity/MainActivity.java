@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.codesroots.osamaomar.Grz.R;
+import com.codesroots.osamaomar.Grz.models.helper.AddorRemoveCallbacks;
+import com.codesroots.osamaomar.Grz.models.helper.Converter;
 import com.codesroots.osamaomar.Grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.cartfragment.CartFragment;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.mainfragment.MainFragment;
@@ -30,7 +34,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements
-        BottomNavigationView.OnNavigationItemSelectedListener {
+        BottomNavigationView.OnNavigationItemSelectedListener , AddorRemoveCallbacks {
 
     RecyclerView alldepartsinNavigation;
     BottomNavigationView bottomNavigationView;
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     public TextView head_title;
     private EditText searchName;
     private ImageView cartbtn;
+    private static int cart_count = 0;
     private  ArrayList<String> arrayList = new ArrayList<>();
     private  PreferenceHelper preferenceHelper;
     private  Toolbar toolbar;
@@ -66,6 +71,29 @@ public class MainActivity extends AppCompatActivity
 
         cartbtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new CartFragment()).addToBackStack(null).commit());
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new MainFragment()).commit();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_cart);
+        cart_count = PreferenceHelper.retriveCartItemsSize();
+        menuItem.setIcon(Converter.convertLayoutToImage(MainActivity.this,cart_count,R.drawable.cart2));
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_cart:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,new CartFragment()).addToBackStack(null).commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initialize() {
@@ -129,4 +157,22 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public void onAddProduct() {
+        cart_count++;
+        invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onRemoveProduct() {
+        cart_count--;
+        invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onClearCart() {
+        PreferenceHelper.clearCart();
+        cart_count=0;
+        invalidateOptionsMenu();
+    }
 }

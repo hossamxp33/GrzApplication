@@ -1,5 +1,7 @@
 package com.codesroots.osamaomar.Grz.models.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class ProductDetails {
@@ -34,6 +36,8 @@ public class ProductDetails {
         private String name_en;
         private String description;
         private String description_en;
+        private int amount;
+        @SerializedName("currentPrice")
         private String currentPrice;
         private List<ProductsizesBean> product_sizes;
         private List<ColorBean> product_colors;
@@ -41,6 +45,14 @@ public class ProductDetails {
         private List<ProductphotosBean> productphotos;
         private List<OffersBean> offers;
         private List<FavouritesBean> favourites;
+
+        public int getAmount() {
+            return amount;
+        }
+
+        public void setAmount(int amount) {
+            this.amount = amount;
+        }
 
         public List<ProductsizesBean> getProduct_sizes() {
             return product_sizes;
@@ -447,27 +459,21 @@ public class ProductDetails {
             private int id;
             private String percentage;
             private int product_id;
-
             public int getId() {
                 return id;
             }
-
             public void setId(int id) {
                 this.id = id;
             }
-
             public String getPercentage() {
                 return percentage;
             }
-
             public void setPercentage(String percentage) {
                 this.percentage = percentage;
             }
-
             public int getProduct_id() {
                 return product_id;
             }
-
             public void setProduct_id(int product_id) {
                 this.product_id = product_id;
             }

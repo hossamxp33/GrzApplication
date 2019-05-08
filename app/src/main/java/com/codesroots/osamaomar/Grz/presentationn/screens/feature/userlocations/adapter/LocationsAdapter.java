@@ -19,9 +19,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.codesroots.osamaomar.Grz.R;
 import com.codesroots.osamaomar.Grz.models.entities.Favoriets;
+import com.codesroots.osamaomar.Grz.models.entities.UserLocations;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.favorite.FavoritesViewModel;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 import com.codesroots.osamaomar.Grz.presentationn.screens.feature.rate.RateActivity;
+import com.codesroots.osamaomar.Grz.presentationn.screens.feature.userlocations.UserLocationsFragment;
 
 import java.util.List;
 
@@ -31,12 +33,14 @@ import static com.codesroots.osamaomar.Grz.models.entities.names.PRODUCT_ID;
 public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.ViewHolder> {
 
     private Context context;
-    private List<Favoriets.DataBean> productsbysubcats;
-    FavoritesViewModel viewModel;
+    private List<UserLocations.DataBean> places;
+    private UserLocationsFragment userLocationsFragment;
 
-    public LocationsAdapter(Context mcontext) {
+
+    public LocationsAdapter(Context mcontext, List<UserLocations.DataBean> dataBeans,UserLocationsFragment fragment) {
         context = mcontext;
-
+        places = dataBeans;
+        userLocationsFragment = fragment;
     }
 
     @NonNull
@@ -50,30 +54,23 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-
+        holder.location.setText(places.get(position).getAddress());
+        holder.mView.setOnClickListener(v -> userLocationsFragment.onlocationchoicw(places.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return places.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
-        private ImageView Image, favorite;
-        private TextView name, rateCount, amount, price;
-        private RatingBar ratingBar;
+        private TextView location;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
-            Image = mView.findViewById(R.id.item_img);
-            name = mView.findViewById(R.id.item_name);
-            price = mView.findViewById(R.id.item_price);
-            amount = mView.findViewById(R.id.quentity);
-            rateCount = mView.findViewById(R.id.rate_count);
-            ratingBar = mView.findViewById(R.id.rates);
-            favorite = mView.findViewById(R.id.del_favorite);
+            location = mView.findViewById(R.id.location);
         }
     }
 }

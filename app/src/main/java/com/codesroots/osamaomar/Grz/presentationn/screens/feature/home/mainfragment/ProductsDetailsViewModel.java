@@ -2,9 +2,14 @@ package com.codesroots.osamaomar.Grz.presentationn.screens.feature.home.mainfrag
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.widget.Toast;
+
+import com.codesroots.osamaomar.Grz.R;
 import com.codesroots.osamaomar.Grz.datalayer.repositries.ProductAndCategries;
 import com.codesroots.osamaomar.Grz.models.entities.Product;
 import com.codesroots.osamaomar.Grz.models.entities.mainData;
+import com.codesroots.osamaomar.Grz.models.helper.AddorRemoveCallbacks;
+import com.codesroots.osamaomar.Grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.Grz.models.usecases.productsUseCase;
 import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
@@ -35,8 +40,9 @@ public class ProductsDetailsViewModel extends ViewModel {
     }
 
 
-    public void getProductDetailsData(int productid,int userid) {
-        productsUseCase.retrieveProductDetailsData(mCompositeDisposable,productAndCategriesrepositry,productMutableLiveData,errormessage,productid,userid);
+    public void getProductDetailsData(int productid) {
+        productsUseCase.retrieveProductDetailsData(mCompositeDisposable,productAndCategriesrepositry,
+                productMutableLiveData,errormessage,productid);
     }
 
     @Override
@@ -44,8 +50,8 @@ public class ProductsDetailsViewModel extends ViewModel {
         super.onCleared();
         mCompositeDisposable.clear();
     }
-
-//          addtocart.setOnClickListener(v -> {
+//
+//        addtocart.setOnClickListener(v -> {
 //        if (userid > 0) {
 //            if (PreferenceHelper.retriveCartItemsValue() != null) {
 //                if (!PreferenceHelper.retriveCartItemsValue().contains(String.valueOf(productdetails.getProductsizes().get(productSizesAdapter.mSelectedItem).getId()))) {

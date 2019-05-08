@@ -74,10 +74,10 @@ public class LoginFragment extends Fragment {
 
 
         gotoregister = view.findViewById(R.id.gotoregister);
-        gotoregister.setOnClickListener(v -> getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new RegisterFragment()).addToBackStack(null).commit());
+        gotoregister.setOnClickListener(v -> getActivity().getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment, new RegisterFragment()).addToBackStack(null).commit());
         return  view;
     }
-
 
     @NonNull
     private ViewModelProvider.Factory getViewModelFactory() {

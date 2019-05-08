@@ -27,6 +27,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
+                android:visibility="gone"
                 android:layout_centerVertical="true"
                 android:background="@drawable/cart2"
                 android:contentDescription="@string/app_name" />

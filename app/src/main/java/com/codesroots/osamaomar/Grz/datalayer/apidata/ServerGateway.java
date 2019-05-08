@@ -16,6 +16,7 @@ import com.codesroots.osamaomar.Grz.models.entities.Register;
 import com.codesroots.osamaomar.Grz.models.entities.Sidemenu;
 import com.codesroots.osamaomar.Grz.models.entities.StoreSetting;
 import com.codesroots.osamaomar.Grz.models.entities.SubCategriesWithProducts;
+import com.codesroots.osamaomar.Grz.models.entities.UserLocations;
 import com.codesroots.osamaomar.Grz.models.entities.offers;
 import java.util.ArrayList;
 import io.reactivex.Observable;
@@ -89,6 +90,13 @@ public interface ServerGateway {
     );
 
 
+    @GET("BillingAddress/index/{userid}.json")
+    Observable<UserLocations> retrieveUserLocations(
+            @Path("userid") int userid
+    );
+
+
+
     @GET("Offers/getoffers.json")
     Observable<offers> retrieveOffers();
 
@@ -134,22 +142,20 @@ public interface ServerGateway {
     Observable<Currency> Currency();
 
 
-       @FormUrlEncoded
+    @FormUrlEncoded
     @POST("users/add.json")
     Observable<Register> userregister(
             @Field("username") String  username,
-            @Field("password") String password,
-            @Field("phone") String phone,
-            @Field("email_verified") int email_verified,
-            @Field("active") int active,
-            @Field("user_group_id") int user_group_id
+            @Field("userpass") String password,
+            @Field("status") int email_verified,
+            @Field("user_roll") int user_group_id
     );
 
     @FormUrlEncoded
     @POST("users/token.json")
     Observable<LoginResponse> userlogin(
             @Field("username") String  username,
-            @Field("password") String password
+            @Field("userpass") String password
     );
 
 }

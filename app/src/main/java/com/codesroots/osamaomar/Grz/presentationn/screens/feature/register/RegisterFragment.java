@@ -52,7 +52,8 @@ public class RegisterFragment extends Fragment {
         mViewModel.registerMutableLiveData.observe(this,register ->
                 {
                  if (register.isSuccess()) {
-                     PreferenceHelper.setUserId(register.getUser_id());
+
+                     PreferenceHelper.setUserId(register.getData().getId());
                      PreferenceHelper.setUserName(register.getData().getUsername());
                      PreferenceHelper.setToken(register.getData().getToken());
                      Toast.makeText(getActivity(),getText(R.string.registersuccess),Toast.LENGTH_SHORT).show();
@@ -61,14 +62,12 @@ public class RegisterFragment extends Fragment {
                          fm.popBackStack();
                      }
                      getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment()).addToBackStack(null).commit();
-
                  }
                     else
                      Toast.makeText(getActivity(),getText(R.string.error_tryagani),Toast.LENGTH_SHORT).show();
                 });
                 mViewModel.errorinRegister.observe(this,throwable ->
                         Toast.makeText(getActivity(),throwable.getCause().toString(),Toast.LENGTH_SHORT).show() );
-
         return view;
     }
 

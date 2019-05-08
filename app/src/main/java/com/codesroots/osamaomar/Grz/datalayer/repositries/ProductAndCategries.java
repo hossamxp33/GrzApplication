@@ -23,7 +23,7 @@ public class ProductAndCategries {
         return serverGateway.getMainViewData();
     }
 
-    public Observable<ProductDetails> retrieveDetailsObservable(int productid, int userid) {
+    public Observable<ProductDetails> retrieveDetailsObservable(int productid) {
         return serverGateway.getProductDetails(productid);
     }
 

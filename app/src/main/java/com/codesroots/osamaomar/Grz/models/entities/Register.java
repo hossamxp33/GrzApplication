@@ -9,8 +9,7 @@ public class Register {
      */
 
     private boolean success;
-    private int user_id;
-    private int delivery_id;
+
     /**
      * data : {"id":25,"username":"osama","photo":null,"code":200,"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjI1LCJleHAiOjE1NTU1MTgyNzF9.b6AloBuijHYaYdgBugwjr3ca6zBLdms1zjVzyOOVc9s"}
      */
@@ -23,22 +22,6 @@ public class Register {
 
     public void setSuccess(boolean success) {
         this.success = success;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public int getDelivery_id() {
-        return delivery_id;
-    }
-
-    public void setDelivery_id(int delivery_id) {
-        this.delivery_id = delivery_id;
     }
 
     public DataBean getData() {

@@ -61,7 +61,7 @@ public class AllOffersAdapter extends RecyclerView.Adapter<AllOffersAdapter.View
         holder.ratingBar.setRating(offersData.get(position).getRate());
         holder.rateCount.setText("("+offersData.get(position).getRatecount()+")");
             holder.name.setText(offersData.get(position).getName());
-        holder.discount.setText(offersData.get(position).getOfferpercentage()+" "+"%");
+        holder.discount.setText(offersData.get(position).getDiscountpercentage()+" "+"%");
         holder.oldprice.setText(offersData.get(position).getPrice()+" "+context.getText(R.string.realcoin));
         holder.price.setText(offersData.get(position).getAfteroffer()+" "+context.getText(R.string.realcoin));
         Fragment fragment = new ProductDetailsFragment();

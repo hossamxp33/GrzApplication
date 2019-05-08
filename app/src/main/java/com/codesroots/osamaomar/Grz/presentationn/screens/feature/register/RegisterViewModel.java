@@ -50,8 +50,8 @@ public class RegisterViewModel extends ViewModel {
 
     private void registerUser(User user) {
         mCompositeDisposable.add(
-                serverGateway.userregister(user.getUsername(),user.getPassword(),user.getMobile(),
-                            user.getEmailverified(),user.getActive(),user.getUsergroup())
+                serverGateway.userregister(user.getUsername(),user.getPassword(),
+                            user.getEmailverified(),user.getUsergroup())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::postDataResponseForRegister,

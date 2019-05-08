@@ -5,13 +5,13 @@ import java.util.List;
 public class CartItems {
 
 
-    private List<DataBean> data;
+    private List<ProductDetails.product> data;
 
-    public List<DataBean> getData() {
+    public List<ProductDetails.product> getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(List<ProductDetails.product> data) {
         this.data = data;
     }
 

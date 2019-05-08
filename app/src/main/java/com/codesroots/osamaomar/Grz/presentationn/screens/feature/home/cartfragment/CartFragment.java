@@ -54,8 +54,8 @@ public class CartFragment extends Fragment {
         mViewModel.cartItemsMutableLiveData.observe(this, dataBeans -> {
             {
                 progress.setVisibility(View.GONE);
-//                cartAdapter = new CartAdapter(getActivity(), dataBeans);
-             //   cartsRecycle.setAdapter(cartAdapter);
+               cartAdapter = new CartAdapter(getActivity(), dataBeans);
+                cartsRecycle.setAdapter(cartAdapter);
             }
         });
 
