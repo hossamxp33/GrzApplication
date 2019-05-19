@@ -6,6 +6,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="google_maps_key">AIzaSyD8z2lWzm896P2g8VhaBfrVam0JL1BaiW0</string>
     <string name="more_sale">More Sales</string>
+    <string name="base_img_url">http://grzexpress.com/ar/./../product_images/</string>
 
     <string name="app_name">Grz</string>
     <string name="action_settings">Settings</string>
@@ -135,9 +136,22 @@
     <string name="chat">Chating</string>
     <string name="chatlist">"Chat list "</string>
     <string name="deliveryaddress">choice delivery place</string>
-    <string name="filter">filter</string>
+    <string name="filter" translatable="false">filter</string>
     <string name="byprice">by price</string>
     <string name="byspilling">by name</string>
     <string name="deliverd">deliver</string>
-    <string name="noaddressfound">لا يوجد عناوين لديك</string>
+    <string name="cancel">cancel</string>
+    <string name="ok">ok</string>
+    <string name="noaddressfound">No address found</string>
+    <string name="selectcurrency">Select One Name:-</string>
+    <string name="yourselect">your select :-</string>
+    <string name="empty">Add message</string>
+    <string name="newaddress">Add new address</string>
+    <string name="confirm">Add</string>
+    <string name="addlocation">choice your location</string>
+    <string name="choicecountry">  choice your country </string>
+    <string name="choicecity">choice your city</string>
+    <string name="notes">notes</string>
+    <string name="now">now</string>
+
 </resources>

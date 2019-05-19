@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
         >
 
@@ -54,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.8"
+        android:layout_marginTop="15dp"
         android:hint="@string/username"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/img"

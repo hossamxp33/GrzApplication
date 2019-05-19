@@ -91,7 +91,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="15dp"
-                android:gravity="center|start"
+                android:gravity="center_vertical|right"
                 tools:ignore="MissingPrefix"
                 android:text="وعليكم السلام "
                 fontPath="DroidKufi_Regular.ttf"

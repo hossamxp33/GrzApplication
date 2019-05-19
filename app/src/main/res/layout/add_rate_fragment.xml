@@ -57,6 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/item_rateimg"
             app:layout_constraintBottom_toTopOf="@+id/ratecomment"
             android:theme="@style/RatingBar"
+            android:stepSize="1"
             android:numStars="5"/>
 
 

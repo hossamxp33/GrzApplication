@@ -7,6 +7,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="google_maps_key">AIzaSyD8z2lWzm896P2g8VhaBfrVam0JL1BaiW0</string>
+    <string name="base_img_url">http://grzexpress.com/ar/./../product_images/</string>
 
     <string name="action_settings">Settings</string>
     <string name="searchabout">ابحث بالمنتجات</string>
@@ -138,6 +139,17 @@
     <string name="byspilling">بالهجائي</string>
     <string name="deliverd">تم الاستلام</string>
     <string name="erroroccure">حدث خطأ حاول مرة أخري</string>
-
-
+    <string name="selectcurrency">حدد احدي العملات </string>
+    <string name="noaddressfound">لا يوجد عناوين لديك</string>
+    <string name="cancel">الغاء </string>
+    <string name="yourselect">   قمت بتحديد :-</string>
+    <string name="ok">تم</string>
+    <string name="empty">أضف رسالتك</string>
+    <string name="newaddress">اضافة عنوان جديد</string>
+    <string name="confirm">اضافة</string>
+    <string name="addlocation">اختر عنوانك</string>
+    <string name="choicecountry">اختر دولتك</string>
+    <string name="choicecity">اختر المدينة</string>
+    <string name="notes">ملاحظات</string>
+    <string name="now">الان</string>
 </resources>

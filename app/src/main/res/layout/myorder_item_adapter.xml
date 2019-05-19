@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/productview"
     android:layout_width="match_parent"
@@ -109,6 +110,7 @@
             android:gravity="center"
             android:text="2"
             android:textColor="@color/gray"
+
             android:textSize="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/view1"
             app:layout_constraintStart_toEndOf="@id/guid2"
@@ -211,7 +213,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="04/3/2019"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/date"
         app:layout_constraintTop_toBottomOf="@+id/order_progress" />
@@ -303,7 +304,6 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="2"
-        android:text="فازلين بترولم للعناية بالشعر وتغذبته"
         android:textColor="@color/black"
         android:textSize="14dp"
         android:textStyle="bold"
