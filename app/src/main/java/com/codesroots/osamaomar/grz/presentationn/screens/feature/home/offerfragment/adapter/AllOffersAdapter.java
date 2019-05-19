@@ -61,6 +61,7 @@ public class AllOffersAdapter extends RecyclerView.Adapter<AllOffersAdapter.View
         holder.name.setText(offersData.get(position).getName());
         holder.discount.setText(offersData.get(position).getDiscountpercentage() + " " + "%");
 
+
         if (PreferenceHelper.getCurrencyValue() > 0) {
             holder.oldprice.setText(offersData.get(position).getPricewithoutcoin() * PreferenceHelper.getCurrencyValue() + " " + PreferenceHelper.getCurrency());
             holder.price.setText((new DecimalFormat("##.##").format(offersData.get(position).getAfteroffer() * PreferenceHelper.getCurrencyValue())
