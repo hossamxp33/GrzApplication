@@ -99,7 +99,7 @@ public class PaymentFragment extends Fragment {
 
     private void processpayment() {
 
-        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(Total * PreferenceHelper.getDoller())), "USD", "cairo", PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(Total * PreferenceHelper.getDoller())), "USD", "Oman", PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(getActivity(), PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, configuration);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payPalPayment);

@@ -21,6 +21,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.codesroots.osamaomar.grz.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -202,7 +204,20 @@ public class ResourceUtil {
         context.startActivity(callIntent);
     }
 
+    public static void openWhatsApp(String smsNumber,Context context) {
 
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TEXT,context.getResources().getString(R.string.sendreq));
+        sendIntent.putExtra("jid", smsNumber + "@s.whatsapp.net"); //phone number without "+" prefix
+        sendIntent.setPackage("com.whatsapp");
+        if (sendIntent.resolveActivity(context.getPackageManager()) == null) {
+            Toast.makeText(context, "Error/n" , Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        context.startActivity(sendIntent);
+    }
     public static void verifyPermissions(Activity context) {
         int permissionCall = ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionExternal = ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION);

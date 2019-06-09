@@ -72,18 +72,21 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
         });
 
         sale.setOnClickListener(v -> {
-            Fragment fragment = new UserLocationsFragment();
-            Bundle bundle = new Bundle();
-            orderModel.setOrderdetails(cartAdapter.products);
-            for (int i=0;i<cartAdapter.products.size();i++)
-            {
-                cartAdapter.products.get(i).setColor(productsDbs.get(i).getProductcolor_id());
-                cartAdapter.products.get(i).setSize(productsDbs.get(i).getProductsize_id());
-            }
+            if (PreferenceHelper.getUserId()>0) {
+                Fragment fragment = new UserLocationsFragment();
+                Bundle bundle = new Bundle();
+                orderModel.setOrderdetails(cartAdapter.products);
+                for (int i = 0; i < cartAdapter.products.size(); i++) {
+                    cartAdapter.products.get(i).setColor(productsDbs.get(i).getProductcolor_id());
+                    cartAdapter.products.get(i).setSize(productsDbs.get(i).getProductsize_id());
+                }
 
-            bundle.putSerializable(ORDER, orderModel);
-            fragment.setArguments(bundle);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack(null).commit();
+                bundle.putSerializable(ORDER, orderModel);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack(null).commit();
+            }
+            else
+                Toast.makeText(getContext(),getText(R.string.loginfirst),Toast.LENGTH_SHORT).show();
         });
         return view;
     }

@@ -26,18 +26,20 @@ public class LoginFragment extends Fragment {
 
     private RegisterViewModel mViewModel;
     TextView loginbtn;
-    EditText username,password;
+    EditText username, password;
     private User user = new User();
+
     public static LoginFragment newInstance() {
         return new LoginFragment();
     }
 
     TextView gotoregister;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.login_fragment, container, false);
-        mViewModel = ViewModelProviders.of(this,getViewModelFactory()).get(RegisterViewModel.class);
+        View view = inflater.inflate(R.layout.login_fragment, container, false);
+        mViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(RegisterViewModel.class);
 
         loginbtn = view.findViewById(R.id.login);
         username = view.findViewById(R.id.username);
@@ -49,34 +51,37 @@ public class LoginFragment extends Fragment {
             mViewModel.userLogin(user);
         });
 
-        mViewModel.loginResponseMutableLiveData.observe(this,response ->
-                {
-                    if (response.isSuccess())
-                    {
-                        PreferenceHelper.setUserId(response.getData().getId());
-                        PreferenceHelper.setUserName(response.getData().getUsername());
-                        PreferenceHelper.setToken(response.getData().getToken());
-                        Toast.makeText(getActivity(),getText(R.string.hello)+" "+response.getData().getUsername(),Toast.LENGTH_SHORT).show();
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                            fm.popBackStack();
-                        }
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment()).addToBackStack(null).commit();
+        mViewModel.loginResponseMutableLiveData.observe(this, response ->
+        {
+            if (response.isSuccess()) {
+                PreferenceHelper.setUserId(response.getData().getId());
+                PreferenceHelper.setUserName(response.getData().getUsername());
+                PreferenceHelper.setToken(response.getData().getToken());
+                Toast.makeText(getActivity(), getText(R.string.hello) + " " + response.getData().getUsername(), Toast.LENGTH_SHORT).show();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStack();
+                }
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment()).addToBackStack(null).commit();
 
-                    }
-                    else
-                        Toast.makeText(getActivity(),getText(R.string.error_tryagani),Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(getActivity(), getText(R.string.error_tryagani), Toast.LENGTH_SHORT).show();
 
-                });
+        });
 
-        mViewModel.errorinRegister.observe(this,throwable ->
-                Toast.makeText(getActivity(),throwable.toString(),Toast.LENGTH_SHORT).show() );
+        mViewModel.errorinRegister.observe(this, throwable ->
+        {
+            if (throwable.toString().contains("401"))
+                Toast.makeText(getContext(), getText(R.string.usernameerror), Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(getActivity(), throwable.toString(), Toast.LENGTH_SHORT).show();
+        });
 
 
         gotoregister = view.findViewById(R.id.gotoregister);
         gotoregister.setOnClickListener(v -> getActivity().getSupportFragmentManager().beginTransaction().
                 replace(R.id.fragment, new RegisterFragment()).addToBackStack(null).commit());
-        return  view;
+        return view;
     }
 
     @NonNull

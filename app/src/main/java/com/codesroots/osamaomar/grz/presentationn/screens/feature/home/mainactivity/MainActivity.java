@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,9 +32,7 @@ import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productfr
 
 import java.util.ArrayList;
 
-
-public class MainActivity extends AppCompatActivity
-        implements
+public class MainActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener, AddorRemoveCallbacks {
 
     RecyclerView alldepartsinNavigation;
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity
     private EditText searchName;
     private ImageView cartbtn;
     private static int cart_count = 0;
-    private ArrayList<String> arrayList = new ArrayList<>();
     private PreferenceHelper preferenceHelper;
     private Toolbar toolbar;
 
@@ -55,9 +53,7 @@ public class MainActivity extends AppCompatActivity
         preferenceHelper = new PreferenceHelper(this);
         initialize();
 
-
         search.setOnClickListener(v -> {
-            // shareTextUrl();
             performSearch();
         });
 
@@ -75,7 +71,8 @@ public class MainActivity extends AppCompatActivity
                     invalidateOptionsMenu();
                 });
 
-        cartbtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new CartFragment()).addToBackStack(null).commit());
+        cartbtn.setOnClickListener(v -> getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment, new CartFragment()).addToBackStack(null).commit());
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment()).commit();
     }
 
@@ -94,14 +91,19 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_cart:
-                if (PreferenceHelper.getUserId()>0)
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new CartFragment()).addToBackStack(null).commit();
-                else
-                    Toast.makeText(this,getText(R.string.loginfirst),Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+       // getSupportFragmentManager().popBackStack();
     }
 
     private void initialize() {
@@ -146,10 +148,14 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.navigation_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment()).addToBackStack(null).commit();
+                for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); ++i) {
+                    getSupportFragmentManager().popBackStack();
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment()).commit();
                 break;
 
             case R.id.navigation_order:
+
                 if (PreferenceHelper.getUserId() > 0) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MyOrdersFragment()).addToBackStack(null).commit();
                 } else
@@ -182,4 +188,5 @@ public class MainActivity extends AppCompatActivity
         cart_count = 0;
         invalidateOptionsMenu();
     }
+
 }

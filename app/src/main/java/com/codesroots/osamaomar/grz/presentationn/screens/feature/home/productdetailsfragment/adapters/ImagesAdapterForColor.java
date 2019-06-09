@@ -18,9 +18,9 @@ import java.util.List;
 public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterForColor.ViewHolder> {
 
     private Context context;
-    private int pos;
     public int mSelectedItem = 0;
-    List<ProductDetails.product.ColorBean> colors;
+    public String mSelectedItemname = " ";
+    public List<ProductDetails.product.ColorBean> colors;
 
     public ImagesAdapterForColor(Context context, List<ProductDetails.product.ColorBean> productcolors) {
         this.context = context;
@@ -71,6 +71,7 @@ public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterFor
 
             View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
+                mSelectedItemname = colors.get(mSelectedItem).getColor().getName();
                 notifyDataSetChanged();
             };
 

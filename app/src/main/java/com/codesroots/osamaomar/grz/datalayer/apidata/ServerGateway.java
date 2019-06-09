@@ -16,9 +16,7 @@ import com.codesroots.osamaomar.grz.models.entities.ProductDetails;
 import com.codesroots.osamaomar.grz.models.entities.ProductRate;
 import com.codesroots.osamaomar.grz.models.entities.Products;
 import com.codesroots.osamaomar.grz.models.entities.Register;
-import com.codesroots.osamaomar.grz.models.entities.Sidemenu;
 import com.codesroots.osamaomar.grz.models.entities.StoreSetting;
-import com.codesroots.osamaomar.grz.models.entities.SubCategriesWithProducts;
 import com.codesroots.osamaomar.grz.models.entities.UserLocations;
 import com.codesroots.osamaomar.grz.models.entities.offers;
 import java.util.ArrayList;
@@ -45,17 +43,19 @@ public interface ServerGateway {
     );
 
 
-    @GET("Subcats/getsubcats/{cat_id}/{user_id}.json")
-    Observable<SubCategriesWithProducts> getSubCatswithProducts(
-            @Path("cat_id") int cat_id,
-            @Path("user_id") int user_id
-    );
 
-
-    @GET("Products/getproductsbycatid/{cat_id}.json")
+    @GET("Products/getproductsbycatid/{cat_id}/{page}.json")
     Observable<Products> getProducts(
-            @Path("cat_id") int cat_id
+            @Path("cat_id") int cat_id,
+            @Path("page") int page
     );
+
+
+    @GET("Products/paginateproduct/{page_id}.json")
+    Observable<MainView> getProductsPaginationinmainPage(
+            @Path("page_id") int cat_id
+    );
+
 
 
     @FormUrlEncoded
@@ -91,7 +91,7 @@ public interface ServerGateway {
     );
 
 
-    @GET("BillingAddress/index/{userid}.json")
+        @GET("BillingAddress/index/{userid}.json")
     Observable<UserLocations> retrieveUserLocations(
             @Path("userid") int userid
     );
@@ -101,7 +101,7 @@ public interface ServerGateway {
     @GET("offers/getoffers.json")
     Observable<offers> retrieveOffers();
 
-    @GET("Products/ratedetails/{product_id}.json")
+    @GET("rating/getproductrate/{product_id}.json")
     Observable<ProductRate> getProductRates(
             @Path("product_id") int product_id
     );
@@ -115,6 +115,7 @@ public interface ServerGateway {
             @Field("feedback") String comment,
             @Field("status") int status
     );
+
 
     @FormUrlEncoded
     @POST("Chatting/addchat.json")
@@ -164,7 +165,7 @@ public interface ServerGateway {
     );
 
     ////////////// get currency
-    @GET("Currencies/currency.json")
+    @GET("currency/index.json")
     @Headers("Accept: Application/json")
     Observable<Currency> Currency();
 

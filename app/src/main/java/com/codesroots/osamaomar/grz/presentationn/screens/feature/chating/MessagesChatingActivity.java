@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.databinding.ActivityChatBinding;
 import com.codesroots.osamaomar.grz.models.entities.ChatList;
@@ -17,12 +16,10 @@ import com.codesroots.osamaomar.grz.models.entities.chatmessages;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.chating.adapters.ChatListAdapter;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessagesChatingActivity extends AppCompatActivity {
-
 
     ChatListAdapter chatListAdapter;
     private List<chatmessages.DataBean> allMessage;
@@ -59,8 +56,7 @@ public class MessagesChatingActivity extends AppCompatActivity {
         { messages.add(new ChatList.DataBean(addmessage.getChatting().getSender(),addmessage.getChatting().getMessage_text(),""));
             chatListAdapter.notifyDataSetChanged();
             chatBinding.etMessage.setText("");
-        }
-                );
+        });
 
         chatBinding.ivSend.setOnClickListener(v -> {
        //     if (PreferenceHelper.getUserId() > 0) {

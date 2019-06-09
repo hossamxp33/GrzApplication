@@ -1,4 +1,4 @@
-package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.adapters;
+package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,20 +15,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.Product;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.rate.RateActivity;
+
 import java.util.List;
+
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_ID;
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_RATE;
 
-public class FamousProductsAdapter extends RecyclerView.Adapter<FamousProductsAdapter.ViewHolder> {
+public class RelatedProductsAdapter extends RecyclerView.Adapter<RelatedProductsAdapter.ViewHolder> {
 
     private Context context;
     List<Product> famousProduct;
-    public FamousProductsAdapter(Context context, List<Product> productsbyrate) {
+    public RelatedProductsAdapter(Context context, List<Product> productsbyrate) {
         this.context = context;
         this.famousProduct = productsbyrate;
     }
@@ -38,7 +41,7 @@ public class FamousProductsAdapter extends RecyclerView.Adapter<FamousProductsAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.home_more_rate_item, parent, false);
+                .inflate(R.layout.product_item_in_details, parent, false);
 
         return new ViewHolder(view);
     }

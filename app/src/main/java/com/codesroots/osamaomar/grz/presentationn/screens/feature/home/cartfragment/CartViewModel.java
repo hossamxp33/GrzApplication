@@ -2,6 +2,7 @@ package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfrag
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
 import com.codesroots.osamaomar.grz.datalayer.localdata.product.entities.ProductDB;
 import com.codesroots.osamaomar.grz.datalayer.repositries.ProductAndCategries;
@@ -28,6 +29,7 @@ public class CartViewModel extends ViewModel {
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private ServerGateway serverGateway;
     private ArrayList<Integer> product_ids = new ArrayList<>();
+    private List<ProductDB> productDBS = new ArrayList<>();
     private productsUseCase productsUseCase = new productsUseCase();
     private ProductAndCategries productAndCategries;
 
@@ -40,22 +42,21 @@ public class CartViewModel extends ViewModel {
     }
 
 
-
-    public void getAllProducts()
-    {
+    public void getAllProducts() {
         productAndCategries.getAllProduct().subscribe(new SingleObserver<List<ProductDB>>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
 
             @Override
-            public void onSuccess(List<ProductDB> integers) {
-                for (int i=0;i<integers.size();i++)
-                    product_ids.add(integers.get(i).getProduct_id());
-                if (product_ids.size()>0)
-                {listMutableLiveData.postValue(integers);
-                getCartProducts();}
-                else
+            public void onSuccess(List<ProductDB> products) {
+                productDBS = products;
+                for (int i = 0; i < products.size(); i++)
+                    product_ids.add(products.get(i).getProduct_id());
+                if (product_ids.size() > 0) {
+                    listMutableLiveData.postValue(products);
+                    getCartProducts();
+                } else
                     noItemsFound.postValue(true);
             }
 
@@ -66,24 +67,28 @@ public class CartViewModel extends ViewModel {
     }
 
 
-    public void deleteItem(int productDB)
-    {
+    public void deleteItem(int productDB) {
         productAndCategries.deleteItemFromCart(productDB);
         productAndCategries.getAllProduct();
     }
 
-    private void getCartProducts(){
+    private void getCartProducts() {
         mCompositeDisposable.add(
                 serverGateway.getCartProducts(product_ids)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe( this::postDataResponse,
+                        .subscribe(this::postDataResponse,
                                 this::postError));
     }
 
 
     private void postDataResponse(CartItems cartItems) {
-        cartItemsMutableLiveData.postValue(productsUseCase.reshapProducts(cartItems.getData()));
+        List<Product> products = productsUseCase.reshapProducts(cartItems.getData());
+        for (int i = 0; i < products.size(); i++) {
+            products.get(i).setColorname(productDBS.get(i).getColor_name());
+            products.get(i).setSizename(productDBS.get(i).getSize_name());
+        }
+        cartItemsMutableLiveData.postValue(products);
     }
 
 

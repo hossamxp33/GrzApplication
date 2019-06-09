@@ -49,7 +49,7 @@ public class MyOrdersFragment extends Fragment {
         mViewModel.throwableMutableLiveData.observe(this, throwable ->
                 {
                     myOrdersFragmentBinding.progress.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), throwable.getMessage(), Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
         return myOrdersFragmentBinding.getRoot();

@@ -277,7 +277,7 @@ public class MyOrders {
 
                 private int product_id;
                 private String currentPrice;
-                private int product_price;
+                private float product_price;
                 private String name;
                 private List<TotalRatingBean> total_rating;
                 private List<ProductphotosBean> productphotos;
@@ -298,11 +298,11 @@ public class MyOrders {
                     this.currentPrice = currentPrice;
                 }
 
-                public int getProduct_price() {
+                public float getProduct_price() {
                     return product_price;
                 }
 
-                public void setProduct_price(int product_price) {
+                public void setProduct_price(float product_price) {
                     this.product_price = product_price;
                 }
 

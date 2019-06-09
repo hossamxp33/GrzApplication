@@ -36,16 +36,20 @@ public class ProductAndCategries {
         this.productDao = PDeo;
     }
 
-    public Observable<MainView> retrieveHomeFragmentData() {
+    public Observable<MainView> retrieveHomeFragmentData(int page) {
+        if (page>1)
+            return serverGateway.getProductsPaginationinmainPage(page);
+        else
         return serverGateway.getMainViewData();
     }
+
 
     public Observable<ProductDetails> retrieveDetailsObservable(int productid) {
         return serverGateway.getProductDetails(productid);
     }
 
-    public Observable<Products> retrieveProductsData(int catid) {
-        return serverGateway.getProducts(catid);
+    public Observable<Products> retrieveProductsData(int catid,int page) {
+        return serverGateway.getProducts(catid,page);
     }
 
     public Observable<offers> retrieveOffer() {
@@ -58,9 +62,7 @@ public class ProductAndCategries {
     }
 
 
-    public Observable<SubCategriesWithProducts> retrieveSubCatesWithProduct(int categryid, int userid) {
-        return serverGateway.getSubCatswithProducts(categryid, userid);
-    }
+
 
     public Observable<AddToFavModel> addToFav(int userid, int productid) {
         return serverGateway.addToFave(userid, productid);

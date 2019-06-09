@@ -27,7 +27,7 @@ public class MyOrdersViewModel extends ViewModel {
 
     private void getMyOrders(){
         mCompositeDisposable.add(
-                serverGateway.retrieveUserOrders(PreferenceHelper.getUserId())
+                serverGateway.retrieveUserOrders(user_id)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe( this::postDataResponse,

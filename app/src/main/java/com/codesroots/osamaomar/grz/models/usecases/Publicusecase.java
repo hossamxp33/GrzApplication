@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.CircularProgressDrawable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +29,22 @@ public class Publicusecase {
     }
 
 
+
+    public static void loadimage(Context context,ImageView imageView,String url)
+    {
+        if (!url.matches("")) {
+            CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(context);
+            circularProgressDrawable.setStrokeWidth(5f);
+            circularProgressDrawable.setCenterRadius(30f);
+            circularProgressDrawable.start();
+            Glide.with(context.getApplicationContext())
+                    .load(url)
+                    .placeholder(circularProgressDrawable)
+                    .into(imageView);
+        }
+
+
+    }
     public static void setupviewPager(ViewPager viewPager) {
         viewPager.setPageTransformer(true, (view, position) -> {
             view.setTranslationX(-position * view.getWidth());
@@ -44,7 +64,7 @@ public class Publicusecase {
         try {
             Date dateObj = sdf.parse(date);
             String timestamp = String.valueOf(dateObj.getTime());//  //Example -> in ms
-            SimpleDateFormat formatter = new SimpleDateFormat("hh:mm aa");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String dateString = formatter.format(new Date(Long.parseLong(timestamp)));
             return dateString;
         } catch (ParseException e) {
@@ -52,6 +72,7 @@ public class Publicusecase {
         }
         return null;
     }
+
 
     public static void shareTextUrl(Context context, String link) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);

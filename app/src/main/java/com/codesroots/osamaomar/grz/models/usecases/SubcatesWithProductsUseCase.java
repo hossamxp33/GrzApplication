@@ -23,15 +23,15 @@ public class SubcatesWithProductsUseCase {
         this.productsUseCase = productsUseCase1;
     }
 
-    @SuppressLint("CheckResult")
-    public void retrieveSubCatesWithproductData(CompositeDisposable mCompositeDisposable,
-                                                ProductAndCategries productAndCategries, MutableLiveData<SubCategriesWithProducts> data,
-                                                MutableLiveData<String> errormessage, int categry, int userid) {
-
-        productAndCategries.retrieveSubCatesWithProduct(categry, userid).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(mainView ->
-                this.postDataResponse(mainView, data), throwable -> postError(throwable, errormessage));
-    }
+//    @SuppressLint("CheckResult")
+//    public void retrieveSubCatesWithproductData(CompositeDisposable mCompositeDisposable,
+//                                                ProductAndCategries productAndCategries, MutableLiveData<SubCategriesWithProducts> data,
+//                                                MutableLiveData<String> errormessage, int categry, int userid) {
+//
+//        productAndCategries.retrieveSubCatesWithProduct(categry, userid).subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribe(mainView ->
+//                this.postDataResponse(mainView, data), throwable -> postError(throwable, errormessage));
+//    }
 
 
     private void postDataResponse(SubCategriesWithProducts categriesWithProducts,

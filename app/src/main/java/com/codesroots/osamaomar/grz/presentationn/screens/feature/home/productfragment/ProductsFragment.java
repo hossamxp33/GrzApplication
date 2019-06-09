@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.datalayer.localdata.product.entities.ProductDB;
 import com.codesroots.osamaomar.grz.models.entities.Product;
@@ -27,8 +30,10 @@ import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragm
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productfragment.adapters.AllProductsAdapter;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.codesroots.osamaomar.grz.models.entities.names.CAT_ID;
+import static com.codesroots.osamaomar.grz.models.entities.names.CAT_NAME;
 import static com.codesroots.osamaomar.grz.models.entities.names.SUBCATES_NAME;
 
 public class ProductsFragment extends Fragment implements AddorRemoveToCartCallbacks {
@@ -38,7 +43,7 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
     ConstraintLayout filter_option;
     ImageView changeSpane, filter;
     boolean RecycleIsHorizental = true;
-    int CategryId;
+    int CategryId, page = 1;
     private List<Product> productsData;
     private FrameLayout progress;
     private TextView notfound, cates_name, spillingfilter, pricefilter;
@@ -52,24 +57,31 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
         View view = inflater.inflate(R.layout.products_fragment, container, false);
         initialize(view);
         mViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductsViewModel.class);
-        mViewModel.getData(CategryId);
+        //mViewModel.getData(CategryId);
+
         name = getArguments().getString("name");
         if (name != null)
             mViewModel.getSearchProductData("ar", name);
         else
-            mViewModel.getData(CategryId);
+            mViewModel.getData(CategryId, page);
 
 
         mViewModel.productsMutableLiveData.observe(this, products ->
         {
             mViewModel.setResultData(products);
-            productsData = products;
             progress.setVisibility(View.GONE);
             notfound.setVisibility(View.GONE);
             if (products.size() > 0) {
-                productsRecycle.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                AllProductsAdapter = new AllProductsAdapter(getActivity(), 0, products, this);
-                productsRecycle.setAdapter(AllProductsAdapter);
+                if (page == 1) {
+                    productsData = products;
+                    productsRecycle.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                    AllProductsAdapter = new AllProductsAdapter(getActivity(), 0, productsData, this);
+                    productsRecycle.setAdapter(AllProductsAdapter);
+                } else {
+                    productsData.addAll(products);
+                    AllProductsAdapter.notifyDataSetChanged();
+                    productsRecycle.scrollToPosition(AllProductsAdapter.getItemCount() - 19);
+                }
             } else {
                 notfound.setVisibility(View.VISIBLE);
                 changeSpane.setEnabled(false);
@@ -77,21 +89,23 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
             }
         });
 
-        mViewModel.statues.observe(this,s ->
-                {
-                    if (s.matches("0"))
-                        Toast.makeText(getContext(),getText(R.string.aleady_exists),Toast.LENGTH_SHORT).show();
-                    else if (s.matches("1"))
-                        Toast.makeText(getContext(),getText(R.string.addtocartsuccess),Toast.LENGTH_SHORT).show();
-                    else if (s.matches("2"))
-                        Toast.makeText(getContext(),getText(R.string.erroroccure),Toast.LENGTH_SHORT).show();
-                });
+        mViewModel.statues.observe(this, s ->
+        {
+            if (s.matches("0"))
+                Toast.makeText(getContext(), getText(R.string.aleady_exists), Toast.LENGTH_SHORT).show();
+            else if (s.matches("1"))
+                Toast.makeText(getContext(), getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
+            else if (s.matches("2"))
+                Toast.makeText(getContext(), getText(R.string.erroroccure), Toast.LENGTH_SHORT).show();
+        });
 
 
         mViewModel.errorMessage.observe(this, throwable ->
         {
-            progress.setVisibility(View.GONE);
-            Toast.makeText(getActivity(), throwable, Toast.LENGTH_SHORT).show();
+            if (page==1) {
+                progress.setVisibility(View.GONE);
+                Toast.makeText(getActivity(), throwable, Toast.LENGTH_SHORT).show();
+            }
         });
         pricefilter.setOnClickListener(v ->
         {
@@ -106,6 +120,18 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
             hideView(filter_option, 0);
         });
 
+        productsRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItem = ((LinearLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager())).findLastVisibleItemPosition();
+                Log.d("lastVisible", String.valueOf(lastVisibleItem));
+                if (lastVisibleItem == AllProductsAdapter.getItemCount() - 1) {
+                    page++;
+                    mViewModel.getData(CategryId, page);
+                }
+            }
+        });
         return view;
     }
 
@@ -119,7 +145,7 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
         pricefilter = view.findViewById(R.id.pricefilter);
         notfound = view.findViewById(R.id.product_notfound);
         cates_name = view.findViewById(R.id.cates_name);
-        title = getArguments().getString(SUBCATES_NAME);
+        title = getArguments().getString(CAT_NAME);
         cates_name.setText(title);
         CategryId = getArguments().getInt(CAT_ID, 0);
         changeSpane.setOnClickListener(onClickListener);
@@ -186,13 +212,13 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
 
     @Override
     public void onAddProduct(int pid, int cid, int sid) {
-        ProductDB product = new ProductDB(pid,cid,sid);
-        ((AddorRemoveCallbacks)getActivity()).onAddProduct();
+        ProductDB product = new ProductDB(pid, cid, sid);
+        ((AddorRemoveCallbacks) getActivity()).onAddProduct();
         mViewModel.AddToCart(product);
     }
 
     @Override
-    public void onRemoveProduct(int pid,int pos) {
+    public void onRemoveProduct(int pid, int pos) {
     }
 
     @Override

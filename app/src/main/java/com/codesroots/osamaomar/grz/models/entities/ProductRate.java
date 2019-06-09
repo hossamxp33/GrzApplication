@@ -5,7 +5,61 @@ import java.util.List;
 public class ProductRate {
 
 
+    /**
+     * data : [{"rating_id":3,"product_id":2,"customer_id":1,"rated":4,"feedback":"","status":0,"log_user":null,"created_at":"2018-09-18T20:14:36+0000","updated_at":"2018-09-18T20:14:36+0000","user":{"customer_id":1,"customer_name":"iftikhar Ali","customer_email":"iftikhar.romtech@gmail.com","customer_contact":"94113503","customer_address":"SOME ADDRESS","status":0,"log_user":null,"created_at":"2018-09-09T21:57:16+0000","updated_at":"2018-12-18T10:28:12+0000"}},{"rating_id":5,"product_id":2,"customer_id":2,"rated":4,"feedback":"good","status":0,"log_user":null,"created_at":"2018-10-10T05:26:01+0000","updated_at":"2018-10-10T05:26:01+0000","user":{"customer_id":2,"customer_name":"Tt","customer_email":"admin@mazoon-whats.com ","customer_contact":"9999","customer_address":"aaa","status":0,"log_user":null,"created_at":"2018-09-10T14:47:29+0000","updated_at":"2019-04-15T05:21:49+0000"}}]
+     * rate5 : 0
+     * rate4 : 2
+     * rate3 : 0
+     * rate2 : 0
+     * rate1 : 0
+     */
+
+    private int rate5;
+    private int rate4;
+    private int rate3;
+    private int rate2;
+    private int rate1;
     private List<DataBean> data;
+
+    public int getRate5() {
+        return rate5;
+    }
+
+    public void setRate5(int rate5) {
+        this.rate5 = rate5;
+    }
+
+    public int getRate4() {
+        return rate4;
+    }
+
+    public void setRate4(int rate4) {
+        this.rate4 = rate4;
+    }
+
+    public int getRate3() {
+        return rate3;
+    }
+
+    public void setRate3(int rate3) {
+        this.rate3 = rate3;
+    }
+
+    public int getRate2() {
+        return rate2;
+    }
+
+    public void setRate2(int rate2) {
+        this.rate2 = rate2;
+    }
+
+    public int getRate1() {
+        return rate1;
+    }
+
+    public void setRate1(int rate1) {
+        this.rate1 = rate1;
+    }
 
     public List<DataBean> getData() {
         return data;
@@ -17,204 +71,202 @@ public class ProductRate {
 
     public static class DataBean {
         /**
-         * id : 30
-         * name : zzzz
-         * name_en : salt
-         * productrates : [{"id":4,"user_id":5,"rate":3,"created":"2019-03-20T11:45:26+0000","modified":"2019-03-20T11:45:26+0000","comment":"gamel gdn","product_id":30,"user":{"id":5,"username":"admin"}},{"id":5,"user_id":5,"rate":3,"created":"2019-03-20T12:55:10+0000","modified":"2019-03-20T12:55:10+0000","comment":"gamel gdn","product_id":30,"user":{"id":5,"username":"admin"}},{"id":6,"user_id":5,"rate":5,"created":"2019-03-20T12:56:05+0000","modified":"2019-03-20T12:56:05+0000","comment":"gftjgft","product_id":30,"user":{"id":5,"username":"admin"}},{"id":7,"user_id":5,"rate":5,"created":"2019-03-20T13:02:36+0000","modified":"2019-03-20T13:02:36+0000","comment":"gftjgft","product_id":30,"user":{"id":5,"username":"admin"}},{"id":8,"user_id":5,"rate":3.5,"created":"2019-03-20T13:18:50+0000","modified":"2019-03-20T13:18:50+0000","comment":"gamel gdn","product_id":30,"user":{"id":5,"username":"admin"}},{"id":9,"user_id":5,"rate":0,"created":"2019-03-20T13:18:53+0000","modified":"2019-03-20T13:18:53+0000","comment":"تلب","product_id":30,"user":{"id":5,"username":"admin"}},{"id":10,"user_id":5,"rate":2.5,"created":"2019-03-20T13:19:19+0000","modified":"2019-03-20T13:19:19+0000","comment":"التقييم جيد جدا ","product_id":30,"user":{"id":5,"username":"admin"}},{"id":11,"user_id":5,"rate":3,"created":"2019-03-20T13:23:17+0000","modified":"2019-03-20T13:23:17+0000","comment":"المنتج جيد جدا ","product_id":30,"user":{"id":5,"username":"admin"}}]
-         * total_rating : [{"product_id":30,"stars":25,"count":8}]
+         * rating_id : 3
+         * product_id : 2
+         * customer_id : 1
+         * rated : 4
+         * feedback :
+         * status : 0
+         * log_user : null
+         * created_at : 2018-09-18T20:14:36+0000
+         * updated_at : 2018-09-18T20:14:36+0000
+         * user : {"customer_id":1,"customer_name":"iftikhar Ali","customer_email":"iftikhar.romtech@gmail.com","customer_contact":"94113503","customer_address":"SOME ADDRESS","status":0,"log_user":null,"created_at":"2018-09-09T21:57:16+0000","updated_at":"2018-12-18T10:28:12+0000"}
          */
 
-        private int id;
-        private String name;
-        private String name_en;
-        private List<ProductratesBean> productrates;
-        private List<TotalRatingBean> total_rating;
+        private int rating_id;
+        private int product_id;
+        private int customer_id;
+        private int rated;
+        private String feedback;
+        private int status;
+        private Object log_user;
+        private String created_at;
+        private String updated_at;
+        private UserBean user;
 
-        public int getId() {
-            return id;
+        public int getRating_id() {
+            return rating_id;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setRating_id(int rating_id) {
+            this.rating_id = rating_id;
         }
 
-        public String getName() {
-            return name;
+        public int getProduct_id() {
+            return product_id;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setProduct_id(int product_id) {
+            this.product_id = product_id;
         }
 
-        public String getName_en() {
-            return name_en;
+        public int getCustomer_id() {
+            return customer_id;
         }
 
-        public void setName_en(String name_en) {
-            this.name_en = name_en;
+        public void setCustomer_id(int customer_id) {
+            this.customer_id = customer_id;
         }
 
-        public List<ProductratesBean> getProductrates() {
-            return productrates;
+        public int getRated() {
+            return rated;
         }
 
-        public void setProductrates(List<ProductratesBean> productrates) {
-            this.productrates = productrates;
+        public void setRated(int rated) {
+            this.rated = rated;
         }
 
-        public List<TotalRatingBean> getTotal_rating() {
-            return total_rating;
+        public String getFeedback() {
+            return feedback;
         }
 
-        public void setTotal_rating(List<TotalRatingBean> total_rating) {
-            this.total_rating = total_rating;
+        public void setFeedback(String feedback) {
+            this.feedback = feedback;
         }
 
-        public static class ProductratesBean {
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public Object getLog_user() {
+            return log_user;
+        }
+
+        public void setLog_user(Object log_user) {
+            this.log_user = log_user;
+        }
+
+        public String getCreated_at() {
+            return created_at;
+        }
+
+        public void setCreated_at(String created_at) {
+            this.created_at = created_at;
+        }
+
+        public String getUpdated_at() {
+            return updated_at;
+        }
+
+        public void setUpdated_at(String updated_at) {
+            this.updated_at = updated_at;
+        }
+
+        public UserBean getUser() {
+            return user;
+        }
+
+        public void setUser(UserBean user) {
+            this.user = user;
+        }
+
+        public static class UserBean {
             /**
-             * id : 4
-             * user_id : 5
-             * rate : 3
-             * created : 2019-03-20T11:45:26+0000
-             * modified : 2019-03-20T11:45:26+0000
-             * comment : gamel gdn
-             * product_id : 30
-             * user : {"id":5,"username":"admin"}
+             * customer_id : 1
+             * customer_name : iftikhar Ali
+             * customer_email : iftikhar.romtech@gmail.com
+             * customer_contact : 94113503
+             * customer_address : SOME ADDRESS
+             * status : 0
+             * log_user : null
+             * created_at : 2018-09-09T21:57:16+0000
+             * updated_at : 2018-12-18T10:28:12+0000
              */
 
-            private int id;
-            private int user_id;
-            private float rate;
-            private String created;
-            private String modified;
-            private String comment;
-            private int product_id;
-            private UserBean user;
+            private int customer_id;
+            private String customer_name;
+            private String customer_email;
+            private String customer_contact;
+            private String customer_address;
+            private int status;
+            private Object log_user;
+            private String created_at;
+            private String updated_at;
 
-            public int getId() {
-                return id;
+            public int getCustomer_id() {
+                return customer_id;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setCustomer_id(int customer_id) {
+                this.customer_id = customer_id;
             }
 
-            public int getUser_id() {
-                return user_id;
+            public String getCustomer_name() {
+                return customer_name;
             }
 
-            public void setUser_id(int user_id) {
-                this.user_id = user_id;
+            public void setCustomer_name(String customer_name) {
+                this.customer_name = customer_name;
             }
 
-            public float getRate() {
-                return rate;
+            public String getCustomer_email() {
+                return customer_email;
             }
 
-            public void setRate(int rate) {
-                this.rate = rate;
+            public void setCustomer_email(String customer_email) {
+                this.customer_email = customer_email;
             }
 
-            public String getCreated() {
-                return created;
+            public String getCustomer_contact() {
+                return customer_contact;
             }
 
-            public void setCreated(String created) {
-                this.created = created;
+            public void setCustomer_contact(String customer_contact) {
+                this.customer_contact = customer_contact;
             }
 
-            public String getModified() {
-                return modified;
+            public String getCustomer_address() {
+                return customer_address;
             }
 
-            public void setModified(String modified) {
-                this.modified = modified;
+            public void setCustomer_address(String customer_address) {
+                this.customer_address = customer_address;
             }
 
-            public String getComment() {
-                return comment;
+            public int getStatus() {
+                return status;
             }
 
-            public void setComment(String comment) {
-                this.comment = comment;
+            public void setStatus(int status) {
+                this.status = status;
             }
 
-            public int getProduct_id() {
-                return product_id;
+            public Object getLog_user() {
+                return log_user;
             }
 
-            public void setProduct_id(int product_id) {
-                this.product_id = product_id;
+            public void setLog_user(Object log_user) {
+                this.log_user = log_user;
             }
 
-            public UserBean getUser() {
-                return user;
+            public String getCreated_at() {
+                return created_at;
             }
 
-            public void setUser(UserBean user) {
-                this.user = user;
+            public void setCreated_at(String created_at) {
+                this.created_at = created_at;
             }
 
-            public static class UserBean {
-                /**
-                 * id : 5
-                 * username : admin
-                 */
-
-                private int id;
-                private String username;
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public String getUsername() {
-                    return username;
-                }
-
-                public void setUsername(String username) {
-                    this.username = username;
-                }
-            }
-        }
-
-        public static class TotalRatingBean {
-            /**
-             * product_id : 30
-             * stars : 25
-             * count : 8
-             */
-
-            private int product_id;
-            private int stars;
-            private int count;
-
-            public int getProduct_id() {
-                return product_id;
+            public String getUpdated_at() {
+                return updated_at;
             }
 
-            public void setProduct_id(int product_id) {
-                this.product_id = product_id;
-            }
-
-            public int getStars() {
-                return stars;
-            }
-
-            public void setStars(int stars) {
-                this.stars = stars;
-            }
-
-            public int getCount() {
-                return count;
-            }
-
-            public void setCount(int count) {
-                this.count = count;
+            public void setUpdated_at(String updated_at) {
+                this.updated_at = updated_at;
             }
         }
     }

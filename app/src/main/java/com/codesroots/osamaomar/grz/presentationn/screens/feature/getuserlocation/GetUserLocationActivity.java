@@ -61,6 +61,7 @@ public class GetUserLocationActivity extends AppCompatActivity  {
         country = findViewById(R.id.country);
         country = findViewById(R.id.country);
         notes = findViewById(R.id.notes);
+
         userLocationsViewModel.addLocationMutableLiveData.observe(this,
                 addLocation -> this.finish());
         userLocationsViewModel.error.observe(this, throwable ->
@@ -83,6 +84,8 @@ public class GetUserLocationActivity extends AppCompatActivity  {
     }
 
     public void send(View view) {
+        ((TextView)view).setText(getText(R.string.wait));
+        ((TextView)view).setEnabled(false);
             userLocationsViewModel.addUserLocation(PreferenceHelper.getUserId(),
                     location.getText().toString(), country.getText().toString(), city.getText().toString(), notes.getText().toString());
     }

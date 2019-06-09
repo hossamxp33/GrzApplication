@@ -152,4 +152,13 @@
     <string name="choicecity">اختر المدينة</string>
     <string name="notes">ملاحظات</string>
     <string name="now">الان</string>
+    <string name="chargeaddress">عناوين الشحن</string>
+    <string name="usernameerror">اسم المستخدم او كلمة المرور غير صحيحة</string>
+    <string name="product_notes">ملاحظات</string>
+    <string name="related_products">منتجات ذات صلة</string>
+    <string name="choicelang">اختر اللغة</string>
+    <string name="lang">اللغة</string>
+    <string name="sendreq">أرسل تفسيرك</string>
+    <string name="dirctcontact">الاتصال المباشر</string>
+
 </resources>

@@ -28,7 +28,7 @@ public class ProductsInsideorderFragment extends Fragment {
     int orderid;
     private Products productsData;
     private FrameLayout progress;
-    private TextView notfound;
+    private TextView notfound,ordernum;
     private MyOrders.DataBean order;
 
     @Override
@@ -41,6 +41,9 @@ public class ProductsInsideorderFragment extends Fragment {
         order = (MyOrders.DataBean) getArguments().getSerializable(ORDER);
         productsRecycle = view.findViewById(R.id.allProducts);
         progress = view.findViewById(R.id.progress);
+        ordernum = view.findViewById(R.id.ordernum);
+        if (orderid>0)
+        ordernum.setText(String.valueOf(orderid));
         if (order!=null)
              productsRecycle.setAdapter(new AllProductsInsideOrderAdapter(getActivity(),order.getOrder_details()));
 

@@ -19,12 +19,11 @@ import java.util.List;
 public class RateAdapter extends RecyclerView.Adapter<RateAdapter.ViewHolder>  {
 
     private Context context;
-    private  List<ProductRate.DataBean.ProductratesBean> rates;
+    private  List<ProductRate.DataBean> rates;
     private  String product_name;
-    public RateAdapter(Context mcontext, List<ProductRate.DataBean.ProductratesBean> data,String name) {
+    public RateAdapter(Context mcontext, List<ProductRate.DataBean> data) {
         context = mcontext;
         rates = data;
-        product_name = name;
     }
 
     @NonNull
@@ -38,10 +37,10 @@ public class RateAdapter extends RecyclerView.Adapter<RateAdapter.ViewHolder>  {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder,final int position) {
 
-        holder.comment.setText(rates.get(position).getComment());
-        holder.user_name.setText(rates.get(position).getUser().getUsername());
-        holder.comment_date.setText(getdate(rates.get(position).getCreated()));
-        holder.ratingBar.setRating(rates.get(position).getRate());
+        holder.comment.setText(rates.get(position).getFeedback());
+        holder.user_name.setText(rates.get(position).getUser().getCustomer_email());
+        holder.comment_date.setText(getdate(rates.get(position).getCreated_at()));
+        holder.ratingBar.setRating(rates.get(position).getRated());
         holder.product_name.setText(product_name);
     }
 

@@ -21,10 +21,12 @@ import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.models.helper.ResourceUtil;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.chating.ChatingActivity;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.chating.MessagesChatingActivity;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.contact.ContactFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.MainFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsModelFactory;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.login.LoginFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.splash.SplashActivity;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.userlocations.UserLocationsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +34,8 @@ import java.util.List;
 public class MenuFragment extends Fragment {
 
     private MenuViewModel mViewModel;
-    private TextView currency, lang, login, logout, chat;
+    private TextView currency, lang, login, logout, chat, charge,direct_contact;
     private List<Currency.DataBean> dataBeanList = new ArrayList<>();
-
-    public static MenuFragment newInstance() {
-        return new MenuFragment();
-    }
 
     private boolean curremtlang; ///true if arabic
 
@@ -51,21 +49,35 @@ public class MenuFragment extends Fragment {
         lang = view.findViewById(R.id.lang);
         logout = view.findViewById(R.id.logout);
         chat = view.findViewById(R.id.chat);
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        charge = view.findViewById(R.id.charge);
+        direct_contact = view.findViewById(R.id.direct_contact);
+        chat.setOnClickListener(v ->
+        {
+            if (PreferenceHelper.getUserId() > 0)
                 startActivity(new Intent(getContext(), MessagesChatingActivity.class));
-            }
+            else
+                Toast.makeText(getContext(), getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
         });
 
         currency.setOnClickListener(v -> mViewModel.getCurrencyData());
         login.setOnClickListener(v -> getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new LoginFragment()).addToBackStack(null).commit());
+        direct_contact.setOnClickListener(v -> getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ContactFragment()).addToBackStack(null).commit());
+        charge.setOnClickListener(v ->
+                {
+                    if (PreferenceHelper.getUserId() > 0)
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new UserLocationsFragment()).addToBackStack(null).commit();
+                    else
+                        Toast.makeText(getContext(), getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
+                }
+        );
 
         if (ResourceUtil.getCurrentLanguage(getActivity()).matches("en")) {
             login.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_next, 0);
             lang.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_next, 0);
             logout.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_next, 0);
             currency.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_next, 0);
+            charge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_next, 0);
+            chat.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_next, 0);
         }
 
         if (PreferenceHelper.getUserId() > 0)
@@ -80,7 +92,6 @@ public class MenuFragment extends Fragment {
                 fm.popBackStack();
             }
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment()).addToBackStack(null).commit();
-
             Toast.makeText(getActivity(), getText(R.string.youlogout), Toast.LENGTH_SHORT).show();
         });
 
@@ -99,16 +110,38 @@ public class MenuFragment extends Fragment {
         }
 
         lang.setOnClickListener(v -> {
-            if (curremtlang)
-                ResourceUtil.changeLang("en", getActivity());
-            else
-                ResourceUtil.changeLang("ar", getActivity());
+            showDialogForLang();
+    });
+        return view;
+    }
 
+    private void showDialogForLang() {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
+        builderSingle.setTitle(getText(R.string.choicelang));
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_singlechoice);
+        arrayAdapter.add("العربية");
+        arrayAdapter.add("English");
+        builderSingle.setNegativeButton(getText(R.string.cancel), (dialog, which) -> dialog.dismiss());
+        builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
+            String strName = arrayAdapter.getItem(which);
+            AlertDialog.Builder builderInner = new AlertDialog.Builder(getActivity());
+            builderInner.setMessage(strName);
+            String lang="";
+            if (which == 0) {
+               lang="ar";
+            } else if (which == 1) {
+              lang="en";
+            }
+
+            if (curremtlang)
+                ResourceUtil.changeLang(lang, getActivity());
+            else
+                ResourceUtil.changeLang(lang, getActivity());
             Intent i = new Intent(getActivity(), SplashActivity.class);
             startActivity(i);
             getActivity().finishAffinity();
         });
-        return view;
+        builderSingle.show();
     }
 
     private void showDialog(List<Currency.DataBean> dataBeanList) {
@@ -116,25 +149,38 @@ public class MenuFragment extends Fragment {
         builderSingle.setTitle(getText(R.string.selectcurrency));
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_singlechoice);
-        for (int i = 0; i < dataBeanList.size(); i++)
-            arrayAdapter.add(dataBeanList.get(i).getName());
+        arrayAdapter.add("omr");
+        arrayAdapter.add("usd");
+        arrayAdapter.add("aed");
+        arrayAdapter.add("sar");
+
         builderSingle.setNegativeButton(getText(R.string.cancel), (dialog, which) -> dialog.dismiss());
         builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
             String strName = arrayAdapter.getItem(which);
             AlertDialog.Builder builderInner = new AlertDialog.Builder(getActivity());
             builderInner.setMessage(strName);
-            PreferenceHelper.setCURRENCY(dataBeanList.get(which).getName());
-            PreferenceHelper.setCURRENCYArabic(dataBeanList.get(which).getName_ar());
-            PreferenceHelper.setCURRENCY_VALUE(dataBeanList.get(which).getValue());
-            builderInner.setTitle(getText(R.string.yourselect));
-            builderInner.setPositiveButton(getText(R.string.ok), (dialog1, which1) -> dialog1.dismiss());
-            builderInner.show();
+            if (which == 0) {
+                PreferenceHelper.setCURRENCY(arrayAdapter.getItem(0));
+                PreferenceHelper.setCURRENCY_VALUE(dataBeanList.get(0).getOmr());
+            } else if (which == 1) {
+                PreferenceHelper.setCURRENCY(arrayAdapter.getItem(1));
+                PreferenceHelper.setCURRENCY_VALUE((float) dataBeanList.get(0).getUsd());
+            } else if (which == 2) {
+                PreferenceHelper.setCURRENCY(arrayAdapter.getItem(2));
+                PreferenceHelper.setCURRENCY_VALUE((float) dataBeanList.get(0).getAed());
+            } else if (which == 3) {
+                PreferenceHelper.setCURRENCY(arrayAdapter.getItem(3));
+                PreferenceHelper.setCURRENCY_VALUE((float) dataBeanList.get(0).getSar());
+            }
+//
+//            builderInner.setTitle(getText(R.string.yourselect));
+//            builderInner.setPositiveButton(getText(R.string.ok), (dialog1, which1) -> dialog1.dismiss());
+//            builderInner.show();
             FragmentManager fm = getActivity().getSupportFragmentManager();
             for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
                 fm.popBackStack();
             }
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment()).addToBackStack(null).commit();
-
         });
         builderSingle.show();
     }

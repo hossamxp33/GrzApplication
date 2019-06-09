@@ -67,7 +67,7 @@ public class RegisterFragment extends Fragment {
                      Toast.makeText(getActivity(),getText(R.string.error_tryagani),Toast.LENGTH_SHORT).show();
                 });
                 mViewModel.errorinRegister.observe(this,throwable ->
-                        Toast.makeText(getActivity(),throwable.getCause().toString(),Toast.LENGTH_SHORT).show() );
+                        Toast.makeText(getActivity(),throwable.toString(),Toast.LENGTH_SHORT).show() );
         return view;
     }
 

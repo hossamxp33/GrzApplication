@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.CircularProgressDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,9 +26,11 @@ import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productfragment.ProductsFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.rate.RateActivity;
+
 import java.util.List;
 
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_ID;
+import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_RATE;
 
 
 public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.ViewHolder> {
@@ -35,7 +38,6 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     private Context context;
     private int type = 0;
     private List<Product> productsbysubcats;
-    boolean[] favorite;
     ProductsFragment productsFragment;
     int userid = PreferenceHelper.getUserId();
     Fragment fragment = new ProductDetailsFragment();
@@ -47,7 +49,6 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
         type = viewType;
         productsbysubcats = productsbysubcats1;
         productsFragment = fragment;
-        favorite = new boolean[productsbysubcats.size()];
     }
 
     @NonNull
@@ -69,10 +70,15 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.start();
+
         if (productsbysubcats.get(position).getPhotos().size() > 0)
             Glide.with(context.getApplicationContext())
-                    .load(productsbysubcats.get(position).getPhotos().get(0).getPhoto()).
-                    placeholder(R.drawable.product).dontAnimate()
+                    .load(context.getText(R.string.base_img_url) + productsbysubcats.get(position).getPhotos().get(0).getPhoto()).
+                    placeholder(circularProgressDrawable).dontAnimate()
                     .into(holder.Image);
 
         holder.name.setText(productsbysubcats.get(position).getName());
@@ -96,6 +102,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 Intent intent = new Intent(context, RateActivity.class);
                 intent.putExtra(PRODUCT_ID, productsbysubcats.get(position).getProductid());
+                intent.putExtra(PRODUCT_RATE, productsbysubcats.get(position).getRate());
                 context.startActivity(intent);
             }
             return true;
@@ -103,29 +110,10 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
 
 
         holder.add_to_cart.setOnClickListener(v -> {
-            if (userid>0) {
-                productsFragment.onAddProduct(productsbysubcats.get(position).getProductid(),
-                        productsbysubcats.get(position).getColorid(),
-                        productsbysubcats.get(position).getSizeid());
-
-
-//                if (PreferenceHelper.retriveCartItemsValue() != null) {
-//                    if (!PreferenceHelper.retriveCartItemsValue().contains(String.valueOf(productsbysubcats.get(position).getProductid()))) {
-//                        PreferenceHelper.addItemtoCart(productsbysubcats.get(position).getProductid());
-//                        ((AddorRemoveCallbacks) context).onAddProduct();
-//                        Toast.makeText(context, context.getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
-//                    } else
-//                        Toast.makeText(context,context.getText(R.string.aleady_exists), Toast.LENGTH_SHORT).show();
-//                } else {
-//                    PreferenceHelper.addItemtoCart(productsbysubcats.get(position).getProductid());
-//                    ((AddorRemoveCallbacks) context).onAddProduct();
-//                    Toast.makeText(context, context.getText(R.string.addtocartsuccess), Toast.LENGTH_SHORT).show();
-//                }
-            }
-            else
-                Toast.makeText(context, context.getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
+            productsFragment.onAddProduct(productsbysubcats.get(position).getProductid(),
+                    productsbysubcats.get(position).getColorid(),
+                    productsbysubcats.get(position).getSizeid());
         });
-
     }
 
     @Override

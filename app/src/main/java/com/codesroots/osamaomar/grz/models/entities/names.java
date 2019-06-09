@@ -3,6 +3,7 @@ package com.codesroots.osamaomar.grz.models.entities;
 public class names {
 
     public static String PRODUCT_ID = "PRODUCT_ID";
+    public static String PRODUCT_RATE = "PRODUCT_RATE";
     public static String SUB_CAT_ID = "SUB_CAT_ID";
     public static String CAT_ID = "CAT_ID";
     public static String CAT_TYPE = "CAT_TYPE";

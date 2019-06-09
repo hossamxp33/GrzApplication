@@ -58,7 +58,7 @@ public class AllProductsInsideOrderAdapter extends RecyclerView.Adapter<AllProdu
 
         if (orderdetailsBeans.get(position).getProduct()!=null)
             Glide.with(context.getApplicationContext())
-                    .load(orderdetailsBeans.get(position).getProduct().getProductphotos().get(0).getPhoto()).placeholder(R.drawable.product).dontAnimate()
+                    .load(context.getText(R.string.base_img_url)+orderdetailsBeans.get(position).getProduct().getProductphotos().get(0).getPhoto()).placeholder(R.drawable.product).dontAnimate()
                     .into(holder.Image);
             holder.name.setText(orderdetailsBeans.get(position).getProduct().getName());
 

@@ -21,11 +21,7 @@ public class ProductSizesAdapter extends RecyclerView.Adapter<ProductSizesAdapte
     ProductDetailsFragment fragment;
     List<ProductDetails.product.ProductsizesBean> productsizes;
     public int mSelectedItem = 0;
-    public float priceafteroffer = 0;
-
-
-    private int offer;
-    private StoreSetting setting;
+    public String mSelectedItemname = " ";
 
     public ProductSizesAdapter(Context mcontext, List<ProductDetails.product.ProductsizesBean> sizes,
                                ProductDetailsFragment detailsFragment) {
@@ -76,6 +72,7 @@ public class ProductSizesAdapter extends RecyclerView.Adapter<ProductSizesAdapte
 
             @SuppressLint("SetTextI18n") View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
+                mSelectedItemname = productsizes.get(mSelectedItem).getSize().getSize_title();
                 notifyDataSetChanged();
             };
             itemView.setOnClickListener(clickListener);

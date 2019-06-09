@@ -8,6 +8,15 @@ public class ProductDetails {
 
 
     private List<product> productdetails;
+    private List<product> related;
+
+    public List<product> getRelated() {
+        return related;
+    }
+
+    public void setRelated(List<product> related) {
+        this.related = related;
+    }
 
     public List<product> getProductdetails() {
         return productdetails;
@@ -35,10 +44,23 @@ public class ProductDetails {
         private String name;
         private String name_en;
         private String description;
+        private String product_notes;
         private String description_en;
         private int amount;
         @SerializedName("currentPrice")
-        private String currentPrice;
+        private float currentPrice;
+
+        public String getProduct_notes() {
+            return product_notes;
+        }
+
+        public void setProduct_notes(String product_notes) {
+            this.product_notes = product_notes;
+        }
+
+        @SerializedName("product_price")
+        private float product_price;
+
         private List<ProductsizesBean> product_sizes;
         private List<ColorBean> product_colors;
         private List<TotalRatingBean> total_rating;
@@ -46,6 +68,23 @@ public class ProductDetails {
         @SerializedName("product_discounts")
         private List<OffersBean> offers;
         private List<FavouritesBean> favourites;
+        private List<product> related;
+
+        public List<product> getRelated() {
+            return related;
+        }
+
+        public void setRelated(List<product> related) {
+            this.related = related;
+        }
+
+        public float getProduct_price() {
+            return product_price;
+        }
+
+        public void setProduct_price(float product_price) {
+            this.product_price = product_price;
+        }
 
         public int getAmount() {
             return amount;
@@ -71,11 +110,11 @@ public class ProductDetails {
             this.product_colors = product_colors;
         }
 
-        public String getCurrentPrice() {
+        public float getCurrentPrice() {
             return currentPrice;
         }
 
-        public void setCurrentPrice(String currentPrice) {
+        public void setCurrentPrice(float currentPrice) {
             this.currentPrice = currentPrice;
         }
 
@@ -527,6 +566,7 @@ public class ProductDetails {
             }
         }
 
+
         public static class OffersBean {
             /**
              * id : 84
@@ -536,18 +576,29 @@ public class ProductDetails {
             @SerializedName("uid")
             private int id;
             @SerializedName("discounted_price")
-            private String percentage;
+            private float percentage;
             private int product_id;
+            private String to_discount;
+
+            public String getTo_discount() {
+                return to_discount;
+            }
+
+            public void setTo_discount(String to_discount) {
+                this.to_discount = to_discount;
+            }
+
             public int getId() {
                 return id;
             }
             public void setId(int id) {
                 this.id = id;
             }
-            public String getPercentage() {
+
+            public float getPercentage() {
                 return percentage;
             }
-            public void setPercentage(String percentage) {
+            public void setPercentage(float percentage) {
                 this.percentage = percentage;
             }
             public int getProduct_id() {

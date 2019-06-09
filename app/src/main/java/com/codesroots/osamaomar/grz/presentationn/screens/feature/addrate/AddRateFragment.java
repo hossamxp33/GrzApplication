@@ -52,7 +52,7 @@ public class AddRateFragment extends Fragment {
         product_name = getArguments().getString(PRODUCT_NAME);
         productphoto = view.findViewById(R.id.item_rateimg);
         product_of.setText(product_of.getText().toString() + " " + product_name);
-        Glide.with(getActivity()).load(product_photo).placeholder(R.drawable.product).dontAnimate().into(productphoto);
+        Glide.with(getActivity()).load(getText(R.string.base_img_url)+product_photo).placeholder(R.drawable.product).dontAnimate().into(productphoto);
 
         mViewModel.AddRateMutableLiveData.observe(getActivity(), addRateResonse ->
                 {

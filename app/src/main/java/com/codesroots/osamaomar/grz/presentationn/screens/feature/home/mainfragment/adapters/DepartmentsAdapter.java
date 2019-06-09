@@ -43,7 +43,7 @@ public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        Glide.with(context).load(categories.get(position).getPhoto()).dontAnimate().
+        Glide.with(context).load("http://grzexpress.com/ar/./../category_images/"+categories.get(position).getPhoto()).dontAnimate().
                 placeholder(R.drawable.dept1).into(holder.Image);
         holder.name.setText(categories.get(position).getName());
 

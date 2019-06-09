@@ -9,6 +9,7 @@
 
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -26,16 +27,28 @@
         app:layout_constraintGuide_percent="0.1"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/img"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="200dp"
         android:scaleType="fitXY"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guid"
         app:layout_constraintWidth_percent="0.5" />
 
     <android.support.constraint.Guideline
@@ -68,24 +81,25 @@
         android:layout_height="50dp"
         android:background="@drawable/linear_background_for_login"
         android:gravity="center"
+        android:layout_marginTop="15dp"
         android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guid2"
+        app:layout_constraintTop_toBottomOf="@+id/img"
         app:layout_constraintWidth_percent="0.8" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/linear_background_for_login"
         android:gravity="center"
         android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guid3"
+        app:layout_constraintTop_toBottomOf="@+id/username"
         app:layout_constraintWidth_percent="0.8" />
 
     <TextView
@@ -98,7 +112,7 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
 
     <TextView
@@ -113,7 +127,9 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guid4"
+        app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintWidth_percent="0.45" />
 
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

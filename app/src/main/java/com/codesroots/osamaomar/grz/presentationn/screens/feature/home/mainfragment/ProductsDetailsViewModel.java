@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 
 import com.codesroots.osamaomar.grz.datalayer.localdata.product.entities.ProductDB;
 import com.codesroots.osamaomar.grz.datalayer.repositries.ProductAndCategries;
+import com.codesroots.osamaomar.grz.models.entities.FinalProductdetails;
 import com.codesroots.osamaomar.grz.models.entities.Product;
 import com.codesroots.osamaomar.grz.models.entities.mainData;
 import com.codesroots.osamaomar.grz.models.usecases.productsUseCase;
@@ -15,7 +16,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class ProductsDetailsViewModel extends ViewModel {
 
     public MutableLiveData<mainData> mainViewMutableLiveData = new MutableLiveData<>();
-    public MutableLiveData<Product> productMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<FinalProductdetails> productMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<List<Product>> offerproductsMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> errormessage = new MutableLiveData<>();
     private ProductAndCategries productAndCategriesrepositry;
@@ -38,6 +39,15 @@ public class ProductsDetailsViewModel extends ViewModel {
     public void getData() {
         productsUseCase.retrieveHomeFragmentData(mCompositeDisposable,productAndCategriesrepositry,mainViewMutableLiveData,errormessage);
     }
+
+
+    public void getDataInPAginate(int page) {
+        productsUseCase.retrieveHomeFragmentDataInPagination(page,mCompositeDisposable,productAndCategriesrepositry,mainViewMutableLiveData,errormessage);
+    }
+
+
+
+
 
     public void getOffersData() {
         productsUseCase.getOffersData(mCompositeDisposable,productAndCategriesrepositry,offerproductsMutableLiveData,errormessage);

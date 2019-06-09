@@ -2,6 +2,7 @@ package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.offerfra
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,7 +21,9 @@ import com.bumptech.glide.Glide;
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.Product;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
+import com.codesroots.osamaomar.grz.models.usecases.Publicusecase;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.rate.RateActivity;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -53,24 +57,24 @@ public class AllOffersAdapter extends RecyclerView.Adapter<AllOffersAdapter.View
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         if (offersData.get(position).getPhotos().size() > 0)
-            Glide.with(context.getApplicationContext())
-                    .load(offersData.get(position).getPhotos().get(0).getPhoto()).placeholder(R.drawable.product).dontAnimate()
-                    .into(holder.Image);
+            Publicusecase.loadimage(context,holder.Image,context.getText(R.string.base_img_url)+offersData.get(position).getPhotos().get(0).getPhoto());
+
         holder.ratingBar.setRating(offersData.get(position).getRate());
         holder.rateCount.setText("(" + offersData.get(position).getRatecount() + ")");
         holder.name.setText(offersData.get(position).getName());
+        holder.amount.setText(context.getText(R.string.remendier)+" "+ offersData.get(position).getAmount()+" "+context.getText(R.string.num));
+        holder.enddate.setText(offersData.get(position).getEnddate());
         holder.discount.setText(offersData.get(position).getDiscountpercentage() + " " + "%");
 
 
-        if (PreferenceHelper.getCurrencyValue() > 0) {
-            holder.oldprice.setText(offersData.get(position).getPricewithoutcoin() * PreferenceHelper.getCurrencyValue() + " " + PreferenceHelper.getCurrency());
-            holder.price.setText((new DecimalFormat("##.##").format(offersData.get(position).getAfteroffer() * PreferenceHelper.getCurrencyValue())
-                    + " " +PreferenceHelper.getCurrency()));
-        } else {
-            holder.oldprice.setText(offersData.get(position).getPricewithoutcoin() + " " + context.getText(R.string.realcoin));
-            holder.price.setText((new DecimalFormat("##.##").format(offersData.get(position).getAfteroffer() ))+ " " +
-                    context.getText(R.string.realcoin));
-        }
+//        if (PreferenceHelper.getCurrencyValue() > 0) {
+            holder.oldprice.setText(offersData.get(position).getPrice());
+            holder.price.setText(offersData.get(position).getAfteroffer());
+//        } else {
+//            holder.oldprice.setText(offersData.get(position).getPricewithoutcoin() + " " + context.getText(R.string.realcoin));
+//            holder.price.setText((new DecimalFormat("##.##").format(offersData.get(position).getAfteroffer() ))+ " " +
+//                    context.getText(R.string.realcoin));
+//        }
         Fragment fragment = new ProductDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(PRODUCT_ID, offersData.get(position).getProductid());
@@ -80,14 +84,14 @@ public class AllOffersAdapter extends RecyclerView.Adapter<AllOffersAdapter.View
                 replace(R.id.fragment, fragment)
                 .addToBackStack(null).commit());
 
-//        holder.ratingBar.setOnTouchListener((v, event) -> {
-//            if (event.getAction() == MotionEvent.ACTION_UP) {
-//                Intent intent = new Intent(context, RateActivity.class);
-//                intent.putExtra(PRODUCT_ID,offersData.get(position).getProductid());
-//                context.startActivity(intent);
-//            }
-//            return true;
-//        });
+        holder.ratingBar.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                Intent intent = new Intent(context, RateActivity.class);
+                intent.putExtra(PRODUCT_ID,offersData.get(position).getProductid());
+                context.startActivity(intent);
+            }
+            return true;
+        });
 
     }
 
@@ -100,7 +104,7 @@ public class AllOffersAdapter extends RecyclerView.Adapter<AllOffersAdapter.View
 
         final View mView;
         private ImageView Image;
-        private TextView name, rateCount, amount, price, oldprice, discount;
+        private TextView name, rateCount, amount, price, oldprice, discount,enddate;
         private RatingBar ratingBar;
 
         ViewHolder(View view) {
@@ -109,7 +113,8 @@ public class AllOffersAdapter extends RecyclerView.Adapter<AllOffersAdapter.View
             Image = mView.findViewById(R.id.item_img);
             name = mView.findViewById(R.id.item_name);
             price = mView.findViewById(R.id.item_price);
-            amount = mView.findViewById(R.id.quentity);
+            amount = mView.findViewById(R.id.available);
+            enddate = mView.findViewById(R.id.enddate);
             rateCount = mView.findViewById(R.id.rate_count);
             ratingBar = mView.findViewById(R.id.rates);
             discount = mView.findViewById(R.id.discount);

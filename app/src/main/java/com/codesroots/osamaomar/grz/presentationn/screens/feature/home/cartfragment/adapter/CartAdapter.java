@@ -2,7 +2,10 @@ package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfrag
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +24,12 @@ import com.codesroots.osamaomar.grz.models.entities.Product;
 import com.codesroots.osamaomar.grz.models.helper.AddorRemoveCallbacks;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragment.CartFragment;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_ID;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
@@ -31,6 +37,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private List<Product> dataBeans;
     public List<OrderModel.productSize> products = new ArrayList<>();
     private CartFragment cartFragment;
+
     public CartAdapter(Context mcontext, List<Product> productsbysubcats1, CartFragment cartFragmentt) {
         context = mcontext;
         dataBeans = productsbysubcats1;
@@ -49,9 +56,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
-            holder.name.setText(dataBeans.get(position).getName());
+            holder.name.setText(dataBeans.get(position).getName()+","+dataBeans.get(position).getColorname()+","+dataBeans.get(position).getSizename());
             holder.amount.setText(context.getText(R.string.remendier) + " " +
                     String.valueOf(dataBeans.get(position).getAmount()) + " " + context.getText(R.string.num));
+
 
             holder.price.setText(dataBeans.get(position).getPricewithoutcoin()*Integer.valueOf(holder.products_count.getText().toString())
                     +dataBeans.get(position).getCurrentcurrency()) ;
@@ -59,20 +67,32 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             products.add(new OrderModel.productSize(dataBeans.get(position).getProductid()));
             if (dataBeans.get(position).isHasoffer()) {
                 products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                        dataBeans.get(position).getAfteroffer()));
+                        dataBeans.get(position).getPricewithoutcoin()));
                 products.get(position).setNotice("خصم بسبب العرض رقم " + dataBeans.get(position).getOfferid());
             } else {
                 products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                        Float.valueOf(dataBeans.get(position).getPrice())));
+                        dataBeans.get(position).getPricewithoutcoin()));
             }
             holder.ratingBar.setRating(dataBeans.get(position).getRate());
             holder.rateCount.setText("(" + dataBeans.get(position).getRatecount() + ")");
             Glide.with(context.getApplicationContext())
-                    .load(dataBeans.get(position).getPhoto()).placeholder(R.drawable.product).dontAnimate()
+                    .load(context.getText(R.string.base_img_url)+dataBeans.get(position).getPhoto()).placeholder(R.drawable.product).dontAnimate()
                     .into(holder.Image);
         } catch (Exception e) {
             Log.d("exception", e.getMessage());
         }
+
+        holder.mView.setOnClickListener(v -> {
+
+            Fragment fragment = new ProductDetailsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(PRODUCT_ID, dataBeans.get(position).getProductid());
+            fragment.setArguments(bundle);
+            ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment, fragment)
+                    .addToBackStack(null).commit();
+        });
+
 
         holder.delete_item.setOnClickListener(v -> {
             cartFragment.onRemoveProduct(products.get(position).getProductsize_id(),position);
@@ -86,7 +106,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 products.get(position).setAmount(Integer.valueOf(holder.products_count.getText().toString()));
                 if (dataBeans.get(position).isHasoffer()) {
                     products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                            dataBeans.get(position).getAfteroffer()));
+                            dataBeans.get(position).getPricewithoutcoin()));
                 } else
                     products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
                             Float.valueOf(dataBeans.get(position).getPrice())));
@@ -107,7 +127,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 products.get(position).setAmount(Integer.valueOf(holder.products_count.getText().toString()));
                 if (dataBeans.get(position).isHasoffer()) {
                     products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                            dataBeans.get(position).getAfteroffer()));
+                            dataBeans.get(position).getPricewithoutcoin()));
                 } else
                     products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
                             Float.valueOf(dataBeans.get(position).getPrice())));
@@ -117,6 +137,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
             //   notifyItemChanged(position);
         });
+
     }
 
     @Override

@@ -5,15 +5,48 @@ import java.util.List;
 
 public class Product {
 
-    private String name, photo, description, price,currentcurrency;
-    private float rate, offerpercentage, afteroffer,pricewithoutcoin=0,discountpercentage;
+    private String name, photo, description, price,currentcurrency,afteroffer,enddate,notes,colorname,sizename;
+    private float rate, offerpercentage,pricewithoutcoin=0,discountpercentage;
     private int ratecount, productid, amount, favid, offerid, colorid = 0, sizeid = 0;
     private List<ProductDetails.product.ProductphotosBean> photos = new ArrayList<>();
     private List<ProductDetails.product.ProductsizesBean> product_sizes = new ArrayList<>();
     private List<ProductDetails.product.ColorBean> colores = new ArrayList<>();
+    private List<Product> related = new ArrayList<>();
+
+    public List<Product> getRelated() {
+        return related;
+    }
+
+    public void setRelated(List<Product> related) {
+        this.related = related;
+    }
 
     public int getColorid() {
         return colorid;
+    }
+
+    public String getColorname() {
+        return colorname;
+    }
+
+    public void setColorname(String colorname) {
+        this.colorname = colorname;
+    }
+
+    public String getSizename() {
+        return sizename;
+    }
+
+    public void setSizename(String sizename) {
+        this.sizename = sizename;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getCurrentcurrency() {
@@ -105,7 +138,7 @@ public class Product {
     public void setColores(List<ProductDetails.product.ColorBean> colores) {
         if (colores != null) {
             if (colores.size() > 0)
-                this.setSizeid(colores.get(0).getUid());
+                this.setColorid(colores.get(0).getUid());
         }
         this.colores = colores;
     }
@@ -130,6 +163,14 @@ public class Product {
         this.photos = photos;
     }
 
+
+    public String getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(String enddate) {
+        this.enddate = enddate;
+    }
 
     public boolean isFreecharge() {
         return freecharge;
@@ -174,11 +215,11 @@ public class Product {
         this.price = price;
     }
 
-    public float getAfteroffer() {
+    public String getAfteroffer() {
         return afteroffer;
     }
 
-    public void setAfteroffer(float afteroffer) {
+    public void setAfteroffer(String afteroffer) {
         this.afteroffer = afteroffer;
     }
 

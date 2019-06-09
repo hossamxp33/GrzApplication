@@ -1,62 +1,88 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.rate;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.ProductRate;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.rate.adapter.RateAdapter;
 
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_ID;
+import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_RATE;
 
 public class RateActivity extends AppCompatActivity {
 
 
     RecyclerView Allrates;
-    TextView Estimate_rate,customer_count,five_count,four_count,third_count,second_count,first_count,count_user_rate,count_rate,user_rates;
-    ProgressBar five_progress,four_progress,third_progress,second_progress,firs_progress;
+    TextView Estimate_rate, customer_count, five_count, four_count, third_count, second_count,
+            first_count, count_user_rate, count_rate, user_rates;
+    ProgressBar five_progress, four_progress, third_progress, second_progress, firs_progress;
     int productId;
     private RateAdapter RateAdapter;
     RateViewModel rateViewModel;
+    FrameLayout progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
         initialize();
-        productId = getIntent().getIntExtra(PRODUCT_ID,0);
-        rateViewModel = ViewModelProviders.of(this,getViewModelFactory()).get(RateViewModel.class);
-        rateViewModel.rateMutableLiveData.observe(this,this::setdatatintoViews);
-
+        productId = getIntent().getIntExtra(PRODUCT_ID, 0);
+        rateViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(RateViewModel.class);
+        rateViewModel.rateMutableLiveData.observe(this, this::setdatatintoViews);
+        rateViewModel.throwableMutableLiveData.observe(this, throwable ->
+                Toast.makeText(RateActivity.this,getText(R.string.erroroccure),Toast.LENGTH_SHORT).show());
     }
 
+    @SuppressLint("SetTextI18n")
     private void setdatatintoViews(ProductRate productRate) {
-        if (productRate.getData().size()>0) {
-            RateAdapter = new RateAdapter(this, productRate.getData().get(0).getProductrates(), productRate.getData().get(0).getName());
-            Allrates.setAdapter(RateAdapter);
-            if (productRate.getData().get(0).getTotal_rating().size()>0) {
-                Estimate_rate.setText(String.valueOf(productRate.getData().get(0).getTotal_rating().get(0).getStars() /
-                        productRate.getData().get(0).getTotal_rating().get(0).getCount()));
-                customer_count.setText(getText(R.string.from) + " " + productRate.getData().get(0).getTotal_rating().get(0).getCount() + " " + getText(R.string.client));
-                count_user_rate.setText("("+ productRate.getData().get(0).getProductrates().size()+")");
-                count_rate.setText("("+ productRate.getData().get(0).getProductrates().size()+")");
+        progress.setVisibility(View.GONE);
+        if (productRate.getData().size() > 0) {
+            try {
+
+                RateAdapter = new RateAdapter(this, productRate.getData());
+                Allrates.setAdapter(RateAdapter);
+                int totalProgress = productRate.getRate1() + productRate.getRate2() + productRate.getRate3() +
+                        productRate.getRate4() + productRate.getRate5();
+
+                Estimate_rate.setText(getIntent().getFloatExtra(PRODUCT_RATE,0)+ "");
+                customer_count.setText(getText(R.string.from) + " " + totalProgress + " " + getText(R.string.client));
+                five_count.setText("(" + productRate.getRate5() + ")");
+                four_count.setText("(" + productRate.getRate4() + ")");
+                third_count.setText("(" + productRate.getRate3() + ")");
+                second_count.setText("(" + productRate.getRate2() + ")");
+                first_count.setText("(" + productRate.getRate1() + ")");
+                firs_progress.setProgress(productRate.getRate1() / totalProgress * 100);
+                second_progress.setProgress(productRate.getRate2() / totalProgress * 100);
+                third_progress.setProgress(productRate.getRate3() / totalProgress * 100);
+                four_progress.setProgress(productRate.getRate4() / totalProgress * 100);
+                five_progress.setProgress(productRate.getRate5() / totalProgress * 100);
+
+            } catch (Exception e) {
+
             }
-            else
-            {
-                Estimate_rate.setText("0");
-                customer_count.setText(getText(R.string.from) + " 0 "  + " " + getText(R.string.client));
-                user_rates.setVisibility(View.VISIBLE);
-            }
+//                count_user_rate.setText("("+ productRate.getData().get(0).getProductrates().size()+")");
+//                count_rate.setText("("+ productRate.getData().get(0).getProductrates().size()+")");
+//
+//            else
+//            {
+//                Estimate_rate.setText("0");
+//                customer_count.setText(getText(R.string.from) + " 0 "  + " " + getText(R.string.client));
+//                user_rates.setVisibility(View.VISIBLE);
+//            }
         }
     }
 
     private ViewModelProvider.Factory getViewModelFactory() {
-        return new RateViewModelFactory(getApplication(),productId);
+        return new RateViewModelFactory(getApplication(), productId);
     }
 
     private void initialize() {
@@ -78,6 +104,7 @@ public class RateActivity extends AppCompatActivity {
         third_progress = findViewById(R.id.third_progress);
         second_progress = findViewById(R.id.second_progress);
         firs_progress = findViewById(R.id.one_progress);
+        progress = findViewById(R.id.progress);
 
     }
 }

@@ -48,12 +48,12 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
         return new ViewHolder(view);
     }
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
             if (PreferenceHelper.getCurrencyValue()>0)
-                holder.orderdate.setText(String.valueOf(Float.valueOf(orderdata.get(position).getOrder_gtotal())
+                holder.orderdate.setText(String.valueOf(orderdata.get(position).getOrder_gtotal()
                         *PreferenceHelper.getCurrencyValue())+" "+PreferenceHelper.getCurrency());
             else
                 holder.orderPrice.setText(orderdata.get(position).getOrder_gtotal()+context.getString(R.string.realcoin));
@@ -65,13 +65,14 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
             holder.productname.setText(orderdata.get(position).getOrder_details().
                     get(0).getProduct().getName());
 
-           holder.ratecount.setText("("+orderdata.get(position).getOrder_details().
-                   get(0).getProduct().getTotal_rating().get(0).getCount()+")");
 
-           holder.ratingBar.setRating(orderdata.get(position).getOrder_details().
-                   get(0).getProduct().getTotal_rating().get(0).getStars()/orderdata.get(position).getOrder_details().
-                   get(0).getProduct().getTotal_rating().get(0).getCount());
-
+           if (orderdata.get(position).getOrder_details().get(0).getProduct().getTotal_rating().size()>0) {
+               holder.ratingBar.setRating(orderdata.get(position).getOrder_details().
+                       get(0).getProduct().getTotal_rating().get(0).getStars() / orderdata.get(position).getOrder_details().
+                       get(0).getProduct().getTotal_rating().get(0).getCount());
+               holder.ratecount.setText("(" + orderdata.get(position).getOrder_details().
+                       get(0).getProduct().getTotal_rating().get(0).getCount() + ")");
+           }
             if (orderdata.get(position).getStatus()==2) {
                 holder.statues2.setTextColor(Color.WHITE);
                 holder.statues2.setBackgroundResource(R.drawable.selected_progress);
@@ -82,17 +83,19 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
                 holder.statues3.setBackgroundResource(R.drawable.selected_progress);
             }
 
-            Glide.with(context).load(orderdata.get(position).getOrder_details().
+            Glide.with(context).load(context.getText(R.string.base_img_url)+orderdata.get(position).getOrder_details().
                     get(0).getProduct().getProductphotos().get(0).getPhoto()).
                     dontAnimate().placeholder(R.drawable.product).into(holder.Image);
 
         } catch (Exception e) {
+            Log.d("exception",e.getMessage());
         }
+
 
         holder.gotodetails.setOnClickListener(v -> {
             Fragment fragment = new ProductsInsideorderFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt(ORDER_ID, 1);
+            bundle.putInt(ORDER_ID, orderdata.get(position).getOrder_id());
             bundle.putSerializable(ORDER,orderdata.get(position));
             fragment.setArguments(bundle);
             ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack(null).commit();

@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray_back"
-
     android:layout_height="match_parent">
 
 
@@ -31,6 +30,7 @@
         app:layout_constraintStart_toEndOf="@id/rate_title"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="start"
+        android:visibility="gone"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -65,7 +65,6 @@
             android:id="@+id/rate"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="3.9"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -80,7 +79,7 @@
             android:id="@+id/counts"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="من 351 زبون "
+            android:text="من  زبون "
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guid1"
@@ -130,7 +129,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:progress="70"
             android:scaleY="3"
             app:layout_constraintTop_toTopOf="@+id/five_title"
             app:layout_constraintBottom_toBottomOf="@+id/five_title"
@@ -146,7 +144,6 @@
             android:id="@+id/five_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(218)"
             android:padding="2dp"
             android:textSize="16sp"
             android:layout_margin="3dp"
@@ -170,7 +167,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:progress="30"
             android:scaleY="3"
             app:layout_constraintTop_toTopOf="@+id/four_title"
             app:layout_constraintBottom_toBottomOf="@+id/four_title"
@@ -188,7 +184,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/four_title"
             app:layout_constraintBottom_toBottomOf="@+id/four_title"
-            android:text="(35)"
             android:padding="2dp"
             android:textSize="16sp"
             android:layout_margin="3dp"
@@ -212,7 +207,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:progress="20"
             android:scaleY="3"
             app:layout_constraintTop_toTopOf="@+id/third_title"
             app:layout_constraintBottom_toBottomOf="@+id/third_title"
@@ -230,7 +224,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/third_title"
             app:layout_constraintBottom_toBottomOf="@+id/third_title"
-            android:text="(19)"
             android:padding="2dp"
             android:textSize="16sp"
             android:layout_margin="3dp"
@@ -255,7 +248,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:progress="10"
             android:scaleY="3"
             app:layout_constraintTop_toTopOf="@+id/second_title"
             app:layout_constraintBottom_toBottomOf="@+id/second_title"
@@ -273,7 +265,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/second_title"
             app:layout_constraintBottom_toBottomOf="@+id/second_title"
-            android:text="(6)"
             android:padding="2dp"
             android:textSize="16sp"
             android:layout_margin="3dp"
@@ -297,7 +288,6 @@
             android:id="@+id/one_progress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:progress="35"
             android:scaleY="3"
             app:layout_constraintTop_toTopOf="@+id/one_title"
             app:layout_constraintBottom_toBottomOf="@+id/one_title"
@@ -316,7 +306,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/one_title"
             app:layout_constraintBottom_toBottomOf="@+id/one_title"
-            android:text="(73)"
             android:padding="2dp"
             android:textSize="16sp"
             android:layout_margin="3dp"
@@ -382,6 +371,7 @@
         android:gravity="start"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="gone"
         android:textColor="@color/black"
         android:text="(4)"
         />
@@ -413,5 +403,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+
+    <FrameLayout
+        android:id="@+id/progress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            />
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

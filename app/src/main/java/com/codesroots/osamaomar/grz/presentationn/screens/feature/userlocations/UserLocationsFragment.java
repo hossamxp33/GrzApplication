@@ -43,6 +43,7 @@ public class UserLocationsFragment extends Fragment implements Locationclick {
         locations = view.findViewById(R.id.oldplaces);
         addLocation = view.findViewById(R.id.addlocation);
         notfound = view.findViewById(R.id.notfond);
+        if (getArguments()!=null)
         orderModel = (OrderModel) getArguments().getSerializable(ORDER);
 
         mViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(UserLocationsViewModel.class);
@@ -52,6 +53,7 @@ public class UserLocationsFragment extends Fragment implements Locationclick {
             if (dataBeans.size() > 0) {
                 locationsAdapter = new LocationsAdapter(getContext(), dataBeans, this);
                 locations.setAdapter(locationsAdapter);
+                notfound.setVisibility(View.GONE);
             } else
                 notfound.setVisibility(View.VISIBLE);
         });
@@ -79,11 +81,13 @@ public class UserLocationsFragment extends Fragment implements Locationclick {
 
     @Override
     public void onlocationchoicw(UserLocations.DataBean location) {
-        orderModel.setBilling_id(String.valueOf(location.getBilling_id()));
-        Fragment fragment = new PaymentFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(ORDER, orderModel);
-        fragment.setArguments(bundle);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack(null).commit();
+        if (orderModel!=null) {
+            orderModel.setBilling_id(String.valueOf(location.getBilling_id()));
+            Fragment fragment = new PaymentFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ORDER, orderModel);
+            fragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack(null).commit();
+        }
     }
 }

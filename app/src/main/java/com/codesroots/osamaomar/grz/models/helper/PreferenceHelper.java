@@ -155,7 +155,7 @@ public class PreferenceHelper {
     }
 
     public static int getUserId() {
-        return app_prefs.getInt(UserId, 1);
+        return app_prefs.getInt(UserId, 0);
     }
 
     public void setLanguage(String language) {

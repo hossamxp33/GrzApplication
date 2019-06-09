@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/product_back"
-
     tools:context=".presentationn.screens.feature.home.mainfragment.MainFragment">
 
 
@@ -50,11 +49,12 @@
                 android:layout_height="120dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintCircleRadius="20dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:realtimeBlurRadius="20dp"
-                app:realtimeOverlayColor="#8000" />
+                app:realtimeOverlayColor="#8000"
+                />
 
 
             <android.support.constraint.ConstraintLayout
@@ -113,22 +113,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/categoryRecycler" />
 
             <android.support.constraint.Group
+                android:id="@+id/maingroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/maingroup"
                 android:visibility="gone"
-                app:constraint_referenced_ids="TodayDeal,bluer"
-                />
+                app:constraint_referenced_ids="TodayDeal,bluer" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvproducts"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="500dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintWidth_percent="0.96"
-                app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/TodayDeal"
+                app:layout_constraintWidth_percent="0.96"
                 app:spanCount="2"
                 tools:listitem="@layout/home_more_rate_item" />
 

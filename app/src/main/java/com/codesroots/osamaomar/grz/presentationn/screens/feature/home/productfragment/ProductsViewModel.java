@@ -42,10 +42,10 @@ public class ProductsViewModel extends ViewModel {
         productsUseCase = useCase;
     }
 
-    public void getData (int id)
+    public void getData (int id,int page)
     {
         productsUseCase.retrieveProductsData(mCompositeDisposable,productAndCategries,productsMutableLiveData,
-                errorMessage,id,resultData);
+                errorMessage,id,page,resultData);
     }
 
 
@@ -66,7 +66,7 @@ public class ProductsViewModel extends ViewModel {
     public  void comparewithprice()
     {
         Collections.sort(resultData, (o1, o2) -> {
-            return Float.valueOf(o1.getPrice()).compareTo(Float.valueOf(o2.getPrice()));
+            return Float.valueOf(o1.getPricewithoutcoin()).compareTo(o2.getPricewithoutcoin());
         });
         productsMutableLiveData.postValue(resultData);
     }

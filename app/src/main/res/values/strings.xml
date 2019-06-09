@@ -153,5 +153,12 @@
     <string name="choicecity">choice your city</string>
     <string name="notes">notes</string>
     <string name="now">now</string>
-
+    <string name="chargeaddress">Charge Addresses</string>
+    <string name="usernameerror">username or password un correct</string>
+    <string name="product_notes">notes</string>
+    <string name="related_products">related products</string>
+    <string name="choicelang">choice langauge</string>
+    <string name="lang">Langauge</string>
+    <string name="sendreq">send your request</string>
+    <string name="dirctcontact"> Direct Contact </string>
 </resources>

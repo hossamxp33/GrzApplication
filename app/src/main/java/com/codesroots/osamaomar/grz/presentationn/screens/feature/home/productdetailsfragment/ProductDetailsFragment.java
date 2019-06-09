@@ -1,6 +1,7 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,10 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -22,26 +25,31 @@ import android.widget.Toast;
 
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.datalayer.localdata.product.entities.ProductDB;
+import com.codesroots.osamaomar.grz.models.entities.FinalProductdetails;
 import com.codesroots.osamaomar.grz.models.entities.Product;
 import com.codesroots.osamaomar.grz.models.entities.StoreSetting;
 import com.codesroots.osamaomar.grz.models.helper.AddorRemoveCallbacks;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.models.usecases.Publicusecase;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragment.CartFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.ProductsDetailsViewModel;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.adapters.ImagesAdapterForColor;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.adapters.ProductSizesAdapter;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.adapters.RelatedProductsAdapter;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.adapters.SliderPagerAdapter;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.rate.RateActivity;
 
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_ID;
+import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_RATE;
 
 
 public class ProductDetailsFragment extends Fragment {
 
-    RecyclerView recyclerViewforitemcolors, sizes_rec;
+    RecyclerView recyclerViewforitemcolors, sizes_rec, related_product;
     FrameLayout loading;
     public TextView product_name, description, price, ratecount,
-            amount, addtocart, charege, images_count;
+            amount, addtocart, charege, images_count, name, sale, notes;
 
     RatingBar ratingBar;
     public ImageView item_img;
@@ -66,19 +74,29 @@ public class ProductDetailsFragment extends Fragment {
         findViewsFromXml(view);
         share.setOnClickListener(v -> Publicusecase.shareTextUrl(getContext(), "http://grzexpress.com/ar/products/details/" + productid));
         productsDetailsViewModel.getProductDetailsData(productid);
-
-        productsDetailsViewModel.errormessage.observe(this, s ->
-                Toast.makeText(getActivity(), getText(R.string.error_in_data), Toast.LENGTH_SHORT).show()
-        );
-
         productsDetailsViewModel.productMutableLiveData.observe(this, this::setProductDetailsToViews);
 
+        sale.setOnClickListener(v -> getActivity().getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment, new CartFragment())
+                .addToBackStack(null).commit()
+        );
+
         addtocart.setOnClickListener(v -> {
-            if (userid > 0) {
-                ProductDB product = new ProductDB(productid, imagesAdapterForColor.mSelectedItem, productSizesAdapter.mSelectedItem);
-                productsDetailsViewModel.AddToCart(product);
-            } else
-                Toast.makeText(getActivity(), getActivity().getText(R.string.loginfirst), Toast.LENGTH_SHORT).show();
+            ProductDB product = new ProductDB(productid, imagesAdapterForColor.mSelectedItem, productSizesAdapter.mSelectedItem,
+                    imagesAdapterForColor.mSelectedItemname, productSizesAdapter.mSelectedItemname);
+            productsDetailsViewModel.AddToCart(product);
+        });
+
+        ratingBar.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (product != null) {
+                    Intent intent = new Intent(getContext(), RateActivity.class);
+                    intent.putExtra(PRODUCT_ID, productid);
+                    intent.putExtra(PRODUCT_RATE, product.getRate());
+                    getContext().startActivity(intent);
+                }
+            }
+            return true;
         });
         return view;
     }
@@ -97,11 +115,21 @@ public class ProductDetailsFragment extends Fragment {
             } else if (s.matches("2"))
                 Toast.makeText(getContext(), getText(R.string.erroroccure), Toast.LENGTH_SHORT).show();
         });
+
+        productsDetailsViewModel.errormessage.observe(this, s ->
+                Toast.makeText(getActivity(), getText(R.string.erroroccure), Toast.LENGTH_SHORT).show()
+        );
     }
 
-    private void setProductDetailsToViews(Product product) {
+    private void setProductDetailsToViews(FinalProductdetails product1) {
+        product = product1.getProduct();
         product_name.setText(product.getName());
+        name.setText(product.getName());
+        notes.setText(product.getNotes());
         product_images.setAdapter(new SliderPagerAdapter(getActivity(), product.getPhotos()));
+        related_product.setAdapter(new RelatedProductsAdapter(getActivity(), product1.getRelatedproducts()));
+        amount.setText(getText(R.string.remendier) + " " + product.getAmount() + " " + getText(R.string.num));
+
         images_count.setText(1 + "/" + product.getPhotos().size());
         product_images.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -152,6 +180,10 @@ public class ProductDetailsFragment extends Fragment {
         colorscontainer = view.findViewById(R.id.colorscontainer);
         images_count = view.findViewById(R.id.images_count);
         share = view.findViewById(R.id.share);
+        name = view.findViewById(R.id.name);
+        sale = view.findViewById(R.id.sale);
+        notes = view.findViewById(R.id.notes);
+        related_product = view.findViewById(R.id.related_product);
     }
 
     private MainViewModelFactory getViewModelFactory() {

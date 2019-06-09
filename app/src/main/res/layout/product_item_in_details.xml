@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="7dp"
     android:background="@drawable/background_for_famousproduct"
@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/item_img"
-        android:layout_width="match_parent"
+        android:layout_width="210dp"
         android:layout_height="150dp"
         android:scaleType="fitXY"
         android:src="@drawable/static_shirt_two"
@@ -37,16 +37,13 @@
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"
-        android:text="alfamarket"
-        android:textColor="@color/gray"
+        android:text=""
+        android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toStartOf="@id/freecharge"
         app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_img" />
-
-
-
 
     <TextView
         android:id="@+id/freecharge"
@@ -96,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toEndOf="@id/rates"
-        app:layout_constraintTop_toBottomOf="@+id/item_name" />
+        app:layout_constraintTop_toBottomOf="@+id/item_name"/>
 
     <TextView
         android:id="@+id/price"
@@ -108,10 +105,10 @@
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"
-        android:text="   120ر.ع"
+        android:text=" "
         android:textColor="@color/red"
         app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_name" />
+        app:layout_constraintTop_toBottomOf="@+id/item_name"/>
 
 </android.support.constraint.ConstraintLayout>
