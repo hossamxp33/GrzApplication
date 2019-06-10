@@ -160,5 +160,6 @@
     <string name="lang">اللغة</string>
     <string name="sendreq">أرسل تفسيرك</string>
     <string name="dirctcontact">الاتصال المباشر</string>
+    <string name="save">حفظ</string>
 
 </resources>

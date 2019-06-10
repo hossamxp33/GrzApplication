@@ -161,4 +161,5 @@
     <string name="lang">Langauge</string>
     <string name="sendreq">send your request</string>
     <string name="dirctcontact"> Direct Contact </string>
+    <string name="save">save</string>
 </resources>
