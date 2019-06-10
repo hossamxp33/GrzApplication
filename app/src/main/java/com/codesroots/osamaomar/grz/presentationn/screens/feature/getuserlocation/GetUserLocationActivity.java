@@ -46,10 +46,9 @@ import java.util.Locale;
 public class GetUserLocationActivity extends AppCompatActivity  {
 
     TextView search;
-    String address = "";
-    EditText detatils_address;
     UserLocationsViewModel userLocationsViewModel;
     EditText location,city,country,notes;
+    Boolean editoradd = false;//true for edit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +84,7 @@ public class GetUserLocationActivity extends AppCompatActivity  {
 
     public void send(View view) {
         ((TextView)view).setText(getText(R.string.wait));
-        ((TextView)view).setEnabled(false);
+        (view).setEnabled(false);
             userLocationsViewModel.addUserLocation(PreferenceHelper.getUserId(),
                     location.getText().toString(), country.getText().toString(), city.getText().toString(), notes.getText().toString());
     }

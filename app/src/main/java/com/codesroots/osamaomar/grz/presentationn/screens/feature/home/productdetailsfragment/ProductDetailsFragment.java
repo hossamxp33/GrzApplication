@@ -82,10 +82,17 @@ public class ProductDetailsFragment extends Fragment {
         );
 
         addtocart.setOnClickListener(v -> {
-            ProductDB product = new ProductDB(productid, imagesAdapterForColor.mSelectedItem, productSizesAdapter.mSelectedItem,
-                    imagesAdapterForColor.mSelectedItemname, productSizesAdapter.mSelectedItemname);
+            ProductDB product = new ProductDB(productid, imagesAdapterForColor.colors.get(imagesAdapterForColor.mSelectedItem).getColor().getColor_id(),
+                    productSizesAdapter.productsizes.get(productSizesAdapter.mSelectedItem).getSize().getSize_id(),
+                    imagesAdapterForColor.colors.get(imagesAdapterForColor.mSelectedItem).getColor().getName(),
+                    productSizesAdapter.productsizes.get(productSizesAdapter.mSelectedItem).getSize().getSize_title());
             productsDetailsViewModel.AddToCart(product);
         });
+
+//        addtocart.setOnClickListener(v -> {
+//            ProductDB product = new ProductDB(productid, imagesAdapterForColor.mSelectedItem, productSizesAdapter.mSelectedItem);
+//            productsDetailsViewModel.AddToCart(product);
+//        });
 
         ratingBar.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {

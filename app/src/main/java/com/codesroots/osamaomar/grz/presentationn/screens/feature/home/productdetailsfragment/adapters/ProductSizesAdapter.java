@@ -19,7 +19,7 @@ public class ProductSizesAdapter extends RecyclerView.Adapter<ProductSizesAdapte
 
     private Context context;
     ProductDetailsFragment fragment;
-    List<ProductDetails.product.ProductsizesBean> productsizes;
+     public List<ProductDetails.product.ProductsizesBean> productsizes;
     public int mSelectedItem = 0;
     public String mSelectedItemname = " ";
 
@@ -46,8 +46,18 @@ public class ProductSizesAdapter extends RecyclerView.Adapter<ProductSizesAdapte
         holder.text.setText(productsizes.get(position).getSize().getSize_title());
     //    fragment.amount.setText(context.getText(R.string.remendier) + " " + String.valueOf(productsizes.get(mSelectedItem).getAmount()) + " " + context.getText(R.string.num));
 
-        if (position == mSelectedItem)
+//        if (position == mSelectedItem) {
+//            holder.text.setBackgroundResource(R.drawable.linear_background_for_selected_size);
+//            mSelectedItemname = productsizes.get(0).getSize().getSize_title();
+//            mSelectedItem = productsizes.get(0).getSize().getSize_id();
+//
+//        }
+        if (position == mSelectedItem) {
             holder.text.setBackgroundResource(R.drawable.linear_background_for_selected_size);
+//            mSelectedItemname = productsizes.get(0).getSize().getSize_title();
+//            mSelectedItem = productsizes.get(0).getSize().getSize_id();
+
+        }
         else
             holder.text.setBackgroundResource(R.drawable.linear_background_for_size);
     }
@@ -71,8 +81,9 @@ public class ProductSizesAdapter extends RecyclerView.Adapter<ProductSizesAdapte
             text = mView.findViewById(R.id.size);
 
             @SuppressLint("SetTextI18n") View.OnClickListener clickListener = v -> {
-                mSelectedItem = getAdapterPosition();
-                mSelectedItemname = productsizes.get(mSelectedItem).getSize().getSize_title();
+               mSelectedItem = getAdapterPosition();
+//                mSelectedItemname = productsizes.get(getAdapterPosition()).getSize().getSize_title();
+//                mSelectedItem = productsizes.get(getAdapterPosition()).getSize().getSize_id();
                 notifyDataSetChanged();
             };
             itemView.setOnClickListener(clickListener);

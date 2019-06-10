@@ -7,12 +7,11 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "ProductDB")
 public class ProductDB {
 
-    public ProductDB(int product_id, int productsize_id, int productcolor_id) {
-        this.product_id = product_id;
-        this.productsize_id = productsize_id;
-        this.productcolor_id = productcolor_id;
-    }
-
+//    public ProductDB(int product_id, int productsize_id, int productcolor_id) {
+//        this.product_id = product_id;
+//        this.productsize_id = productsize_id;
+//        this.productcolor_id = productcolor_id;
+//    }
 
     public ProductDB(int product_id, int productsize_id, int productcolor_id, String color_name, String size_name) {
         this.product_id = product_id;

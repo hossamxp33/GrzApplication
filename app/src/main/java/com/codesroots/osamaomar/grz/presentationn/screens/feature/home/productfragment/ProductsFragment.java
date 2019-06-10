@@ -211,8 +211,8 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
     };
 
     @Override
-    public void onAddProduct(int pid, int cid, int sid) {
-        ProductDB product = new ProductDB(pid, cid, sid);
+    public void onAddProduct(int pid, int cid, int sid,String colorname,String sizename) {
+        ProductDB product = new ProductDB(pid, cid, sid,colorname,sizename);
         ((AddorRemoveCallbacks) getActivity()).onAddProduct();
         mViewModel.AddToCart(product);
     }

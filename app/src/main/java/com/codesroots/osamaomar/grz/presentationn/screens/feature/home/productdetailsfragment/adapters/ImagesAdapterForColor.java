@@ -41,8 +41,12 @@ public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterFor
         holder.color.setText(colors.get(position).getColor().getName());
 
         try {
-            if (position == mSelectedItem)
+            if (position == mSelectedItem) {
                 holder.linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.linear_background_choice_color));
+               // mSelectedItem = getAdapterPosition();
+//                mSelectedItem = colors.get(0).getColor_id();
+//                mSelectedItemname = colors.get(0).getColor().getName();
+            }
             else
                 holder.linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
         } catch (Exception e) {
@@ -71,7 +75,8 @@ public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterFor
 
             View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
-                mSelectedItemname = colors.get(mSelectedItem).getColor().getName();
+//                mSelectedItem = colors.get(getAdapterPosition()).getColor_id();
+//                mSelectedItemname = colors.get(getAdapterPosition()).getColor().getName();
                 notifyDataSetChanged();
             };
 

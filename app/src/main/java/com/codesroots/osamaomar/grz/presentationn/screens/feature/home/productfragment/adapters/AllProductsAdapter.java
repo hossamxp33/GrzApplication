@@ -112,7 +112,9 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
         holder.add_to_cart.setOnClickListener(v -> {
             productsFragment.onAddProduct(productsbysubcats.get(position).getProductid(),
                     productsbysubcats.get(position).getColorid(),
-                    productsbysubcats.get(position).getSizeid());
+                    productsbysubcats.get(position).getSizeid(),
+                    productsbysubcats.get(position).getColorname()
+                    ,productsbysubcats.get(position).getSizename());
         });
     }
 

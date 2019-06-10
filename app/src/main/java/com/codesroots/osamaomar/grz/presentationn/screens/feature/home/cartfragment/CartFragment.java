@@ -95,15 +95,16 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
         cartsRecycle = view.findViewById(R.id.cart_Rec);
         sale = view.findViewById(R.id.sale);
         progress = view.findViewById(R.id.progress);
-
     }
 
     private ViewModelProvider.Factory getViewModelFactory() {
         return new MainViewModelFactory(getActivity().getApplication());
     }
 
+
     @Override
-    public void onAddProduct(int pid, int cid, int sid) {
+    public void onAddProduct(int pid, int cid, int sid, String colorname, String sizename) {
+
     }
 
     @Override
@@ -117,6 +118,5 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
 
     @Override
     public void onClearCart() {
-
     }
 }

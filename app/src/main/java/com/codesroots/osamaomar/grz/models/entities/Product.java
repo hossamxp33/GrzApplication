@@ -137,8 +137,10 @@ public class Product {
 
     public void setColores(List<ProductDetails.product.ColorBean> colores) {
         if (colores != null) {
-            if (colores.size() > 0)
+            if (colores.size() > 0) {
                 this.setColorid(colores.get(0).getUid());
+                this.setColorname(colores.get(0).getColor().getName());
+            }
         }
         this.colores = colores;
     }
@@ -149,8 +151,10 @@ public class Product {
 
     public void setSizes(List<ProductDetails.product.ProductsizesBean> sizes) {
         if (sizes != null) {
-            if (sizes.size() > 0)
+            if (sizes.size() > 0) {
                 this.setSizeid(sizes.get(0).getUid());
+                this.setSizename(sizes.get(0).getSize().getSize_title());
+            }
         }
         this.product_sizes = sizes;
     }
