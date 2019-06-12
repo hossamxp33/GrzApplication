@@ -6,7 +6,7 @@ import java.util.List;
 public class Product {
 
     private String name, photo, description, price,currentcurrency,afteroffer,enddate,notes,colorname,sizename;
-    private float rate, offerpercentage,pricewithoutcoin=0,discountpercentage;
+    private float rate, offerpercentage,pricewithoutcoin=0,discountpercentage,originalprice;
     private int ratecount, productid, amount, favid, offerid, colorid = 0, sizeid = 0;
     private List<ProductDetails.product.ProductphotosBean> photos = new ArrayList<>();
     private List<ProductDetails.product.ProductsizesBean> product_sizes = new ArrayList<>();
@@ -15,6 +15,14 @@ public class Product {
 
     public List<Product> getRelated() {
         return related;
+    }
+
+    public float getOriginalprice() {
+        return originalprice;
+    }
+
+    public void setOriginalprice(float originalprice) {
+        this.originalprice = originalprice;
     }
 
     public void setRelated(List<Product> related) {

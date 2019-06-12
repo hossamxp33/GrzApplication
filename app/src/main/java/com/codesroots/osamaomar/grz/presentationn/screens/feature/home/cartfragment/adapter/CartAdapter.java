@@ -67,14 +67,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     +dataBeans.get(position).getCurrentcurrency()) ;
 
             products.add(new OrderModel.productSize(dataBeans.get(position).getProductid()));
-            if (dataBeans.get(position).isHasoffer()) {
-                products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                        dataBeans.get(position).getPricewithoutcoin()));
+            products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
+                    dataBeans.get(position).getOriginalprice()));
+
+            if (dataBeans.get(position).isHasoffer())
                 products.get(position).setNotice("خصم بسبب العرض رقم " + dataBeans.get(position).getOfferid());
-            } else {
-                products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                        dataBeans.get(position).getPricewithoutcoin()));
-            }
+
             holder.ratingBar.setRating(dataBeans.get(position).getRate());
             holder.rateCount.setText("(" + dataBeans.get(position).getRatecount() + ")");
             Glide.with(context.getApplicationContext())

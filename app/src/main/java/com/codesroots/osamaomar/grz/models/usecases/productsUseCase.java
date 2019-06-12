@@ -149,10 +149,12 @@ public class productsUseCase {
                 product.setAmount(productsbyrate.get(i).getAmount());
                 product.setNotes(productsbyrate.get(i).getProduct_notes());
                 product.setPricewithoutcoin(productsbyrate.get(i).getCurrentPrice());
+                product.setOriginalprice(productsbyrate.get(i).getCurrentPrice());
 
                 if (PreferenceHelper.getCurrencyValue() > 0) {
                     product.setPrice(productsbyrate.get(i).getCurrentPrice()* PreferenceHelper.getCurrencyValue() + " " +
                             PreferenceHelper.getCurrency());
+
                     product.setPricewithoutcoin(productsbyrate.get(i).getCurrentPrice() * PreferenceHelper.getCurrencyValue());
 
 
@@ -194,6 +196,7 @@ public class productsUseCase {
                         product.setPricewithoutcoin(productsbyrate.get(i).getCurrentPrice() -
                                 productsbyrate.get(i).getCurrentPrice() *
                                         productsbyrate.get(i).getOffers().get(0).getPercentage() / 100);
+                        product.setOriginalprice(product.getPricewithoutcoin());
                         product.setDiscountpercentage(productsbyrate.get(i).getOffers().get(0).getPercentage());
                         product.setEnddate(getdate(productsbyrate.get(i).getOffers().get(0).getTo_discount()));
                         if (PreferenceHelper.getCurrencyValue() > 0) {
