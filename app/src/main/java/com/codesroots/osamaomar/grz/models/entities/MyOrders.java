@@ -35,6 +35,7 @@ public class MyOrders {
         private int order_id;
         private int user_id;
         private int billing_id;
+        private int order_status;
         private float order_subtotal;
         private float order_shipping;
         private float order_gtotal;
@@ -45,6 +46,14 @@ public class MyOrders {
         private String created_at;
         private String updated_at;
         private List<OrderDetailsBean> order_details;
+
+        public int getOrder_status() {
+            return order_status;
+        }
+
+        public void setOrder_status(int order_status) {
+            this.order_status = order_status;
+        }
 
         public int getOrder_id() {
             return order_id;

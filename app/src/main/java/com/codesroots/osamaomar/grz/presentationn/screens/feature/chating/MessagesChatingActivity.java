@@ -49,7 +49,7 @@ public class MessagesChatingActivity extends AppCompatActivity {
         chatViewModel.error.observe(this, throwable ->
         {
             chatBinding.progress.setVisibility(View.GONE);
-            Toast.makeText(this, getText(R.string.erroroccure), Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, getText(R.string.erroroccure), Toast.LENGTH_SHORT).show();
         });
 
         chatViewModel.addmessageMutableLiveData.observe(this,addmessage ->

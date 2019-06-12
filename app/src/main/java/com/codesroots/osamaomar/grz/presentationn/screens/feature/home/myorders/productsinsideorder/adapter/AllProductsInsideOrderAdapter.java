@@ -15,7 +15,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.MyOrders;
+import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.addrate.AddRateFragment;
+
+import java.text.DecimalFormat;
 import java.util.List;
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_ID;
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_NAME;
@@ -71,11 +74,16 @@ public class AllProductsInsideOrderAdapter extends RecyclerView.Adapter<AllProdu
 
         }
 
-        holder.amount.setText(context.getText(R.string.remendier)+" "+
+        holder.amount.setText(context.getText(R.string.requested)+" "+
                 String.valueOf(orderdetailsBeans.get(position).getProduct_qty())+" "+context.getText(R.string.num));
 
-       holder.price.setText(orderdetailsBeans.get(position).getProduct().getProduct_price()+" "+context.getText(R.string.realcoin));
-
+        if (PreferenceHelper.getCurrencyValue() > 0) {
+            holder.price.setText(new DecimalFormat("##.##").format(orderdetailsBeans.get(position).getProduct().getProduct_price() *
+                    PreferenceHelper.getCurrencyValue())+ " " +
+                    PreferenceHelper.getCurrency());
+        } else {
+            holder.price.setText(orderdetailsBeans.get(position).getProduct().getProduct_price()+" "+context.getText(R.string.realcoin));
+        }
 
     }
 

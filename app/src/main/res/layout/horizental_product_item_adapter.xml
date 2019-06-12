@@ -53,7 +53,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:padding="5dp"
-        android:src="@drawable/product"
+        android:src="@drawable/noimg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

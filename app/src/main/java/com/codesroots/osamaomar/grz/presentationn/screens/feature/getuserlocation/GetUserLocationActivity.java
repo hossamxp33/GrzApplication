@@ -20,8 +20,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.AddLocation;
+import com.codesroots.osamaomar.grz.models.entities.names;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.userlocations.UserLocationsViewModel;
@@ -43,29 +45,58 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class GetUserLocationActivity extends AppCompatActivity  {
+public class GetUserLocationActivity extends AppCompatActivity {
 
-    TextView search;
+    TextView search,send,title;
     UserLocationsViewModel userLocationsViewModel;
     EditText location,city,country,notes;
-    Boolean editoradd = false;//true for edit
+    int addressid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addnewaddress);
-        userLocationsViewModel = ViewModelProviders.of(this,getViewModelFactory()).get(UserLocationsViewModel.class);
+        userLocationsViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(UserLocationsViewModel.class);
         search = findViewById(R.id.search);
         location = findViewById(R.id.location);
         city = findViewById(R.id.city);
         country = findViewById(R.id.country);
         country = findViewById(R.id.country);
         notes = findViewById(R.id.notes);
+        send = findViewById(R.id.send);
+        title = findViewById(R.id.title);
+        addressid = getIntent().getIntExtra(names.BILLING_ID, 0);
+        if (addressid>0)
+        {
+            title.setText(R.string.editaddress);
+            userLocationsViewModel.viewLocation(addressid);
+        }
 
-        userLocationsViewModel.addLocationMutableLiveData.observe(this,
-                addLocation -> this.finish());
+        userLocationsViewModel.viewLocationMutableLiveData.observe(this,viewLocation ->
+                {
+                    location.setText(viewLocation.getData().getAddress());
+                    city.setText(viewLocation.getData().getTown_city());
+                    country.setText(viewLocation.getData().getState_country());
+                    notes.setText(viewLocation.getData().getNotes());
+                });
+
+        userLocationsViewModel.addLocationMutableLiveData.observe(this,addLocation ->
+                {
+                    try {
+                        if (addLocation.isSuccess())
+                            this.finish();
+                    }catch (Exception e)
+                    {}
+                });
+
         userLocationsViewModel.error.observe(this, throwable ->
-                Toast.makeText(GetUserLocationActivity.this,getText(R.string.error_tryagani),Toast.LENGTH_SHORT).show());
+                {
+                    Toast.makeText(GetUserLocationActivity.this, getText(R.string.error_tryagani), Toast.LENGTH_SHORT).show();
+                    send.setText(getText(R.string.save));
+                    send.setEnabled(true);
+                });
     }
+
 
     private MainViewModelFactory getViewModelFactory() {
         return new MainViewModelFactory(getApplication());
@@ -83,9 +114,15 @@ public class GetUserLocationActivity extends AppCompatActivity  {
     }
 
     public void send(View view) {
-        ((TextView)view).setText(getText(R.string.wait));
+        ((TextView) view).setText(getText(R.string.wait));
         (view).setEnabled(false);
-            userLocationsViewModel.addUserLocation(PreferenceHelper.getUserId(),
+
+        if (addressid>0)
+            userLocationsViewModel.editUserLocation(addressid,
                     location.getText().toString(), country.getText().toString(), city.getText().toString(), notes.getText().toString());
+
+        else
+        userLocationsViewModel.addUserLocation(PreferenceHelper.getUserId(),
+                location.getText().toString(), country.getText().toString(), city.getText().toString(), notes.getText().toString());
     }
 }

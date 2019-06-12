@@ -279,7 +279,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="  "
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         app:layout_constraintStart_toEndOf="@id/total"
         app:layout_constraintTop_toBottomOf="@+id/date" />
 
@@ -291,7 +291,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
         android:padding="5dp"
-        android:src="@drawable/product"
+        android:src="@drawable/noimg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number" />
 

@@ -2,9 +2,7 @@ package com.codesroots.osamaomar.grz.models.helper;
 
 
 
-public interface AddorRemoveCallbacks {
+public interface EditOrder {
 
-    public void onAddProduct();
-    public void onRemoveProduct();
-    public void onClearCart();
+    public void onOrderEdit(int index);
 }

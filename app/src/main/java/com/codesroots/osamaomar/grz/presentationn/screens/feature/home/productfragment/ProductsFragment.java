@@ -49,6 +49,7 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
     private TextView notfound, cates_name, spillingfilter, pricefilter;
     private AllProductsAdapter AllProductsAdapter;
     private String title, name;
+    private boolean getDataNow = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -78,6 +79,8 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
                     AllProductsAdapter = new AllProductsAdapter(getActivity(), 0, productsData, this);
                     productsRecycle.setAdapter(AllProductsAdapter);
                 } else {
+                    getDataNow = false;
+
                     productsData.addAll(products);
                     AllProductsAdapter.notifyDataSetChanged();
                     productsRecycle.scrollToPosition(AllProductsAdapter.getItemCount() - 19);
@@ -126,9 +129,12 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItem = ((LinearLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager())).findLastVisibleItemPosition();
                 Log.d("lastVisible", String.valueOf(lastVisibleItem));
-                if (lastVisibleItem == AllProductsAdapter.getItemCount() - 1) {
-                    page++;
-                    mViewModel.getData(CategryId, page);
+                if (lastVisibleItem == (AllProductsAdapter.getItemCount() - 1)) {
+                    if (!getDataNow) {
+                        page++;
+                        mViewModel.getData(CategryId, page);
+                        getDataNow = true;
+                    }
                 }
             }
         });

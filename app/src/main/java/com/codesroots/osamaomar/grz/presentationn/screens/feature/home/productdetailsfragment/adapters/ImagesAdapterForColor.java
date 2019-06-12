@@ -19,7 +19,6 @@ public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterFor
 
     private Context context;
     public int mSelectedItem = 0;
-    public String mSelectedItemname = " ";
     public List<ProductDetails.product.ColorBean> colors;
 
     public ImagesAdapterForColor(Context context, List<ProductDetails.product.ColorBean> productcolors) {
@@ -43,9 +42,6 @@ public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterFor
         try {
             if (position == mSelectedItem) {
                 holder.linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.linear_background_choice_color));
-               // mSelectedItem = getAdapterPosition();
-//                mSelectedItem = colors.get(0).getColor_id();
-//                mSelectedItemname = colors.get(0).getColor().getName();
             }
             else
                 holder.linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
@@ -72,11 +68,8 @@ public class ImagesAdapterForColor extends RecyclerView.Adapter<ImagesAdapterFor
             mView = view;
             color = itemView.findViewById(R.id.textcolor);
             linearLayout = itemView.findViewById(R.id.colorborder);
-
             View.OnClickListener clickListener = v -> {
                 mSelectedItem = getAdapterPosition();
-//                mSelectedItem = colors.get(getAdapterPosition()).getColor_id();
-//                mSelectedItemname = colors.get(getAdapterPosition()).getColor().getName();
                 notifyDataSetChanged();
             };
 

@@ -26,7 +26,6 @@ public class ProductsInsideorderFragment extends Fragment {
     private ProductsInsideOrderViewModel mViewModel;
     RecyclerView productsRecycle;
     int orderid;
-    private Products productsData;
     private FrameLayout progress;
     private TextView notfound,ordernum;
     private MyOrders.DataBean order;
@@ -47,18 +46,6 @@ public class ProductsInsideorderFragment extends Fragment {
         if (order!=null)
              productsRecycle.setAdapter(new AllProductsInsideOrderAdapter(getActivity(),order.getOrder_details()));
 
-        mViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(ProductsInsideOrderViewModel.class);
-
-        mViewModel.productsMutableLiveData.observe(this, products ->
-        {
-
-        });
-
-        mViewModel.throwableMutableLiveData.observe(this, throwable ->
-        {
-            progress.setVisibility(View.GONE);
-            Toast.makeText(getActivity(), throwable.toString(), Toast.LENGTH_SHORT).show();
-        });
         return view;
     }
 

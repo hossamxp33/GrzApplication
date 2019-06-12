@@ -1,6 +1,6 @@
 package com.codesroots.osamaomar.grz.models.entities;
 
-public class EditAddress {
+public class ViewLocation {
 
 
     /**
@@ -59,6 +59,15 @@ public class EditAddress {
         private int status;
         private String created_at;
         private String updated_at;
+        private String notes;
+
+        public String getNotes() {
+            return notes;
+        }
+
+        public void setNotes(String notes) {
+            this.notes = notes;
+        }
 
         public int getBilling_id() {
             return billing_id;

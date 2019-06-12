@@ -149,10 +149,10 @@ public class MenuFragment extends Fragment {
         builderSingle.setTitle(getText(R.string.selectcurrency));
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_singlechoice);
-        arrayAdapter.add("omr");
-        arrayAdapter.add("usd");
-        arrayAdapter.add("aed");
-        arrayAdapter.add("sar");
+        arrayAdapter.add("OMR");
+        arrayAdapter.add("USD");
+        arrayAdapter.add("AED");
+        arrayAdapter.add("SAR");
 
         builderSingle.setNegativeButton(getText(R.string.cancel), (dialog, which) -> dialog.dismiss());
         builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {

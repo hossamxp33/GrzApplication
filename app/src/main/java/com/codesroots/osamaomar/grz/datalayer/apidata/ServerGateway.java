@@ -3,10 +3,12 @@ package com.codesroots.osamaomar.grz.datalayer.apidata;
 import com.codesroots.osamaomar.grz.models.entities.AddLocation;
 import com.codesroots.osamaomar.grz.models.entities.Addmessage;
 import com.codesroots.osamaomar.grz.models.entities.ChatList;
+import com.codesroots.osamaomar.grz.models.entities.Contact;
 import com.codesroots.osamaomar.grz.models.entities.Currency;
 import com.codesroots.osamaomar.grz.models.entities.DefaultAdd;
 import com.codesroots.osamaomar.grz.models.entities.AddToFavModel;
 import com.codesroots.osamaomar.grz.models.entities.CartItems;
+import com.codesroots.osamaomar.grz.models.entities.ViewLocation;
 import com.codesroots.osamaomar.grz.models.entities.Favoriets;
 import com.codesroots.osamaomar.grz.models.entities.LoginResponse;
 import com.codesroots.osamaomar.grz.models.entities.MainView;
@@ -19,7 +21,9 @@ import com.codesroots.osamaomar.grz.models.entities.Register;
 import com.codesroots.osamaomar.grz.models.entities.StoreSetting;
 import com.codesroots.osamaomar.grz.models.entities.UserLocations;
 import com.codesroots.osamaomar.grz.models.entities.offers;
+
 import java.util.ArrayList;
+
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -43,7 +47,6 @@ public interface ServerGateway {
     );
 
 
-
     @GET("Products/getproductsbycatid/{cat_id}/{page}.json")
     Observable<Products> getProducts(
             @Path("cat_id") int cat_id,
@@ -57,10 +60,9 @@ public interface ServerGateway {
     );
 
 
-
     @FormUrlEncoded
     @POST("Favourites/addfavourite.json")
-        Observable<AddToFavModel> addToFave(
+    Observable<AddToFavModel> addToFave(
             @Field("user_id") int user_id,
             @Field("product_id") int product_id
     );
@@ -91,20 +93,26 @@ public interface ServerGateway {
     );
 
 
-        @GET("BillingAddress/index/{userid}.json")
+    @GET("BillingAddress/index/{userid}.json")
     Observable<UserLocations> retrieveUserLocations(
             @Path("userid") int userid
     );
 
 
+    @GET("contact_us.json")
+    Observable<Contact> getContacts();
+
 
     @GET("offers/getoffers.json")
     Observable<offers> retrieveOffers();
+
+
 
     @GET("rating/getproductrate/{product_id}.json")
     Observable<ProductRate> getProductRates(
             @Path("product_id") int product_id
     );
+
 
     @FormUrlEncoded
     @POST("rating/addrate.json")
@@ -137,6 +145,34 @@ public interface ServerGateway {
 
 
     @FormUrlEncoded
+    @POST("BillingAddress/edit/{locationid}.json")
+    Observable<AddLocation> editBillingAddress(
+            @Path("locationid") int locationid,
+            @Field("address") String address,
+            @Field("state_country") String state_country,
+            @Field("town_city") String town_city,
+            @Field("notes") String notes
+    );
+
+
+    @FormUrlEncoded
+    @POST("Orders/edit/{orderid}.json")
+    Observable<AddLocation> editOrderStatues(
+            @Path("orderid") int orderid,
+            @Field("order_status") int order_status
+    );
+
+
+
+
+    @GET("BillingAddress/view/{billingid}.json")
+    Observable<ViewLocation> viewLocation(
+            @Path("billingid") int billingid
+    );
+
+
+
+    @FormUrlEncoded
     @POST("Chatting/getuserchat.json")
     Observable<ChatList> getChatList(
             @Field("customer_id") int user_id
@@ -160,7 +196,7 @@ public interface ServerGateway {
     @FormUrlEncoded
     @POST("products/searchbyname/{type}.json")
     Observable<Products> getSearchResult(
-            @Field("name") String  name,
+            @Field("name") String name,
             @Path("type") String type
     );
 
@@ -173,7 +209,7 @@ public interface ServerGateway {
     @FormUrlEncoded
     @POST("users/add.json")
     Observable<Register> userregister(
-            @Field("customer_email") String  username,
+            @Field("customer_email") String username,
             @Field("customer_password") String customer_password,
             @Field("customer_contact") String customer_contact,
             @Field("status") int email_verified
@@ -182,7 +218,7 @@ public interface ServerGateway {
     @FormUrlEncoded
     @POST("users/token.json")
     Observable<LoginResponse> userlogin(
-            @Field("customer_email") String  username,
+            @Field("customer_email") String username,
             @Field("customer_password") String password
     );
 

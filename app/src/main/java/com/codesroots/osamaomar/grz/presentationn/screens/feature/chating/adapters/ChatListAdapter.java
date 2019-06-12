@@ -77,7 +77,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Custom
             if (AllMessages.get(position).getDated().matches(""))
                 holder.time.setText(context.getText(R.string.now));
             else
-            holder.time.setText(Publicusecase.getTime(AllMessages.get(position).getDated()));
+            holder.time.setText(Publicusecase.getTime(AllMessages.get(position).getDated())+","+Publicusecase.getTimeFromDate(AllMessages.get(position).getDated()));
 
     }
 

@@ -13,6 +13,7 @@ import com.codesroots.osamaomar.grz.datalayer.repositries.ProductAndCategries;
 import com.codesroots.osamaomar.grz.models.usecases.SubcatesWithProductsUseCase;
 import com.codesroots.osamaomar.grz.models.usecases.productsUseCase;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.chating.ChatViewModel;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.contact.ContactViewModel;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragment.CartViewModel;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productfragment.ProductsViewModel;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.payment.PaymentViewModel;
@@ -48,6 +49,10 @@ public class MainViewModelFactory implements ViewModelProvider.Factory {
         else  if (modelClass == PaymentViewModel.class)
         {
             return (T) new PaymentViewModel(getApiService(),getRepopsitry());
+        }
+        else  if (modelClass == ContactViewModel.class)
+        {
+            return (T) new ContactViewModel(getApiService());
         }
         throw new IllegalArgumentException("Invalid view model class type");
     }

@@ -162,4 +162,7 @@
     <string name="sendreq">send your request</string>
     <string name="dirctcontact"> Direct Contact </string>
     <string name="save">save</string>
+    <string name="requested">requested quntity </string>
+    <string name="editaddress"> edit address </string>
+
 </resources>

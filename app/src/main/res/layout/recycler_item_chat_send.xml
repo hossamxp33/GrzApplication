@@ -91,7 +91,7 @@
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:text="السلام عليكم"
+                android:text=" "
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,9 +107,9 @@
                 android:gravity="center"
                 android:textColor="@color/gray"
                 android:textSize="11sp"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/guideTime"
                 app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

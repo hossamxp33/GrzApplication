@@ -151,11 +151,14 @@ public class productsUseCase {
                 product.setPricewithoutcoin(productsbyrate.get(i).getCurrentPrice());
 
                 if (PreferenceHelper.getCurrencyValue() > 0) {
-                    product.setPrice(productsbyrate.get(i).getCurrentPrice()* PreferenceHelper.getCurrencyValue() + " " + PreferenceHelper.getCurrency());
+                    product.setPrice(productsbyrate.get(i).getCurrentPrice()* PreferenceHelper.getCurrencyValue() + " " +
+                            PreferenceHelper.getCurrency());
                     product.setPricewithoutcoin(productsbyrate.get(i).getCurrentPrice() * PreferenceHelper.getCurrencyValue());
-//                product.setPrice(Float.valueOf(new DecimalFormat("#.##").format(productsbyrate.get(i).getCurrentPrice() *
-//                        PreferenceHelper.getCurrencyValue()))+ " " +
-//                        PreferenceHelper.getCurrency());
+
+
+                product.setPrice(new DecimalFormat("##.##").format(productsbyrate.get(i).getCurrentPrice() *
+                        PreferenceHelper.getCurrencyValue())+ " " +
+                        PreferenceHelper.getCurrency());
 
                     product.setCurrentcurrency(PreferenceHelper.getCurrency());
                 } else {
@@ -194,7 +197,13 @@ public class productsUseCase {
                         product.setDiscountpercentage(productsbyrate.get(i).getOffers().get(0).getPercentage());
                         product.setEnddate(getdate(productsbyrate.get(i).getOffers().get(0).getTo_discount()));
                         if (PreferenceHelper.getCurrencyValue() > 0) {
-                            product.setAfteroffer(product.getPricewithoutcoin() * PreferenceHelper.getCurrencyValue() + " " + PreferenceHelper.getCurrency());
+
+                            product.setAfteroffer(new DecimalFormat("##.##").format(product.getPricewithoutcoin() *
+                                    PreferenceHelper.getCurrencyValue())+ " " +
+                                    PreferenceHelper.getCurrency());
+//
+//                            product.setAfteroffer(product.getPricewithoutcoin() * PreferenceHelper.getCurrencyValue() + " " +
+//                                    PreferenceHelper.getCurrency());
                             product.setCurrentcurrency(PreferenceHelper.getCurrency());
                         } else {
                             product.setAfteroffer(String.valueOf(product.getPricewithoutcoin())+" " + context.getText(R.string.realcoin));
@@ -202,7 +211,6 @@ public class productsUseCase {
                         }
                     }
                 }
-
                 products.add(product);
             }
         } catch (Exception e) {

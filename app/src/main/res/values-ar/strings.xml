@@ -146,6 +146,7 @@
     <string name="ok">تم</string>
     <string name="empty">أضف رسالتك</string>
     <string name="newaddress">اضافة عنوان جديد</string>
+    <string name="editaddress">تعديل عنوانك </string>
     <string name="confirm">اضافة</string>
     <string name="addlocation">اختر عنوانك</string>
     <string name="choicecountry">اختر دولتك</string>
@@ -161,5 +162,6 @@
     <string name="sendreq">أرسل تفسيرك</string>
     <string name="dirctcontact">الاتصال المباشر</string>
     <string name="save">حفظ</string>
+    <string name="requested">الكمية المطلوبة</string>
 
 </resources>

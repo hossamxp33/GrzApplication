@@ -74,6 +74,20 @@ public class Publicusecase {
     }
 
 
+    public static String getTimeFromDate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+        try {
+            Date dateObj = sdf.parse(date);
+            String timestamp = String.valueOf(dateObj.getTime());//  //Example -> in ms
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            String dateString = formatter.format(new Date(Long.parseLong(timestamp)));
+            return dateString;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void shareTextUrl(Context context, String link) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");

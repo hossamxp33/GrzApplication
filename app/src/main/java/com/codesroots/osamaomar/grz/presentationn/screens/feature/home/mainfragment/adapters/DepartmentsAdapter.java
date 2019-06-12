@@ -47,12 +47,6 @@ public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.
                 placeholder(R.drawable.dept1).into(holder.Image);
         holder.name.setText(categories.get(position).getName());
 
-
-//        if (categories.get(position).getSubcats().size()>0)
-//        holder.mView.setOnClickListener(v -> ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
-//                replace(R.id.fragment, sucCates_fragment).addToBackStack(null).commit());
-//        else
-//        {
         holder.mView.setOnClickListener(v ->
         {
             Bundle bundle = new Bundle();
@@ -63,8 +57,6 @@ public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.
             ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment, product_fragment).addToBackStack(null).commit();
         });
-
-        //   }
     }
 
     @Override

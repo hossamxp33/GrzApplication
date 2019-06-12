@@ -26,6 +26,7 @@ import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragment.CartFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +62,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     String.valueOf(dataBeans.get(position).getAmount()) + " " + context.getText(R.string.num));
 
 
-            holder.price.setText(dataBeans.get(position).getPricewithoutcoin()*Integer.valueOf(holder.products_count.getText().toString())
+            holder.price.setText(new DecimalFormat("##.##").
+                    format(dataBeans.get(position).getPricewithoutcoin()*Integer.valueOf(holder.products_count.getText().toString()))
                     +dataBeans.get(position).getCurrentcurrency()) ;
 
             products.add(new OrderModel.productSize(dataBeans.get(position).getProductid()));

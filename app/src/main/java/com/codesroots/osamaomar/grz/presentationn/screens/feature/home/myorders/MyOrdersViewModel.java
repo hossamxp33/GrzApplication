@@ -15,10 +15,11 @@ public class MyOrdersViewModel extends ViewModel {
 
     public MutableLiveData<MyOrders> myOrdersMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<Throwable> throwableMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Boolean> edit = new MutableLiveData<>();
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private ServerGateway serverGateway;
     private int user_id;
-
+    private int COMPLETES_STATUES=3;
     public MyOrdersViewModel(ServerGateway serverGateway1, int id) {
         serverGateway = serverGateway1;
         user_id = id;
@@ -33,6 +34,17 @@ public class MyOrdersViewModel extends ViewModel {
                         .subscribe( this::postDataResponse,
                                 this::postError));
     }
+
+    public void editOrder(int orderid){
+        mCompositeDisposable.add(
+                serverGateway.editOrderStatues(orderid,COMPLETES_STATUES)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(editorder ->  edit.postValue(editorder.isSuccess()),
+                                this::postError));
+    }
+
+
 
     private void postDataResponse(MyOrders productRates) {
         myOrdersMutableLiveData.postValue(productRates);

@@ -20,8 +20,10 @@ import com.bumptech.glide.Glide;
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.MyOrders;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
+import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.myorders.MyOrdersFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.myorders.productsinsideorder.ProductsInsideorderFragment;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,10 +36,11 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
 
     private Context context;
     private List<MyOrders.DataBean> orderdata;
-
-    public MyOrdersAdapter(Context mcontext, List<MyOrders.DataBean> data) {
+    private  MyOrdersFragment myOrdersFragment;
+    public MyOrdersAdapter(Context mcontext, List<MyOrders.DataBean> data, MyOrdersFragment myOrdersFragment1) {
         context = mcontext;
         orderdata = data;
+        myOrdersFragment= myOrdersFragment1;
     }
 
     @NonNull
@@ -53,7 +56,8 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
             if (PreferenceHelper.getCurrencyValue()>0)
-                holder.orderdate.setText(String.valueOf(orderdata.get(position).getOrder_gtotal()
+                holder.orderPrice.setText(new DecimalFormat("##.##").
+                        format(orderdata.get(position).getOrder_gtotal()
                         *PreferenceHelper.getCurrencyValue())+" "+PreferenceHelper.getCurrency());
             else
                 holder.orderPrice.setText(orderdata.get(position).getOrder_gtotal()+context.getString(R.string.realcoin));
@@ -65,6 +69,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
             holder.productname.setText(orderdata.get(position).getOrder_details().
                     get(0).getProduct().getName());
 
+            holder.deliverd.setOnClickListener(v -> myOrdersFragment.onOrderEdit(position));
 
            if (orderdata.get(position).getOrder_details().get(0).getProduct().getTotal_rating().size()>0) {
                holder.ratingBar.setRating(orderdata.get(position).getOrder_details().
@@ -73,10 +78,10 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
                holder.ratecount.setText("(" + orderdata.get(position).getOrder_details().
                        get(0).getProduct().getTotal_rating().get(0).getCount() + ")");
            }
-            if (orderdata.get(position).getStatus()==2) {
+            if (orderdata.get(position).getOrder_status()==2) {
                 holder.statues2.setTextColor(Color.WHITE);
                 holder.statues2.setBackgroundResource(R.drawable.selected_progress);
-            } else if (orderdata.get(position).getStatus()==3) {
+            } else if (orderdata.get(position).getOrder_status()==3) {
                 holder.statues2.setTextColor(Color.WHITE);
                 holder.statues3.setTextColor(Color.WHITE);
                 holder.statues2.setBackgroundResource(R.drawable.selected_progress);
@@ -111,7 +116,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
 
         final View mView;
         private ImageView Image;
-        private TextView statues1, statues2, statues3, orderPrice, productCount, orderdate, ordernum, productname, ratecount, gotodetails, payment;
+        private TextView statues1, statues2, statues3, orderPrice, productCount, orderdate, ordernum, productname, ratecount, gotodetails, payment,deliverd;
         private RatingBar ratingBar;
         ViewHolder(View view) {
             super(view);
@@ -129,6 +134,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
             ratecount = mView.findViewById(R.id.rate_count);
             ratingBar = mView.findViewById(R.id.rates);
             gotodetails = mView.findViewById(R.id.gotodetails);
+            deliverd = mView.findViewById(R.id.deliverd);
         }
     }
 
