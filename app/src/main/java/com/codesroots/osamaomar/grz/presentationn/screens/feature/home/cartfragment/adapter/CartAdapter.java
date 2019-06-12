@@ -115,8 +115,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
             holder.price.setText(dataBeans.get(position).getPricewithoutcoin()*Integer.valueOf(holder.products_count.getText().toString())
                     +dataBeans.get(position).getCurrentcurrency()) ;
-
-
             //  notifyItemChanged(position);
         });
 
