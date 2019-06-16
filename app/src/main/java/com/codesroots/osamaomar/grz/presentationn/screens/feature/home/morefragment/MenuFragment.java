@@ -103,10 +103,10 @@ public class MenuFragment extends Fragment {
 
         if (ResourceUtil.getCurrentLanguage(getActivity()).matches("ar")) {
             lang.setText("الانجليزية");
-            curremtlang = true;
+            curremtlang = false;
         } else {
             lang.setText("Arabic");
-            curremtlang = false;
+            curremtlang = true;
         }
 
         lang.setOnClickListener(v -> {

@@ -124,11 +124,15 @@ public class ProductDetailsFragment extends Fragment {
         });
 
         productsDetailsViewModel.errormessage.observe(this, s ->
-                Toast.makeText(getActivity(), getText(R.string.erroroccure), Toast.LENGTH_SHORT).show()
+                {
+                    Toast.makeText(getActivity(), getText(R.string.erroroccure), Toast.LENGTH_SHORT).show();
+                    loading.setVisibility(View.GONE);
+                }
         );
     }
 
     private void setProductDetailsToViews(FinalProductdetails product1) {
+        loading.setVisibility(View.GONE);
         product = product1.getProduct();
         product_name.setText(product.getName());
         name.setText(product.getName());

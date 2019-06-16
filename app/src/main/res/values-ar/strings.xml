@@ -71,7 +71,7 @@
     <string name="from">من</string>
     <string name="client">عميل</string>
     <string name="norates">لا يوجد تقييمات</string>
-    <string name="requestnotallow">لا يمكن طلب اكثر من الكمية المطلوبة</string>
+    <string name="requestnotallow">لا يمكن طلب اكثر من الكمية المتوفرة</string>
     <string name="payoptions">خيارات الدفع</string>
     <string name="cannot_fetch_address">غير قادر علي ايجاد العنوان</string>
     <string name="send">تأكيد </string>

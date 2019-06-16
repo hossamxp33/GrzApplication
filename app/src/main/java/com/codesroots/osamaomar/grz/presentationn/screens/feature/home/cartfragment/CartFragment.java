@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,15 +76,17 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
             if (PreferenceHelper.getUserId()>0) {
                 Fragment fragment = new UserLocationsFragment();
                 Bundle bundle = new Bundle();
-                orderModel.setOrderdetails(cartAdapter.products);
-                for (int i = 0; i < cartAdapter.products.size(); i++) {
-                    cartAdapter.products.get(i).setColor(productsDbs.get(i).getProductcolor_id());
-                    cartAdapter.products.get(i).setSize(productsDbs.get(i).getProductsize_id());
-                }
-
+                if (cartAdapter!=null) {
+                    orderModel.setOrderdetails(cartAdapter.products);
+                    Log.d("size",cartAdapter.products.size()+"");
+                    for (int i = 0; i < products.size(); i++) {
+                        cartAdapter.products.get(i).setColor(productsDbs.get(i).getProductcolor_id());
+                        cartAdapter.products.get(i).setSize(productsDbs.get(i).getProductsize_id());
+                    }
                 bundle.putSerializable(ORDER, orderModel);
                 fragment.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack(null).commit();
+                }
             }
             else
                 Toast.makeText(getContext(),getText(R.string.loginfirst),Toast.LENGTH_SHORT).show();
@@ -104,7 +107,6 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
 
     @Override
     public void onAddProduct(int pid, int cid, int sid, String colorname, String sizename) {
-
     }
 
     @Override
@@ -112,6 +114,7 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
         mViewModel.deleteItem(pid);
         products.remove(position);
         productsDbs.remove(position);
+        cartAdapter.products.clear();
         cartAdapter.notifyDataSetChanged();
         ((AddorRemoveCallbacks) getActivity()).onRemoveProduct();
     }

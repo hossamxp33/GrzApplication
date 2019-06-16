@@ -23,6 +23,7 @@ import com.codesroots.osamaomar.grz.models.entities.OrderModel;
 import com.codesroots.osamaomar.grz.models.entities.Product;
 import com.codesroots.osamaomar.grz.models.helper.AddorRemoveCallbacks;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
+import com.codesroots.osamaomar.grz.models.usecases.Publicusecase;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragment.CartFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 
@@ -57,14 +58,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
-            holder.name.setText(dataBeans.get(position).getName()+","+dataBeans.get(position).getColorname()+","+dataBeans.get(position).getSizename());
+            holder.name.setText(dataBeans.get(position).getName() + "," + dataBeans.get(position).getColorname() + "," + dataBeans.get(position).getSizename());
             holder.amount.setText(context.getText(R.string.remendier) + " " +
                     String.valueOf(dataBeans.get(position).getAmount()) + " " + context.getText(R.string.num));
 
-
             holder.price.setText(new DecimalFormat("##.##").
-                    format(dataBeans.get(position).getPricewithoutcoin()*Integer.valueOf(holder.products_count.getText().toString()))
-                    +dataBeans.get(position).getCurrentcurrency()) ;
+                    format(dataBeans.get(position).getPricewithoutcoin() * Integer.valueOf(holder.products_count.getText().toString()))
+                    + dataBeans.get(position).getCurrentcurrency());
+
 
             products.add(new OrderModel.productSize(dataBeans.get(position).getProductid()));
             products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
@@ -75,15 +76,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
             holder.ratingBar.setRating(dataBeans.get(position).getRate());
             holder.rateCount.setText("(" + dataBeans.get(position).getRatecount() + ")");
-            Glide.with(context.getApplicationContext())
-                    .load(context.getText(R.string.base_img_url)+dataBeans.get(position).getPhoto()).placeholder(R.drawable.product).dontAnimate()
-                    .into(holder.Image);
+            Publicusecase.loadimage(context,holder.Image,context.getText(R.string.base_img_url) + dataBeans.get(position).getPhoto());
+//            Glide.with(context.getApplicationContext())
+//                    .load(context.getText(R.string.base_img_url) + dataBeans.get(position).getPhoto()).placeholder(R.drawable.noimg).dontAnimate()
+//                    .into(holder.Image);
         } catch (Exception e) {
             Log.d("exception", e.getMessage());
         }
 
         holder.mView.setOnClickListener(v -> {
-
             Fragment fragment = new ProductDetailsFragment();
             Bundle bundle = new Bundle();
             bundle.putInt(PRODUCT_ID, dataBeans.get(position).getProductid());
@@ -93,28 +94,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     .addToBackStack(null).commit();
         });
 
-
         holder.delete_item.setOnClickListener(v -> {
-            cartFragment.onRemoveProduct(products.get(position).getProductsize_id(),position);
+            cartFragment.onRemoveProduct(products.get(position).getProductsize_id(), position);
         });
 
         holder.quintityPlus.setOnClickListener(v ->
         {
-            if (Integer.valueOf(holder.products_count.getText().toString()) + 1 <= dataBeans.get(position).getAmount()) {
-                int newvalue = Integer.valueOf(holder.products_count.getText().toString())+1;
-                holder.products_count.setText(String.valueOf(newvalue ));
-                products.get(position).setAmount(Integer.valueOf(holder.products_count.getText().toString()));
-                if (dataBeans.get(position).isHasoffer()) {
-                    products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                            dataBeans.get(position).getPricewithoutcoin()));
-                } else
-                    products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                            Float.valueOf(dataBeans.get(position).getPrice())));
+            //  if (Integer.valueOf(holder.products_count.getText().toString()) + 1 <= dataBeans.get(position).getAmount()) {
+            int newvalue = Integer.valueOf(holder.products_count.getText().toString()) + 1;
+            holder.products_count.setText(String.valueOf(newvalue));
+            products.get(position).setAmount(Integer.valueOf(holder.products_count.getText().toString()));
+            if (dataBeans.get(position).isHasoffer()) {
+                products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
+                        dataBeans.get(position).getPricewithoutcoin()));
             } else
-                Toast.makeText(context, context.getText(R.string.requestnotallow), Toast.LENGTH_SHORT).show();
+                products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
+                        Float.valueOf(dataBeans.get(position).getPrice())));
+//            } else
+//                Toast.makeText(context, context.getText(R.string.requestnotallow), Toast.LENGTH_SHORT).show();
 
-            holder.price.setText(dataBeans.get(position).getPricewithoutcoin()*Integer.valueOf(holder.products_count.getText().toString())
-                    +dataBeans.get(position).getCurrentcurrency()) ;
+            holder.price.setText(dataBeans.get(position).getPricewithoutcoin() * Integer.valueOf(holder.products_count.getText().toString())
+                    + dataBeans.get(position).getCurrentcurrency());
             //  notifyItemChanged(position);
         });
 
@@ -130,8 +130,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
                             Float.valueOf(dataBeans.get(position).getPrice())));
             }
-            holder.price.setText(dataBeans.get(position).getPricewithoutcoin()*Integer.valueOf(holder.products_count.getText().toString())
-                    +dataBeans.get(position).getCurrentcurrency()) ;
+            holder.price.setText(dataBeans.get(position).getPricewithoutcoin() * Integer.valueOf(holder.products_count.getText().toString())
+                    + dataBeans.get(position).getCurrentcurrency());
 
             //   notifyItemChanged(position);
         });

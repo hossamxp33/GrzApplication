@@ -310,10 +310,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/colores_container"
                 app:layout_constraintWidth_percent="0.9" />
 
-
-
-
-
             <TextView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
@@ -433,7 +429,6 @@
         android:id="@+id/progress"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

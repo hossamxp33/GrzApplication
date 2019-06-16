@@ -61,7 +61,8 @@ public class AllProductsInsideOrderAdapter extends RecyclerView.Adapter<AllProdu
 
         if (orderdetailsBeans.get(position).getProduct()!=null)
             Glide.with(context.getApplicationContext())
-                    .load(context.getText(R.string.base_img_url)+orderdetailsBeans.get(position).getProduct().getProductphotos().get(0).getPhoto()).placeholder(R.drawable.product).dontAnimate()
+                    .load(context.getText(R.string.base_img_url)+
+                            orderdetailsBeans.get(position).getProduct().getProductphotos().get(0).getPhoto()).placeholder(R.drawable.noimg).dontAnimate()
                     .into(holder.Image);
             holder.name.setText(orderdetailsBeans.get(position).getProduct().getName());
 
@@ -78,11 +79,11 @@ public class AllProductsInsideOrderAdapter extends RecyclerView.Adapter<AllProdu
                 String.valueOf(orderdetailsBeans.get(position).getProduct_qty())+" "+context.getText(R.string.num));
 
         if (PreferenceHelper.getCurrencyValue() > 0) {
-            holder.price.setText(new DecimalFormat("##.##").format(orderdetailsBeans.get(position).getProduct().getProduct_price() *
+            holder.price.setText(new DecimalFormat("##.##").format(orderdetailsBeans.get(position).getProduct_price() *
                     PreferenceHelper.getCurrencyValue())+ " " +
                     PreferenceHelper.getCurrency());
         } else {
-            holder.price.setText(orderdetailsBeans.get(position).getProduct().getProduct_price()+" "+context.getText(R.string.realcoin));
+            holder.price.setText(orderdetailsBeans.get(position).getProduct_price()+" "+context.getText(R.string.realcoin));
         }
 
     }

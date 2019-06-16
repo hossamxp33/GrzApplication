@@ -90,7 +90,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.ViewHo
 
             Glide.with(context).load(context.getText(R.string.base_img_url)+orderdata.get(position).getOrder_details().
                     get(0).getProduct().getProductphotos().get(0).getPhoto()).
-                    dontAnimate().placeholder(R.drawable.product).into(holder.Image);
+                    dontAnimate().placeholder(R.drawable.noimg).into(holder.Image);
 
         } catch (Exception e) {
             Log.d("exception",e.getMessage());
