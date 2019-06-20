@@ -107,12 +107,6 @@ public class ResourceUtil {
         config.locale = myLocale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
         saveLocale(lang, context);
-    //    if (!mOld.equals(lang)) {
-//            Intent i = getPackageManager()
-//                    .getLaunchIntentForPackage(getPackageName());
-//            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(i);
-    //    }
     }
 
 
@@ -121,9 +115,8 @@ public class ResourceUtil {
         SharedPreferences prefs = context.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(langPref, lang);
-        editor.commit();
+        editor.apply();
     }
-
 
     public static String getCurrentLanguage(Context context) {
         String langPref = context.getPackageName() + "App_Language";
@@ -131,7 +124,6 @@ public class ResourceUtil {
         String old = prefs.getString(langPref, "ar");
         return old;
     }
-
 
 //    public static void changeMenuFont(NavigationView navigationView, Context context) {
 //        Menu m = navigationView.getMenu();

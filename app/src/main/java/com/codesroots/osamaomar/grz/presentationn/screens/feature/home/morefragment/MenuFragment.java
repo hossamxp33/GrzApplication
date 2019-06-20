@@ -34,7 +34,7 @@ import java.util.List;
 public class MenuFragment extends Fragment {
 
     private MenuViewModel mViewModel;
-    private TextView currency, lang, login, logout, chat, charge,direct_contact;
+    private TextView currency, lang, login, logout, chat, charge, direct_contact;
     private List<Currency.DataBean> dataBeanList = new ArrayList<>();
 
     private boolean curremtlang; ///true if arabic
@@ -101,17 +101,17 @@ public class MenuFragment extends Fragment {
             showDialog(dataBeanList);
         });
 
-        if (ResourceUtil.getCurrentLanguage(getActivity()).matches("ar")) {
-            lang.setText("الانجليزية");
-            curremtlang = false;
-        } else {
-            lang.setText("Arabic");
-            curremtlang = true;
-        }
+//        if (ResourceUtil.getCurrentLanguage(getActivity()).matches("ar")) {
+//            lang.setText("الانجليزية");
+//            curremtlang = false;
+//        } else {
+//            lang.setText("Arabic");
+//            curremtlang = true;
+//        }
 
         lang.setOnClickListener(v -> {
             showDialogForLang();
-    });
+        });
         return view;
     }
 
@@ -126,17 +126,13 @@ public class MenuFragment extends Fragment {
             String strName = arrayAdapter.getItem(which);
             AlertDialog.Builder builderInner = new AlertDialog.Builder(getActivity());
             builderInner.setMessage(strName);
-            String lang="";
+            String lang = "";
             if (which == 0) {
-               lang="ar";
+                lang = "ar";
             } else if (which == 1) {
-              lang="en";
+                lang = "en";
             }
-
-            if (curremtlang)
-                ResourceUtil.changeLang(lang, getActivity());
-            else
-                ResourceUtil.changeLang(lang, getActivity());
+            ResourceUtil.changeLang(lang, getActivity());
             Intent i = new Intent(getActivity(), SplashActivity.class);
             startActivity(i);
             getActivity().finishAffinity();

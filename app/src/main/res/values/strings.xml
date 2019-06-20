@@ -34,6 +34,11 @@
     <string name="degree_rate">Rate Ratio</string>
     <string name="deletefromfavsucces">delete from favorite</string>
     <string name="deliveried">Delivered</string>
+    <string name="pending">Pending </string>
+    <string name="cancelled">Cancelled</string>
+    <string name="processing">Processing</string>
+    <string name="readyforship">Ready for shipment</string>
+    <string name="awaiting">Awaiting Courier Pickup</string>
     <string name="diffs_product">Different Products</string>
     <string name="error_in_data">"error in data "</string>
     <string name="error_tryagani">error,try again</string>
