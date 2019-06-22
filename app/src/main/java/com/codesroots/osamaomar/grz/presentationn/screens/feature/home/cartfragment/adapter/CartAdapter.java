@@ -58,14 +58,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
-            holder.name.setText(dataBeans.get(position).getName() + "," + dataBeans.get(position).getColorname() + "," + dataBeans.get(position).getSizename());
+            holder.name.setText(dataBeans.get(position).getName());
+            holder.item_size.setText( dataBeans.get(position).getColorname() + "," + dataBeans.get(position).getSizename());
             holder.amount.setText(context.getText(R.string.remendier) + " " +
                     String.valueOf(dataBeans.get(position).getAmount()) + " " + context.getText(R.string.num));
 
             holder.price.setText(new DecimalFormat("##.##").
                     format(dataBeans.get(position).getPricewithoutcoin() * Integer.valueOf(holder.products_count.getText().toString()))
                     + dataBeans.get(position).getCurrentcurrency());
-
 
             products.add(new OrderModel.productSize(dataBeans.get(position).getProductid()));
             products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
@@ -147,7 +147,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         final View mView;
         private ImageView Image, delete_item, quintityMinus, quintityPlus;
-        private TextView name, rateCount, amount, price;
+        private TextView name, rateCount, amount, price,item_size;
         private RatingBar ratingBar;
         private EditText products_count;
 
@@ -164,6 +164,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             quintityMinus = mView.findViewById(R.id.quintityMinus);
             quintityPlus = mView.findViewById(R.id.quintityPlus);
             products_count = mView.findViewById(R.id.quintity_value);
+            item_size = mView.findViewById(R.id.item_size);
         }
     }
 }

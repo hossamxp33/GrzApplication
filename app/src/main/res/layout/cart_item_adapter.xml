@@ -48,7 +48,6 @@
 
     <ImageView
         android:id="@+id/item_img"
-
         android:layout_width="120dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
@@ -64,7 +63,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="center"
-        android:lines="2"
         android:layout_marginTop="10dp"
         android:text=""
         android:textColor="@color/black"
@@ -74,6 +72,18 @@
         app:layout_constraintStart_toEndOf="@id/item_img"
         app:layout_constraintTop_toTopOf="@+id/item_img" />
 
+    <TextView
+        android:id="@+id/item_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/item_img"
+        app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
     <RatingBar
         android:id="@+id/rates"
@@ -84,7 +94,7 @@
         android:isIndicator="true"
         android:theme="@style/RatingBar"
         app:layout_constraintStart_toEndOf="@id/item_img"
-        app:layout_constraintTop_toBottomOf="@+id/item_name" />
+        app:layout_constraintTop_toBottomOf="@+id/item_size" />
 
     <TextView
         android:id="@+id/rate_count"
@@ -95,7 +105,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/rates"
-        app:layout_constraintTop_toBottomOf="@+id/item_name" />
+        app:layout_constraintTop_toBottomOf="@+id/item_size" />
 
 
     <TextView
