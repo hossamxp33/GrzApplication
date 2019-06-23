@@ -109,7 +109,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                         dataBeans.get(position).getPricewithoutcoin()));
             } else
                 products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                        Float.valueOf(dataBeans.get(position).getPrice())));
+                        dataBeans.get(position).getPricewithoutcoin()));
 //            } else
 //                Toast.makeText(context, context.getText(R.string.requestnotallow), Toast.LENGTH_SHORT).show();
 
@@ -128,7 +128,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                             dataBeans.get(position).getPricewithoutcoin()));
                 } else
                     products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
-                            Float.valueOf(dataBeans.get(position).getPrice())));
+                            dataBeans.get(position).getPricewithoutcoin()));
             }
             holder.price.setText(dataBeans.get(position).getPricewithoutcoin() * Integer.valueOf(holder.products_count.getText().toString())
                     + dataBeans.get(position).getCurrentcurrency());

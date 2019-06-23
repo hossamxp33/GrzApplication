@@ -49,7 +49,7 @@ public class ProductDetailsFragment extends Fragment {
     RecyclerView recyclerViewforitemcolors, sizes_rec, related_product;
     FrameLayout loading;
     public TextView product_name, description, price, ratecount,
-            amount, addtocart, charege, images_count, name, sale, notes;
+            amount, addtocart, charege, images_count, name, sale, notes,notestitle,descriptiontitle;
 
     RatingBar ratingBar;
     public ImageView item_img;
@@ -89,10 +89,19 @@ public class ProductDetailsFragment extends Fragment {
             productsDetailsViewModel.AddToCart(product);
         });
 
-//        addtocart.setOnClickListener(v -> {
-//            ProductDB product = new ProductDB(productid, imagesAdapterForColor.mSelectedItem, productSizesAdapter.mSelectedItem);
-//            productsDetailsViewModel.AddToCart(product);
-//        });
+        notestitle.setOnClickListener(v -> {
+            if(notes.getVisibility()==View.VISIBLE)
+                notes.setVisibility(View.GONE);
+            else
+                notes.setVisibility(View.VISIBLE);
+        });
+
+        descriptiontitle.setOnClickListener(v -> {
+            if(description.getVisibility()==View.VISIBLE)
+                description.setVisibility(View.GONE);
+            else
+                description.setVisibility(View.VISIBLE);
+        });
 
         ratingBar.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -194,6 +203,8 @@ public class ProductDetailsFragment extends Fragment {
         name = view.findViewById(R.id.name);
         sale = view.findViewById(R.id.sale);
         notes = view.findViewById(R.id.notes);
+        notestitle = view.findViewById(R.id.notes_title);
+        descriptiontitle = view.findViewById(R.id.description_title);
         related_product = view.findViewById(R.id.related_product);
     }
 
