@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -199,6 +200,7 @@ public class productsUseCase {
                         product.setOriginalprice(product.getPricewithoutcoin());
                         product.setDiscountpercentage(productsbyrate.get(i).getOffers().get(0).getPercentage());
                         product.setEnddate(getdate(productsbyrate.get(i).getOffers().get(0).getTo_discount()));
+                        product.setRemenderdayes(getDiffDays(getendDateAsMillisec(productsbyrate.get(i).getOffers().get(0).getTo_discount())));
                         if (PreferenceHelper.getCurrencyValue() > 0) {
 
                             product.setAfteroffer(new DecimalFormat("##.##").format(product.getPricewithoutcoin() *
@@ -276,5 +278,27 @@ public class productsUseCase {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    private Long getendDateAsMillisec(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+        try {
+            Date dateObj = sdf.parse(date);
+           Long calendar= dateObj.getTime();
+           return calendar;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private int getDiffDays (Long thatDay)
+    {
+        Calendar today = Calendar.getInstance();
+        long diff = thatDay - today.getTimeInMillis();
+        Log.d("asec",today.getTimeInMillis()+"");
+        long days = diff / (24 * 60 * 60 * 1000);
+        return (int) days;
     }
 }

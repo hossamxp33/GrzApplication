@@ -7,11 +7,19 @@ public class Product {
 
     private String name, photo, description, price,currentcurrency,afteroffer,enddate,notes,colorname,sizename;
     private float rate, offerpercentage,pricewithoutcoin=0,discountpercentage,originalprice;
-    private int ratecount, productid, amount, favid, offerid, colorid = 0, sizeid = 0;
-    private List<ProductDetails.product.ProductphotosBean> photos = new ArrayList<>();
-    private List<ProductDetails.product.ProductsizesBean> product_sizes = new ArrayList<>();
-    private List<ProductDetails.product.ColorBean> colores = new ArrayList<>();
+    private int ratecount, productid, amount, favid, offerid, colorid = 0, sizeid = 0,remenderdayes;
+    private List<com.codesroots.osamaomar.grz.models.entities.ProductDetails.product.ProductphotosBean> photos = new ArrayList<>();
+    private List<com.codesroots.osamaomar.grz.models.entities.ProductDetails.product.ProductsizesBean> product_sizes = new ArrayList<>();
+    private List<com.codesroots.osamaomar.grz.models.entities.ProductDetails.product.ColorBean> colores = new ArrayList<>();
     private List<Product> related = new ArrayList<>();
+
+    public int getRemenderdayes() {
+        return remenderdayes;
+    }
+
+    public void setRemenderdayes(int remenderdayes) {
+        this.remenderdayes = remenderdayes;
+    }
 
     public List<Product> getRelated() {
         return related;

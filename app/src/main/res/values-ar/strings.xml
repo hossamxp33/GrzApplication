@@ -22,6 +22,7 @@
     <string name="choice_size">اختر الحجم</string>
     <string name="coin"> ر.ع </string>
     <string name="remendier">  متوفر  </string>
+    <string name="remendierdays">  باقي  </string>
     <string name="num"> قطع </string>
     <string name="realcoin">ريال</string>
     <string name="rates">تعليقات / التقييمات</string>
@@ -168,7 +169,7 @@
     <string name="processing">تجهيز الطلب </string>
     <string name="readyforship">جاهزة للشحن</string>
     <string name="awaiting">في الحاوية</string>
-
+    <string name="day">يوم</string>
 
 
 </resources>

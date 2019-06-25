@@ -57,13 +57,15 @@ public class AllOffersAdapter extends RecyclerView.Adapter<AllOffersAdapter.View
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         if (offersData.get(position).getPhotos().size() > 0)
-            Publicusecase.loadimage(context,holder.Image,context.getText(R.string.base_img_url)+offersData.get(position).getPhotos().get(0).getPhoto());
+            Publicusecase.loadimage(context,holder.Image,context.getText(R.string.base_img_url)+
+                    offersData.get(position).getPhotos().get(0).getPhoto());
 
         holder.ratingBar.setRating(offersData.get(position).getRate());
         holder.rateCount.setText("(" + offersData.get(position).getRatecount() + ")");
         holder.name.setText(offersData.get(position).getName());
         holder.amount.setText(context.getText(R.string.remendier)+" "+ offersData.get(position).getAmount()+" "+context.getText(R.string.num));
-        holder.enddate.setText(offersData.get(position).getEnddate());
+        holder.enddate.setText(offersData.get(position).getEnddate()+" "+"("+context.getText(R.string.remendierdays)+
+                " "+offersData.get(position).getRemenderdayes()+" "+context.getText(R.string.day)+")");
         holder.discount.setText(offersData.get(position).getDiscountpercentage() + " " + "%");
 
 
