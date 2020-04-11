@@ -2,15 +2,14 @@ package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productd
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.ProductDetails;
-import com.codesroots.osamaomar.grz.models.entities.StoreSetting;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 import java.util.List;
 

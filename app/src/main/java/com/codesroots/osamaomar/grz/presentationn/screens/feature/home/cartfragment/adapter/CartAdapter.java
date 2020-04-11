@@ -3,10 +3,10 @@ package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfrag
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.OrderModel;
 import com.codesroots.osamaomar.grz.models.entities.Product;
-import com.codesroots.osamaomar.grz.models.helper.AddorRemoveCallbacks;
-import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.models.usecases.Publicusecase;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragment.CartFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
@@ -59,13 +55,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
             holder.name.setText(dataBeans.get(position).getName());
-            holder.item_size.setText( dataBeans.get(position).getColorname() + "," + dataBeans.get(position).getSizename());
+            holder.item_size.setText(dataBeans.get(position).getColorname() + "," + dataBeans.get(position).getSizename());
             holder.amount.setText(context.getText(R.string.remendier) + " " +
                     String.valueOf(dataBeans.get(position).getAmount()) + " " + context.getText(R.string.num));
 
             holder.price.setText(new DecimalFormat("##.##").
                     format(dataBeans.get(position).getPricewithoutcoin() * Integer.valueOf(holder.products_count.getText().toString()))
                     + dataBeans.get(position).getCurrentcurrency());
+
+            holder.products_count.setText(String.valueOf(dataBeans.get(position).getProductcount()));
 
             products.add(new OrderModel.productSize(dataBeans.get(position).getProductid()));
             products.get(position).setTotal(String.valueOf(Integer.valueOf(holder.products_count.getText().toString()) *
@@ -74,9 +72,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             if (dataBeans.get(position).isHasoffer())
                 products.get(position).setNotice("خصم بسبب العرض رقم " + dataBeans.get(position).getOfferid());
 
+            products.get(position).setOriginalTotal(dataBeans.get(position).getPricewithoutcoin());
+
             holder.ratingBar.setRating(dataBeans.get(position).getRate());
             holder.rateCount.setText("(" + dataBeans.get(position).getRatecount() + ")");
-            Publicusecase.loadimage(context,holder.Image,context.getText(R.string.base_img_url) + dataBeans.get(position).getPhoto());
+            Publicusecase.loadimage(context, holder.Image, context.getText(R.string.base_img_url) + dataBeans.get(position).getPhoto());
 //            Glide.with(context.getApplicationContext())
 //                    .load(context.getText(R.string.base_img_url) + dataBeans.get(position).getPhoto()).placeholder(R.drawable.noimg).dontAnimate()
 //                    .into(holder.Image);
@@ -96,6 +96,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         holder.delete_item.setOnClickListener(v -> {
             cartFragment.onRemoveProduct(products.get(position).getProductsize_id(), position);
+            cartFragment.onChangeCart();
         });
 
         holder.quintityPlus.setOnClickListener(v ->
@@ -115,6 +116,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
             holder.price.setText(dataBeans.get(position).getPricewithoutcoin() * Integer.valueOf(holder.products_count.getText().toString())
                     + dataBeans.get(position).getCurrentcurrency());
+            products.get(position).setOriginalTotal(Integer.valueOf(holder.products_count.getText().toString()) *
+                    dataBeans.get(position).getPricewithoutcoin());
+
+            cartFragment.onChangeCart();
             //  notifyItemChanged(position);
         });
 
@@ -132,7 +137,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
             holder.price.setText(dataBeans.get(position).getPricewithoutcoin() * Integer.valueOf(holder.products_count.getText().toString())
                     + dataBeans.get(position).getCurrentcurrency());
+            products.get(position).setOriginalTotal(Integer.valueOf(holder.products_count.getText().toString()) *
+                    dataBeans.get(position).getPricewithoutcoin());
 
+            cartFragment.onChangeCart();
             //   notifyItemChanged(position);
         });
 
@@ -147,7 +155,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         final View mView;
         private ImageView Image, delete_item, quintityMinus, quintityPlus;
-        private TextView name, rateCount, amount, price,item_size;
+        private TextView name, rateCount, amount, price, item_size;
         private RatingBar ratingBar;
         private EditText products_count;
 

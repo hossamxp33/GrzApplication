@@ -1,13 +1,13 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragment;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +27,7 @@ import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragm
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.userlocations.UserLocationsFragment;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
 
     private static final int REQUEST_CODE_LOCATION = 117;
     RecyclerView cartsRecycle;
-    private TextView sale;
+    private TextView sale,totalvalue;
     private CartAdapter cartAdapter;
     private FrameLayout progress;
     private ArrayList product_ids = new ArrayList<>();
@@ -44,12 +45,15 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
     List<Product> products = new ArrayList<>();
     List<ProductDB> productsDbs = new ArrayList<>();
     CartViewModel mViewModel;
+    double tot_price=0;
+    String curentCurrency;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cart_fragment, container, false);
         initialize(view);
+
         mViewModel = ViewModelProviders.of(this, getViewModelFactory()).get(CartViewModel.class);
         mViewModel.cartItemsMutableLiveData.observe(this, dataBeans -> {
             {
@@ -57,6 +61,13 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
                 products = dataBeans;
                 cartAdapter = new CartAdapter(getActivity(), products, CartFragment.this);
                 cartsRecycle.setAdapter(cartAdapter);
+                orderModel.setOrderdetails(cartAdapter.products);
+                tot_price = 0;
+                for (int i = 0; i < products.size(); i++)
+                    tot_price += products.get(i).getPricewithoutcoin()*products.get(i).getProductcount();
+
+                totalvalue.setText(new DecimalFormat("##.##").
+                        format(tot_price)+" "+curentCurrency);
             }
         });
 
@@ -77,7 +88,7 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
                 Fragment fragment = new UserLocationsFragment();
                 Bundle bundle = new Bundle();
                 if (cartAdapter!=null) {
-                    orderModel.setOrderdetails(cartAdapter.products);
+                  //  orderModel.setOrderdetails(cartAdapter.products);
                     Log.d("size",cartAdapter.products.size()+"");
                     for (int i = 0; i < products.size(); i++) {
                         cartAdapter.products.get(i).setColor(productsDbs.get(i).getProductcolor_id());
@@ -91,6 +102,8 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
             else
                 Toast.makeText(getContext(),getText(R.string.loginfirst),Toast.LENGTH_SHORT).show();
         });
+
+
         return view;
     }
 
@@ -98,15 +111,17 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
         cartsRecycle = view.findViewById(R.id.cart_Rec);
         sale = view.findViewById(R.id.sale);
         progress = view.findViewById(R.id.progress);
+        totalvalue = view.findViewById(R.id.totalvalue);
+        curentCurrency =getContext().getText(R.string.realcoin).toString();
     }
 
     private ViewModelProvider.Factory getViewModelFactory() {
         return new MainViewModelFactory(getActivity().getApplication());
     }
 
-
     @Override
-    public void onAddProduct(int pid, int cid, int sid, String colorname, String sizename) {
+    public void onAddProduct(int pid, int cid, int sid, String colorname, String sizename,int product_count) {
+
     }
 
     @Override
@@ -120,6 +135,14 @@ public class CartFragment extends Fragment implements AddorRemoveToCartCallbacks
     }
 
     @Override
-    public void onClearCart() {
+    public void onChangeCart() {
+        tot_price = 0;
+        for (int i = 0; i < orderModel.getOrderdetails().size(); i++)
+            tot_price += orderModel.getOrderdetails().get(i).getOriginalTotal();
+
+        if (PreferenceHelper.getCurrency()!=null)
+            curentCurrency = PreferenceHelper.getCurrency();
+        totalvalue.setText(new DecimalFormat("##.##").
+                format(tot_price)+" "+curentCurrency);
     }
 }

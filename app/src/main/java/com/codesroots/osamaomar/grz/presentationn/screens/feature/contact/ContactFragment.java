@@ -1,10 +1,10 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.contact;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.helper.ResourceUtil;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
-import com.codesroots.osamaomar.grz.presentationn.screens.feature.userlocations.UserLocationsViewModel;
 
 public class ContactFragment extends Fragment {
 
@@ -32,7 +31,9 @@ public class ContactFragment extends Fragment {
         insta = view.findViewById(R.id.insta);
         whats = view.findViewById(R.id.whats);
 
-        whats.setOnClickListener(v -> ResourceUtil.openWhatsApp(phone2.getText().toString(),getContext()));
+
+
+        whats.setOnClickListener(v -> ResourceUtil.openWhatsApp(phone2.getText().toString().replace("+", ""),getContext()));
         phone2.setOnClickListener(v -> ResourceUtil.callNumber(phone2.getText().toString(),getContext()));
 
         return view;
@@ -45,6 +46,8 @@ public class ContactFragment extends Fragment {
         contactViewModel.contactMutableLiveData.observe(this,contact ->
         {
             phone2.setText(contact.getData().get(0).getContact_phone());
+            insta.setOnClickListener(v -> ResourceUtil.openinstapp(contact.getData().get(0).getinsta(),this.getContext()));
+
             mail.setText(contact.getData().get(0).getContact_email());
         } );
 

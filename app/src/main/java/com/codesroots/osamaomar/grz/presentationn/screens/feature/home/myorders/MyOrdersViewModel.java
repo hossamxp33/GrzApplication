@@ -1,10 +1,9 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.myorders;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
 import com.codesroots.osamaomar.grz.models.entities.MyOrders;
-import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

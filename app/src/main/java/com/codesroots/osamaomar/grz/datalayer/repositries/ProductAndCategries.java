@@ -1,7 +1,6 @@
 package com.codesroots.osamaomar.grz.datalayer.repositries;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
 
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
 import com.codesroots.osamaomar.grz.datalayer.localdata.product.deo.ProductDao;
@@ -11,7 +10,6 @@ import com.codesroots.osamaomar.grz.models.entities.DefaultAdd;
 import com.codesroots.osamaomar.grz.models.entities.MainView;
 import com.codesroots.osamaomar.grz.models.entities.ProductDetails;
 import com.codesroots.osamaomar.grz.models.entities.Products;
-import com.codesroots.osamaomar.grz.models.entities.SubCategriesWithProducts;
 import com.codesroots.osamaomar.grz.models.entities.offers;
 
 import java.util.List;
@@ -23,7 +21,6 @@ import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 public class ProductAndCategries {
@@ -105,7 +102,21 @@ public class ProductAndCategries {
                 else
                     addProductToCart(product, statues);
             }
+            @Override
+            public void onError(Throwable e) {
+            }
+        });
+    }
 
+    public void updateCount(int count,int proid) {
+        Single.fromCallable(() -> productDao.updateCount(count,proid)).subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+            }
+            @Override
+            public void onSuccess(Integer integer) {
+            }
             @Override
             public void onError(Throwable e) {
 

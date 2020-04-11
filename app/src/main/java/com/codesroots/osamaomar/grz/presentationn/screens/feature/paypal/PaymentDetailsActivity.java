@@ -1,7 +1,7 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.paypal;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.codesroots.osamaomar.grz.R;

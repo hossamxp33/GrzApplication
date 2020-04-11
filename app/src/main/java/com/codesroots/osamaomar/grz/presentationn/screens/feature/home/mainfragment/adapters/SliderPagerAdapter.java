@@ -1,9 +1,9 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.adapters;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.widget.CircularProgressDrawable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +35,7 @@ public class SliderPagerAdapter extends PagerAdapter {
         ImageView im_slider =  view.findViewById(R.id.im_slider);
 
         CircularProgressDrawable circularProgressDrawable =new  CircularProgressDrawable(activity);
-        circularProgressDrawable.setStrokeWidth(5f);
-        circularProgressDrawable.setCenterRadius(30f);
+
         circularProgressDrawable.start();
 
         Glide.with(activity.getApplicationContext())

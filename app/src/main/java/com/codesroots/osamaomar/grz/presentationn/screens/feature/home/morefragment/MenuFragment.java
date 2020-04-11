@@ -1,13 +1,13 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.morefragment;
 
 import android.app.AlertDialog;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,6 @@ import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.Currency;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.models.helper.ResourceUtil;
-import com.codesroots.osamaomar.grz.presentationn.screens.feature.chating.ChatingActivity;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.chating.MessagesChatingActivity;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.contact.ContactFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.MainFragment;

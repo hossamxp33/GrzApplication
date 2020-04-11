@@ -2,8 +2,8 @@ package com.codesroots.osamaomar.grz.presentationn.screens.feature.paypal;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +25,7 @@ public class PaypalActivity extends AppCompatActivity {
 
     private static final int PAYPAL_REQUEST_CODE = 7171;
     private static PayPalConfiguration configuration = new PayPalConfiguration()
-            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .environment(PayPalConfiguration.ENVIRONMENT_PRODUCTION)
             .clientId(Config.PAYPAL_CLIENT_ID);
     String amount = "";
 
@@ -40,7 +40,7 @@ public class PaypalActivity extends AppCompatActivity {
     }
 
     private void processpayment() {
-        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(5)), "USD", "cairo", PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(String.valueOf(5)), "USD", "Oman", PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, configuration);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payPalPayment);

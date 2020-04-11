@@ -137,6 +137,8 @@ public interface ServerGateway {
     @POST("BillingAddress/add.json")
     Observable<AddLocation> addBillingAddress(
             @Field("customer_id") int user_id,
+            @Field("first_name") String first_name,
+            @Field("phone") String phone,
             @Field("address") String address,
             @Field("state_country") String state_country,
             @Field("town_city") String town_city,
@@ -148,6 +150,8 @@ public interface ServerGateway {
     @POST("BillingAddress/edit/{locationid}.json")
     Observable<AddLocation> editBillingAddress(
             @Path("locationid") int locationid,
+            @Field("first_name") String first_name,
+            @Field("phone") String phone,
             @Field("address") String address,
             @Field("state_country") String state_country,
             @Field("town_city") String town_city,
@@ -161,8 +165,6 @@ public interface ServerGateway {
             @Path("orderid") int orderid,
             @Field("order_status") int order_status
     );
-
-
 
 
     @GET("BillingAddress/view/{billingid}.json")

@@ -1,7 +1,7 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.codesroots.osamaomar.grz.datalayer.localdata.product.entities.ProductDB;
 import com.codesroots.osamaomar.grz.datalayer.repositries.ProductAndCategries;
@@ -35,6 +35,12 @@ public class ProductsDetailsViewModel extends ViewModel {
     {
         productAndCategriesrepositry.checkifExists(product, statues);
     }
+
+    public void updateitemCount(int newcount,int productid)
+    {
+        productAndCategriesrepositry.updateCount(newcount,productid);
+    }
+
 
     public void getData() {
         productsUseCase.retrieveHomeFragmentData(mCompositeDisposable,productAndCategriesrepositry,mainViewMutableLiveData,errormessage);

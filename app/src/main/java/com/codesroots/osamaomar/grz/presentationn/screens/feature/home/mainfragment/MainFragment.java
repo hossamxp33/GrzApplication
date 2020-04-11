@@ -1,18 +1,17 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.os.Build;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.Group;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,9 +65,6 @@ public class MainFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItem = ((GridLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager())).findLastCompletelyVisibleItemPosition();
-                Log.d("dx", String.valueOf(lastVisibleItem));
-                Log.d("dy", String.valueOf(lastVisibleItem));
-
                 if (lastVisibleItem == famousProductsAdapter.getItemCount() - 1) {
                     page++;
                    mViewModel.getDataInPAginate(page);
@@ -81,6 +77,7 @@ public class MainFragment extends Fragment {
 
     private MainViewModelFactory getViewModelFactory() {
         return new MainViewModelFactory(this.getActivity().getApplication());
+
     }
     private void setDatainViews(mainData mainView) {
         progress.setVisibility(View.GONE);
@@ -168,4 +165,5 @@ public class MainFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(getActivity(),2);
         famous_products.setLayoutManager(gridLayoutManager);
     }
+
 }

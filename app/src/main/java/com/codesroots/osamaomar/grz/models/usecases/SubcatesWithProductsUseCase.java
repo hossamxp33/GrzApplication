@@ -1,18 +1,12 @@
 package com.codesroots.osamaomar.grz.models.usecases;
 
-import android.annotation.SuppressLint;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
-import com.codesroots.osamaomar.grz.datalayer.repositries.ProductAndCategries;
 import com.codesroots.osamaomar.grz.models.entities.ProductDetails;
 import com.codesroots.osamaomar.grz.models.entities.SubCategriesWithProducts;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class SubcatesWithProductsUseCase {
 

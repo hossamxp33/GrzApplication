@@ -7,7 +7,7 @@ public class Product {
 
     private String name, photo, description, price,currentcurrency,afteroffer,enddate,notes,colorname,sizename;
     private float rate, offerpercentage,pricewithoutcoin=0,discountpercentage,originalprice;
-    private int ratecount, productid, amount, favid, offerid, colorid = 0, sizeid = 0,remenderdayes;
+    private int ratecount, productid, amount, favid, offerid, colorid = 0, sizeid = 0,remenderdayes,productcount=1;
     private List<com.codesroots.osamaomar.grz.models.entities.ProductDetails.product.ProductphotosBean> photos = new ArrayList<>();
     private List<com.codesroots.osamaomar.grz.models.entities.ProductDetails.product.ProductsizesBean> product_sizes = new ArrayList<>();
     private List<com.codesroots.osamaomar.grz.models.entities.ProductDetails.product.ColorBean> colores = new ArrayList<>();
@@ -55,6 +55,14 @@ public class Product {
 
     public void setSizename(String sizename) {
         this.sizename = sizename;
+    }
+
+    public int getProductcount() {
+        return productcount;
+    }
+
+    public void setProductcount(int productcount) {
+        this.productcount = productcount;
     }
 
     public String getNotes() {

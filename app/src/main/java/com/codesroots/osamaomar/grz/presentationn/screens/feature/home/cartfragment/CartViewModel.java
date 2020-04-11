@@ -1,7 +1,7 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.cartfragment;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
 import com.codesroots.osamaomar.grz.datalayer.localdata.product.entities.ProductDB;
@@ -87,6 +87,7 @@ public class CartViewModel extends ViewModel {
         for (int i = 0; i < products.size(); i++) {
             products.get(i).setColorname(productDBS.get(i).getColor_name());
             products.get(i).setSizename(productDBS.get(i).getSize_name());
+            products.get(i).setProductcount(productDBS.get(i).getProduct_count());
         }
         cartItemsMutableLiveData.postValue(products);
     }
