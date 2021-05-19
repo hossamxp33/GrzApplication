@@ -165,4 +165,5 @@ public class MainFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(getActivity(),2);
         famous_products.setLayoutManager(gridLayoutManager);
     }
+
 }

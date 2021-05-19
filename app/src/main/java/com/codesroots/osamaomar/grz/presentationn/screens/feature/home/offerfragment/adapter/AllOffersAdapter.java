@@ -19,12 +19,10 @@ import android.widget.TextView;
 
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.Product;
-import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.models.usecases.Publicusecase;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.ProductDetailsFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.rate.RateActivity;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_ID;

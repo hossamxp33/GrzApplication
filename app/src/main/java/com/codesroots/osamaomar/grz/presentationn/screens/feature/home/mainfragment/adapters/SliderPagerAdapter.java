@@ -35,8 +35,7 @@ public class SliderPagerAdapter extends PagerAdapter {
         ImageView im_slider =  view.findViewById(R.id.im_slider);
 
         CircularProgressDrawable circularProgressDrawable =new  CircularProgressDrawable(activity);
-        circularProgressDrawable.setStrokeWidth(5f);
-        circularProgressDrawable.setCenterRadius(30f);
+
         circularProgressDrawable.start();
 
         Glide.with(activity.getApplicationContext())
