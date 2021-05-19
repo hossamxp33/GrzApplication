@@ -1,8 +1,7 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.userlocations;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.location.Location;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
 import com.codesroots.osamaomar.grz.models.entities.AddLocation;
@@ -39,18 +38,18 @@ public class UserLocationsViewModel extends ViewModel {
 
 
 
-    public void addUserLocation(int userid,String address,String country,String city,String notes)
+    public void addUserLocation(int userid,String name ,String phone,String address,String country,String city,String notes)
     {
-        mCompositeDisposable.add(serverGateway.addBillingAddress(userid,address,country,city,notes).
+        mCompositeDisposable.add(serverGateway.addBillingAddress(userid,name,phone,address,country,city,notes).
                 observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).
                 subscribe(addLocation -> addLocationMutableLiveData.postValue(addLocation),
                         throwable -> error.postValue(throwable)));
     }
 
 
-    public void editUserLocation(int locationid,String address,String country,String city,String notes)
+    public void editUserLocation(int locationid,String name ,String phone,String address,String country,String city,String notes)
     {
-        mCompositeDisposable.add(serverGateway.editBillingAddress(locationid,address,country,city,notes).
+        mCompositeDisposable.add(serverGateway.editBillingAddress(locationid,name,phone,address,country,city,notes).
                 observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).
                 subscribe(addLocation -> addLocationMutableLiveData.postValue(addLocation),
                         throwable -> error.postValue(throwable)));

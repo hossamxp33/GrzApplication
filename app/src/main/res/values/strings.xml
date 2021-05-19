@@ -6,7 +6,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="google_maps_key">AIzaSyD8z2lWzm896P2g8VhaBfrVam0JL1BaiW0</string>
     <string name="more_sale">More Sales</string>
-    <string name="base_img_url">http://grzexpress.com/ar/./../product_images/</string>
+    <string name="base_img_url">http://grz.codesroots.com/product_images/</string>
 
     <string name="app_name">Grz</string>
     <string name="action_settings">Settings</string>
@@ -153,10 +153,12 @@
     <string name="empty">Add message</string>
     <string name="newaddress">Add new address</string>
     <string name="confirm">Add</string>
-    <string name="addlocation">choice your location</string>
+    <string name="addlocation">choice Street address, post office, apartment, suite, unit</string>
     <string name="choicecountry">  choice your country </string>
-    <string name="choicecity">choice your city</string>
-    <string name="notes">notes</string>
+    <string name="choicecity">choice your city/state/region</string>
+    <string name="choicename">choice your name</string>
+    <string name="choicephone">choice your phone</string>
+    <string name="notes">Zip code, zip</string>
     <string name="now">now</string>
     <string name="chargeaddress">Charge Addresses</string>
     <string name="usernameerror">username or password un correct</string>
@@ -164,7 +166,7 @@
     <string name="related_products">related products</string>
     <string name="choicelang">choice langauge</string>
     <string name="lang">Langauge</string>
-    <string name="sendreq">send your request</string>
+    <string name="sendreq">اريد الاستفسار عن بعض المنتجات (يجب عليك تسجيل رقم الشركة اولا)</string>
     <string name="dirctcontact"> Direct Contact </string>
     <string name="save">save</string>
     <string name="requested">requested quntity </string>

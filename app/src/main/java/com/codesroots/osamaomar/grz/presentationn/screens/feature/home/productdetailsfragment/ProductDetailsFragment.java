@@ -1,22 +1,22 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.constraint.Group;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -40,6 +40,8 @@ import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productde
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.adapters.SliderPagerAdapter;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.rate.RateActivity;
 
+import java.text.DecimalFormat;
+
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_ID;
 import static com.codesroots.osamaomar.grz.models.entities.names.PRODUCT_RATE;
 
@@ -56,14 +58,16 @@ public class ProductDetailsFragment extends Fragment {
     private Group colorscontainer;
     int userid = PreferenceHelper.getUserId();
     ProductSizesAdapter productSizesAdapter;
-    ImageView addToFav, share;
+    ImageView addToFav, share,quintityMinus,quintityPlus;
     public StoreSetting setting;
     private ViewPager product_images;
     public boolean freecharg = false;
     ProductsDetailsViewModel productsDetailsViewModel;
     ImagesAdapterForColor imagesAdapterForColor;
+    EditText quintity_value;
     private Product product;
-
+    ProductDB productdb;
+    int quentitycount = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -72,7 +76,7 @@ public class ProductDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.product_details_fragment, container, false);
         int productid = getArguments().getInt(PRODUCT_ID, 0);
         findViewsFromXml(view);
-        share.setOnClickListener(v -> Publicusecase.shareTextUrl(getContext(), "http://grzexpress.com/ar/products/details/" + productid));
+        share.setOnClickListener(v -> Publicusecase.shareTextUrl(getContext(), "http://grz.codesroots.com/products/details/" + productid));
         productsDetailsViewModel.getProductDetailsData(productid);
         productsDetailsViewModel.productMutableLiveData.observe(this, this::setProductDetailsToViews);
 
@@ -82,11 +86,11 @@ public class ProductDetailsFragment extends Fragment {
         );
 
         addtocart.setOnClickListener(v -> {
-            ProductDB product = new ProductDB(productid, imagesAdapterForColor.colors.get(imagesAdapterForColor.mSelectedItem).getColor().getColor_id(),
+            productdb = new ProductDB(productid, imagesAdapterForColor.colors.get(imagesAdapterForColor.mSelectedItem).getColor().getColor_id(),
                     productSizesAdapter.productsizes.get(productSizesAdapter.mSelectedItem).getSize().getSize_id(),
                     imagesAdapterForColor.colors.get(imagesAdapterForColor.mSelectedItem).getColor().getName(),
-                    productSizesAdapter.productsizes.get(productSizesAdapter.mSelectedItem).getSize().getSize_title());
-            productsDetailsViewModel.AddToCart(product);
+                    productSizesAdapter.productsizes.get(productSizesAdapter.mSelectedItem).getSize().getSize_title(),quentitycount);
+            productsDetailsViewModel.AddToCart(productdb);
         });
 
         notestitle.setOnClickListener(v -> {
@@ -94,6 +98,24 @@ public class ProductDetailsFragment extends Fragment {
                 notes.setVisibility(View.GONE);
             else
                 notes.setVisibility(View.VISIBLE);
+        });
+
+        quintityMinus.setOnClickListener(v -> {
+
+                quentitycount -=1;
+                quintity_value.setText(String.valueOf(quentitycount));
+            if (productdb!=null) {
+                productsDetailsViewModel.updateitemCount(quentitycount, productid);
+            }
+        });
+
+        quintityPlus.setOnClickListener(v -> {
+
+                quentitycount += 1;
+                quintity_value.setText(String.valueOf(quentitycount));
+            if (productdb!=null) {
+                productsDetailsViewModel.updateitemCount(quentitycount, productid);
+            }
         });
 
         descriptiontitle.setOnClickListener(v -> {
@@ -166,8 +188,16 @@ public class ProductDetailsFragment extends Fragment {
             public void onPageScrollStateChanged(int i) {
             }
         });
+if (product.getDiscountpercentage() > 0 ) {
+    price.setText(product.getAfteroffer());
 
-        price.setText(product.getPrice());
+
+}else {
+    price.setText(new DecimalFormat("##.##").
+            format((product.getPricewithoutcoin()) ) );
+
+
+}
         ratecount.setText("(" + product.getRatecount() + ")");
         ratingBar.setRating(product.getRate());
         description.setText(product.getDescription());
@@ -206,6 +236,9 @@ public class ProductDetailsFragment extends Fragment {
         notestitle = view.findViewById(R.id.notes_title);
         descriptiontitle = view.findViewById(R.id.description_title);
         related_product = view.findViewById(R.id.related_product);
+        quintity_value = view.findViewById(R.id.quintity_value);
+        quintityMinus = view.findViewById(R.id.quintityMinus);
+        quintityPlus = view.findViewById(R.id.quintityPlus);
     }
 
     private MainViewModelFactory getViewModelFactory() {

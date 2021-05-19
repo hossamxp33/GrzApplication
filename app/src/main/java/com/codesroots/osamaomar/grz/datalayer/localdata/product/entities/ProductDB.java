@@ -1,8 +1,8 @@
 package com.codesroots.osamaomar.grz.datalayer.localdata.product.entities;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ProductDB")
 public class ProductDB {
@@ -13,12 +13,13 @@ public class ProductDB {
 //        this.productcolor_id = productcolor_id;
 //    }
 
-    public ProductDB(int product_id, int productsize_id, int productcolor_id, String color_name, String size_name) {
+    public ProductDB(int product_id, int productcolor_id, int productsize_id, String color_name, String size_name,int product_count) {
         this.product_id = product_id;
         this.productsize_id = productsize_id;
         this.productcolor_id = productcolor_id;
         this.color_name = color_name;
         this.size_name = size_name;
+        this.product_count = product_count;
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -39,6 +40,16 @@ public class ProductDB {
     @ColumnInfo(name = "size_name")
     private String size_name;
 
+    @ColumnInfo(name = "product_count")
+    private int product_count=1;
+
+    public int getProduct_count() {
+        return product_count;
+    }
+
+    public void setProduct_count(int product_count) {
+        this.product_count = product_count;
+    }
 
     public String getColor_name() {
         return color_name;

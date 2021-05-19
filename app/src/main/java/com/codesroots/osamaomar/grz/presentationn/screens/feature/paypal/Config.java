@@ -2,8 +2,8 @@ package com.codesroots.osamaomar.grz.presentationn.screens.feature.paypal;
 
 public class Config {
 
-    //public static  final String PAYPAL_CLIENT_ID = "AZZ52sPkIfN_APjH54lQ3Rb6g7k-X7_nIXGZP1YjwB95ksoLUh0bkpOCBTYaHUXg58wTZl6fIvAT_C2J";
-    public static  final String PAYPAL_CLIENT_ID = "Aery7sa0Sq-5SNTtxA1h9aKtJKlotms4PVRuoq7jNmyTea2_PLt8rPsfWdcYtT2b7xanxsbuJ-CQFxf4";
+    // public static  final String PAYPAL_CLIENT_ID = "ATiqmWrC3GD1Nemk8d3ViXWAOmjH5fa96peiGQUj5-O7xTQ6zYG6YYo5ErONrGS-0VFos9RJeUyxuA4t";
+     public static  final String PAYPAL_CLIENT_ID = "AQt-KEdx5PSBYLc_8QhIyKjhAWAf_shIeolfmqGh0KFE4UfLKGr51HK5hBcZMV8nb0ttTgUOh_KSNn9z";
 
 
 }

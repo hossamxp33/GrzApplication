@@ -1,7 +1,7 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productfragment;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
 import com.codesroots.osamaomar.grz.datalayer.localdata.product.entities.ProductDB;
 import com.codesroots.osamaomar.grz.datalayer.repositries.ProductAndCategries;

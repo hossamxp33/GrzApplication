@@ -1,15 +1,15 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productfragment;
 
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +34,6 @@ import java.util.Objects;
 
 import static com.codesroots.osamaomar.grz.models.entities.names.CAT_ID;
 import static com.codesroots.osamaomar.grz.models.entities.names.CAT_NAME;
-import static com.codesroots.osamaomar.grz.models.entities.names.SUBCATES_NAME;
 
 public class ProductsFragment extends Fragment implements AddorRemoveToCartCallbacks {
 
@@ -217,8 +216,8 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
     };
 
     @Override
-    public void onAddProduct(int pid, int cid, int sid,String colorname,String sizename) {
-        ProductDB product = new ProductDB(pid, cid, sid,colorname,sizename);
+    public void onAddProduct(int pid, int cid, int sid,String colorname,String sizename,int product_count) {
+        ProductDB product = new ProductDB(pid, cid, sid,colorname,sizename,product_count);
         ((AddorRemoveCallbacks) getActivity()).onAddProduct();
         mViewModel.AddToCart(product);
     }
@@ -228,6 +227,7 @@ public class ProductsFragment extends Fragment implements AddorRemoveToCartCallb
     }
 
     @Override
-    public void onClearCart() {
+    public void onChangeCart() {
+
     }
 }

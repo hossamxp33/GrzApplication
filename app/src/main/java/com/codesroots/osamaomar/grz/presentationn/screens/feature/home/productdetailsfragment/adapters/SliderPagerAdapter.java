@@ -1,9 +1,9 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment.adapters;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.widget.CircularProgressDrawable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

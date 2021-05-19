@@ -1,15 +1,16 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainactivity;
 
 import android.Manifest;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,8 +30,6 @@ import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.morefragm
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.myorders.MyOrdersFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.offerfragment.OffersFragment;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productfragment.ProductsFragment;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener, AddorRemoveCallbacks {
@@ -56,6 +55,12 @@ public class MainActivity extends AppCompatActivity implements
         search.setOnClickListener(v -> {
             performSearch();
         });
+        Log.i("value", "onCreate: "+preferenceHelper.getCurrencyValue());
+if (preferenceHelper.getCurrencyValue() == 0.0) {
+
+    PreferenceHelper.setCURRENCY("omr");
+    PreferenceHelper.setCURRENCY_VALUE(1);
+}
 
         searchName.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

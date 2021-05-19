@@ -2,10 +2,10 @@ package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfrag
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +43,7 @@ public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        Glide.with(context).load("http://grzexpress.com/ar/./../category_images/"+categories.get(position).getPhoto()).dontAnimate().
+        Glide.with(context).load("http://grz.codesroots.com/category_images/"+categories.get(position).getPhoto()).dontAnimate().
                 placeholder(R.drawable.dept1).into(holder.Image);
         holder.name.setText(categories.get(position).getName());
 

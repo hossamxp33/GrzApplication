@@ -6,7 +6,7 @@ import android.content.ComponentCallbacks2;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -47,7 +47,7 @@ public class AppLifeCycleHandler implements Application.ActivityLifecycleCallbac
 // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 // finally change the color
-        window.setStatusBarColor(activity.getResources().getColor(R.color.colorPrimary));
+//        window.setStatusBarColor(activity.getResources().getColor(R.color.colorPrimary));
 
     }
 

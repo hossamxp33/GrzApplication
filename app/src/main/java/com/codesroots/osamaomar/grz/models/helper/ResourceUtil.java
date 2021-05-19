@@ -2,6 +2,7 @@ package com.codesroots.osamaomar.grz.models.helper;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,8 +12,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.Settings;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
+import com.google.android.material.tabs.TabLayout;
+import androidx.core.app.ActivityCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codesroots.osamaomar.grz.R;
+
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -195,7 +198,19 @@ public class ResourceUtil {
         }
         context.startActivity(callIntent);
     }
+    public static void openinstapp(String smsNumber,Context context) {
+        Uri uri = Uri.parse(smsNumber);
+        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
 
+        likeIng.setPackage("com.instagram.android");
+
+        try {
+            context.startActivity(likeIng);
+        } catch (ActivityNotFoundException e) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(smsNumber)));
+        }
+    }
     public static void openWhatsApp(String smsNumber,Context context) {
 
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
@@ -209,6 +224,20 @@ public class ResourceUtil {
         }
 
         context.startActivity(sendIntent);
+    }
+    public static  void sendMessageToWhatsAppContact(String number,Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        try {
+            String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + URLEncoder.encode(context.getResources().getString(R.string.sendreq), "UTF-8");
+            i.setPackage("com.whatsapp");
+            i.setData(Uri.parse(url));
+            if (i.resolveActivity(packageManager) != null) {
+                context.startActivity(i);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public static void verifyPermissions(Activity context) {
         int permissionCall = ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);

@@ -1,12 +1,10 @@
 package com.codesroots.osamaomar.grz.models.helper;
 
 import android.content.Context;
-import android.databinding.BindingAdapter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import androidx.databinding.BindingAdapter;
+
 import android.graphics.Typeface;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;

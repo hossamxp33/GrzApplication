@@ -1,8 +1,8 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.chating;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
 import com.codesroots.osamaomar.grz.models.entities.Addmessage;
@@ -73,7 +73,14 @@ public class ChatViewModel extends ViewModel {
     @SuppressLint("CheckResult")
     public void addmessge(int userid,String message)
     {
-        serverGateway.addmessageChat(userid,userid,message).subscribeOn(Schedulers.io())
+        Integer Sender;
+
+        if (PreferenceHelper.getUSER_GROUP_ID() == 1 ){
+            Sender = 2;
+       }else {
+            Sender = 1;
+        }
+        serverGateway.addmessageChat(userid,Sender,message).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(addmessage -> addmessageMutableLiveData.postValue(addmessage),
                         throwable -> error.postValue(throwable));

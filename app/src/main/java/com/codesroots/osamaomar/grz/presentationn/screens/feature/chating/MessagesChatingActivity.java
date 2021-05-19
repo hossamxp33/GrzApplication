@@ -1,14 +1,14 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.chating;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.databinding.ActivityChatBinding;
 import com.codesroots.osamaomar.grz.models.entities.ChatList;

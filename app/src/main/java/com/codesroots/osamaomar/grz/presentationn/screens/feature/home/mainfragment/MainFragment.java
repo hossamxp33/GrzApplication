@@ -1,18 +1,17 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.os.Build;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.Group;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,9 +65,6 @@ public class MainFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItem = ((GridLayoutManager) Objects.requireNonNull(recyclerView.getLayoutManager())).findLastCompletelyVisibleItemPosition();
-                Log.d("dx", String.valueOf(lastVisibleItem));
-                Log.d("dy", String.valueOf(lastVisibleItem));
-
                 if (lastVisibleItem == famousProductsAdapter.getItemCount() - 1) {
                     page++;
                    mViewModel.getDataInPAginate(page);
@@ -81,6 +77,7 @@ public class MainFragment extends Fragment {
 
     private MainViewModelFactory getViewModelFactory() {
         return new MainViewModelFactory(this.getActivity().getApplication());
+
     }
     private void setDatainViews(mainData mainView) {
         progress.setVisibility(View.GONE);
@@ -108,7 +105,7 @@ public class MainFragment extends Fragment {
     }
     private void init(List<MainView.SlidersBean> slidersBeans) {
         if (slidersBeans.size() >= 1) {
-            Glide.with(Objects.requireNonNull(getActivity())).load("http://grzexpress.com/slider_images/"+slidersBeans.get(0).getPhoto()).into(frontblur);
+            Glide.with(Objects.requireNonNull(getActivity())).load(slidersBeans.get(0).getPhoto()).into(frontblur);
         }
         final float density = getResources().getDisplayMetrics().density;
         indicator.setRadius(4 * density);
@@ -134,7 +131,7 @@ public class MainFragment extends Fragment {
             public void onPageSelected(int position) {
                 currentPage = position;
                 if (getActivity()!=null)
-                Glide.with((getActivity())).load("http://grzexpress.com/slider_images/"+slidersBeans.get(position).getPhoto()).into(frontblur);
+                Glide.with((getActivity())).load(slidersBeans.get(position).getPhoto()).into(frontblur);
             }
             @Override
             public void onPageScrolled(int pos, float arg1, int arg2) {}

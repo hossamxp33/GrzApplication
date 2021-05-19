@@ -1,7 +1,7 @@
 package com.codesroots.osamaomar.grz.models.usecases;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.util.Log;
 
@@ -106,6 +106,7 @@ public class productsUseCase {
         mainData.setCategories(mainViewData.getCategory());
         if (mainViewData.getCurrency()!=null)
         mainData.setDollervalue(mainViewData.getCurrency().getValue());
+
         mainData.setProducts(reshapProducts(mainViewData.getProductsbyrate()));
         data.postValue(mainData);
     }
@@ -194,16 +195,15 @@ public class productsUseCase {
                     if (productsbyrate.get(i).getOffers().size() > 0) {
                         product.setOfferid(productsbyrate.get(i).getId());
                         product.setHasoffer(true);
-                        product.setPricewithoutcoin(productsbyrate.get(i).getCurrentPrice() -
-                                productsbyrate.get(i).getCurrentPrice() *
-                                        productsbyrate.get(i).getOffers().get(0).getPercentage() / 100);
-                        product.setOriginalprice(product.getPricewithoutcoin());
+                        product.setPricewithoutcoin(
+                                        productsbyrate.get(i).getOffers().get(0).getPercentage() * PreferenceHelper.getCurrencyValue());
+                        product.setOriginalprice(product.getPricewithoutcoin() );
                         product.setDiscountpercentage(productsbyrate.get(i).getOffers().get(0).getPercentage());
-                        product.setEnddate(getdate(productsbyrate.get(i).getOffers().get(0).getTo_discount()));
+                        product.setEnddate((productsbyrate.get(i).getOffers().get(0).getTo_discount()));
                         product.setRemenderdayes(getDiffDays(getendDateAsMillisec(productsbyrate.get(i).getOffers().get(0).getTo_discount())));
                         if (PreferenceHelper.getCurrencyValue() > 0) {
 
-                            product.setAfteroffer(new DecimalFormat("##.##").format(product.getPricewithoutcoin() *
+                            product.setAfteroffer(new DecimalFormat("##.##").format(productsbyrate.get(i).getOffers().get(0).getPercentage() *
                                     PreferenceHelper.getCurrencyValue())+ " " +
                                     PreferenceHelper.getCurrency());
 //
@@ -211,7 +211,7 @@ public class productsUseCase {
 //                                    PreferenceHelper.getCurrency());
                             product.setCurrentcurrency(PreferenceHelper.getCurrency());
                         } else {
-                            product.setAfteroffer(String.valueOf(product.getPricewithoutcoin())+" " + context.getText(R.string.realcoin));
+                            product.setAfteroffer(String.valueOf(productsbyrate.get(i).getOffers().get(0).getPercentage())+" " + context.getText(R.string.realcoin));
                             product.setCurrentcurrency(context.getText(R.string.realcoin).toString());
                         }
                     }
@@ -282,7 +282,7 @@ public class productsUseCase {
 
 
     private Long getendDateAsMillisec(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date dateObj = sdf.parse(date);
            Long calendar= dateObj.getTime();

@@ -45,6 +45,8 @@ public class ProductDetails {
         private String name_en;
         private String description;
         private String product_notes;
+        private String product_image;
+
         private String description_en;
         private int amount;
         @SerializedName("currentPrice")
@@ -588,6 +590,8 @@ public class ProductDetails {
             private int product_id;
             private String to_discount;
 
+            private String end_date;
+
             public String getTo_discount() {
                 return to_discount;
             }
@@ -599,6 +603,10 @@ public class ProductDetails {
             public int getId() {
                 return id;
             }
+            public String getEnd_date() {
+                return end_date;
+            }
+
             public void setId(int id) {
                 this.id = id;
             }
@@ -615,6 +623,10 @@ public class ProductDetails {
             public void setProduct_id(int product_id) {
                 this.product_id = product_id;
             }
+            public void setEnd_date(String end_date) {
+                this.end_date = end_date;
+            }
+
         }
     }
 }

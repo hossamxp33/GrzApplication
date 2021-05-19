@@ -1,28 +1,25 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.chating;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.databinding.ActivityChatingBinding;
 import com.codesroots.osamaomar.grz.models.entities.ChatList;
 import com.codesroots.osamaomar.grz.models.helper.ChatListCallbacks;
-import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.chating.adapters.ChatAllListAdapter;
-import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainactivity.MainActivityModelFactory;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment.MainViewModelFactory;
-import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.myorders.MyOrdersViewModel;
-import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.myorders.MyOrdersViewModelFactory;
 
 public class ChatingActivity extends AppCompatActivity implements ChatListCallbacks {
 
 
     RecyclerView contacts;
-    private ActivityChatingBinding activityChatingBinding;
+    private ViewDataBinding activityChatingBinding;
     private ChatViewModel chatViewModel;
     private ChatAllListAdapter chatAllListAdapter;
     @Override

@@ -1,9 +1,9 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productdetailsfragment;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
@@ -71,7 +71,7 @@ class ProductDetailsViewModel extends ViewModel {
     private Observable<ProductDetails> getObservable() {
         Observable<ProductDetails> photographersData = serverGateway.getProductDetails(product_id);
         photographersData.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        .observeOn(AndroidSchedulers.mainThread());
         return photographersData;
     }
 

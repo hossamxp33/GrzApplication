@@ -1,9 +1,9 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainfragment;
 
 import android.app.Application;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.NonNull;
 
 import com.codesroots.osamaomar.grz.datalayer.apidata.ApiClient;
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
@@ -19,7 +19,7 @@ import com.codesroots.osamaomar.grz.presentationn.screens.feature.home.productfr
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.payment.PaymentViewModel;
 import com.codesroots.osamaomar.grz.presentationn.screens.feature.userlocations.UserLocationsViewModel;
 
-public class MainViewModelFactory implements ViewModelProvider.Factory {
+    public class MainViewModelFactory implements ViewModelProvider.Factory {
 
 
     private Application application;

@@ -1,9 +1,9 @@
 package com.codesroots.osamaomar.grz.presentationn.screens.feature.home.mainactivity;
 
 import android.app.Application;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.NonNull;
 
 import com.codesroots.osamaomar.grz.datalayer.apidata.ApiClient;
 import com.codesroots.osamaomar.grz.datalayer.apidata.ServerGateway;
@@ -41,7 +41,8 @@ public class MainActivityModelFactory implements ViewModelProvider.Factory {
     }
 
     private ProductDao getProductDeo() {
-        return LocalDatabase.getInstance(application).productDeo();
+         return LocalDatabase.getInstance(application).productDeo();
+
     }
 
 }

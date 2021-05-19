@@ -1,29 +1,32 @@
 buildscript {
     repositories {
-        maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://www.jitpack.io" }
+        jcenter()
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-apply plugin: 'kotlin-android-extensions'
+
 apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.codesroots.osamaomar.Grz"
-        minSdkVersion 19
+        minSdkVersion 16
+        applicationId "com.codesroots.Grz"
+
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 27
+        versionName "1.2.92"
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -31,6 +34,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
     dataBinding {
         enabled = true
@@ -43,35 +52,38 @@ android {
 repositories {
     maven { url 'https://maven.google.com' }
     maven { url 'https://maven.fabric.io/public' }
+    jcenter()
 }
 
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     // alternatively, just ViewModel
-    implementation 'android.arch.lifecycle:viewmodel:1.1.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
     // alternatively, just LiveData
-    implementation 'android.arch.lifecycle:livedata:1.1.1'
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.0.0'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
     implementation "io.reactivex.rxjava2:rxjava:2+"
     implementation 'io.reactivex.rxjava2:rxandroid:2+'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2+'
@@ -82,18 +94,20 @@ dependencies {
     implementation 'com.braintreepayments.api:braintree:2.+'
     implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.0'
     implementation 'com.braintreepayments.api:braintree:2.22.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
     implementation 'com.makeramen:roundedimageview:2.2.1'
     implementation 'com.github.mmin18:realtimeblurview:1.1.2'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.makeramen:roundedimageview:2.2.1'
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-    implementation 'android.arch.persistence.room:rxjava2:1.1.1'
-    testImplementation "android.arch.persistence.room:testing:1.1.1"
+    implementation 'androidx.room:room-runtime:2.2.1'
+    annotationProcessor 'androidx.room:room-compiler:2.2.1'
+    implementation 'androidx.room:room-rxjava2:2.2.1'
+    testImplementation 'androidx.room:room-testing:2.2.1'
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
+    implementation 'com.github.Tap-Payments:goSellSDK-AndroidX:3.6.7'
 
 }
 repositories {

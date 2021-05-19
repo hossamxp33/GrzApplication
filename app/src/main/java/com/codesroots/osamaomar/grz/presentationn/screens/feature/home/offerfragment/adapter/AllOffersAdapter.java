@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.codesroots.osamaomar.grz.R;
 import com.codesroots.osamaomar.grz.models.entities.Product;
 import com.codesroots.osamaomar.grz.models.helper.PreferenceHelper;
@@ -66,12 +65,13 @@ public class AllOffersAdapter extends RecyclerView.Adapter<AllOffersAdapter.View
         holder.amount.setText(context.getText(R.string.remendier)+" "+ offersData.get(position).getAmount()+" "+context.getText(R.string.num));
         holder.enddate.setText(offersData.get(position).getEnddate()+" "+"("+context.getText(R.string.remendierdays)+
                 " "+offersData.get(position).getRemenderdayes()+" "+context.getText(R.string.day)+")");
-        holder.discount.setText(offersData.get(position).getDiscountpercentage() + " " + "%");
+        holder.discount.setText(new DecimalFormat("##.##").format(offersData.get(position).getDiscountpercentage() *
+                PreferenceHelper.getCurrencyValue()) + "");
 
 
 //        if (PreferenceHelper.getCurrencyValue() > 0) {
             holder.oldprice.setText(offersData.get(position).getPrice());
-            holder.price.setText(offersData.get(position).getAfteroffer());
+         //   holder.price.setText(offersData.get(position).getAfteroffer());
 //        } else {
 //            holder.oldprice.setText(offersData.get(position).getPricewithoutcoin() + " " + context.getText(R.string.realcoin));
 //            holder.price.setText((new DecimalFormat("##.##").format(offersData.get(position).getAfteroffer() ))+ " " +

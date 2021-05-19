@@ -137,7 +137,7 @@ public class OrderModel implements Serializable {
         @SerializedName("product_qty")
         int amount = 1;
 
-        @SerializedName("color")
+        @SerializedName("colors")
         int color = 0;
 
         @SerializedName("size")
@@ -148,6 +148,17 @@ public class OrderModel implements Serializable {
 
         @SerializedName("notice")
         String notice;
+
+        float originalTotal;
+
+        public float getOriginalTotal() {
+            return originalTotal;
+        }
+
+        public void setOriginalTotal(float originalTotal) {
+            this.originalTotal = originalTotal;
+        }
+
 
         public int getProductsize_id() {
             return product_Id;
